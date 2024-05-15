@@ -1,0 +1,53 @@
+﻿@model IEnumerable<ProjetoMyTeDev.Models.Funcionario>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NomeFunc)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NivelAcesso)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DeptoFunc)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DtContratacao)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NomeFunc)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NivelAcesso)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeptoFunc)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DtContratacao)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.FuncionarioId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.FuncionarioId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.FuncionarioId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

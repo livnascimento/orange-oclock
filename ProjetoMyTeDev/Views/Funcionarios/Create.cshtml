@@ -1,0 +1,48 @@
+﻿@model ProjetoMyTeDev.Models.Funcionario
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Funcionario</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="NomeFunc" class="control-label"></label>
+                <input asp-for="NomeFunc" class="form-control" />
+                <span asp-validation-for="NomeFunc" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NivelAcesso" class="control-label"></label>
+                <input asp-for="NivelAcesso" class="form-control" />
+                <span asp-validation-for="NivelAcesso" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DeptoFunc" class="control-label"></label>
+                <input asp-for="DeptoFunc" class="form-control" />
+                <span asp-validation-for="DeptoFunc" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DtContratacao" class="control-label"></label>
+                <input asp-for="DtContratacao" class="form-control" />
+                <span asp-validation-for="DtContratacao" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
