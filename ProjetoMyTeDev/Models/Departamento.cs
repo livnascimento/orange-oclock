@@ -6,11 +6,10 @@ namespace ProjetoMyTeDev.Models
     {
         public int DepartamentoId { get; set; }
 
-        [Display(Name = "Nome WBS")]
-        public string? NomeDepto { get; set; }
+        [Display(Name = "Nome do Departamento")]
+        public string? DepartamentoNome { get; set; }
 
-        [Display(Name = "Código WBS")]
-        public string? CodigoAtividade { get; set; }
+
 
 
     }

@@ -6,12 +6,11 @@ namespace ProjetoMyTeDev.Models
     {
         public int CargaHorariaId { get; set; }
 
-        [Required]
-        [Display(Name = "Nível de Acesso")]
-        public int NivelAcessoId { get; set; }
+        public int CargoId { get; set; }
 
-        [Required]
         public int Horas { get; set; }
+
+        
 
     }
 }
