@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjetoMyTeDev.Data;
 
@@ -11,9 +12,11 @@ using ProjetoMyTeDev.Data;
 namespace ProjetoMyTeDev.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240515182138_Mig6")]
+    partial class Mig6
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -232,31 +235,15 @@ namespace ProjetoMyTeDev.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CargaHorariaId"));
 
-                    b.Property<int>("CargoId")
+                    b.Property<int>("Horas")
                         .HasColumnType("int");
 
-                    b.Property<int>("Horas")
+                    b.Property<int>("NivelAcessoId")
                         .HasColumnType("int");
 
                     b.HasKey("CargaHorariaId");
 
                     b.ToTable("CargaHoraria");
-                });
-
-            modelBuilder.Entity("ProjetoMyTeDev.Models.Cargo", b =>
-                {
-                    b.Property<int>("CargoId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CargoId"));
-
-                    b.Property<string>("CargoNome")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("CargoId");
-
-                    b.ToTable("Cargo");
                 });
 
             modelBuilder.Entity("ProjetoMyTeDev.Models.Departamento", b =>
@@ -267,7 +254,10 @@ namespace ProjetoMyTeDev.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DepartamentoId"));
 
-                    b.Property<string>("DepartamentoNome")
+                    b.Property<string>("CodigoAtividade")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NomeDepto")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("DepartamentoId");
@@ -283,27 +273,19 @@ namespace ProjetoMyTeDev.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FuncionarioId"));
 
-                    b.Property<int>("CargoId")
-                        .HasColumnType("int");
+                    b.Property<string>("DeptoFunc")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("DataContratacao")
+                    b.Property<DateTime?>("DtContratacao")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("DepartamentoId")
+                    b.Property<int>("NivelAcesso")
                         .HasColumnType("int");
 
-                    b.Property<string>("FuncionarioNome")
+                    b.Property<string>("NomeFunc")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Localidade")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("NivelAcessoId")
-                        .HasColumnType("int");
 
                     b.HasKey("FuncionarioId");
-
-                    b.HasIndex("CargoId");
 
                     b.ToTable("Funcionario");
                 });
@@ -357,17 +339,6 @@ namespace ProjetoMyTeDev.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("ProjetoMyTeDev.Models.Funcionario", b =>
-                {
-                    b.HasOne("ProjetoMyTeDev.Models.Cargo", "Cargo")
-                        .WithMany()
-                        .HasForeignKey("CargoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Cargo");
                 });
 #pragma warning restore 612, 618
         }
