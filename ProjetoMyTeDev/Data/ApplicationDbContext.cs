@@ -12,6 +12,5 @@ namespace ProjetoMyTeDev.Data
         }
         public DbSet<ProjetoMyTeDev.Models.Funcionario> Funcionario { get; set; } = default!;
         public DbSet<ProjetoMyTeDev.Models.Departamento> Departamento { get; set; } = default!;
-        public DbSet<ProjetoMyTeDev.Models.CargaHoraria> CargaHoraria { get; set; } = default!;
     }
 }
