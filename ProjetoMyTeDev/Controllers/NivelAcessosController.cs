@@ -8,24 +8,24 @@ using Microsoft.EntityFrameworkCore;
 using ProjetoMyTeDev.Data;
 using ProjetoMyTeDev.Models;
 
-namespace ProjetoMyTeDev.Views.Departamentos
+namespace ProjetoMyTeDev.Controllers
 {
-    public class DepartamentosController : Controller
+    public class NivelAcessosController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public DepartamentosController(ApplicationDbContext context)
+        public NivelAcessosController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Departamentos
+        // GET: NivelAcessos
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Departamento.ToListAsync());
+            return View(await _context.NivelAcesso.ToListAsync());
         }
 
-        // GET: Departamentos/Details/5
+        // GET: NivelAcessos/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,39 +33,39 @@ namespace ProjetoMyTeDev.Views.Departamentos
                 return NotFound();
             }
 
-            var departamento = await _context.Departamento
-                .FirstOrDefaultAsync(m => m.DepartamentoId == id);
-            if (departamento == null)
+            var nivelAcesso = await _context.NivelAcesso
+                .FirstOrDefaultAsync(m => m.NivelAcessoId == id);
+            if (nivelAcesso == null)
             {
                 return NotFound();
             }
 
-            return View(departamento);
+            return View(nivelAcesso);
         }
 
-        // GET: Departamentos/Create
+        // GET: NivelAcessos/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Departamentos/Create
+        // POST: NivelAcessos/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("DepartamentoId,DepartamentoNome")] Departamento departamento)
+        public async Task<IActionResult> Create([Bind("NivelAcessoId,NivelAcessoNome")] NivelAcesso nivelAcesso)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(departamento);
+                _context.Add(nivelAcesso);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(departamento);
+            return View(nivelAcesso);
         }
 
-        // GET: Departamentos/Edit/5
+        // GET: NivelAcessos/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,22 +73,22 @@ namespace ProjetoMyTeDev.Views.Departamentos
                 return NotFound();
             }
 
-            var departamento = await _context.Departamento.FindAsync(id);
-            if (departamento == null)
+            var nivelAcesso = await _context.NivelAcesso.FindAsync(id);
+            if (nivelAcesso == null)
             {
                 return NotFound();
             }
-            return View(departamento);
+            return View(nivelAcesso);
         }
 
-        // POST: Departamentos/Edit/5
+        // POST: NivelAcessos/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("DepartamentoId,DepartamentoNome")] Departamento departamento)
+        public async Task<IActionResult> Edit(int id, [Bind("NivelAcessoId,NivelAcessoNome")] NivelAcesso nivelAcesso)
         {
-            if (id != departamento.DepartamentoId)
+            if (id != nivelAcesso.NivelAcessoId)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace ProjetoMyTeDev.Views.Departamentos
             {
                 try
                 {
-                    _context.Update(departamento);
+                    _context.Update(nivelAcesso);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!DepartamentoExists(departamento.DepartamentoId))
+                    if (!NivelAcessoExists(nivelAcesso.NivelAcessoId))
                     {
                         return NotFound();
                     }
@@ -113,10 +113,10 @@ namespace ProjetoMyTeDev.Views.Departamentos
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(departamento);
+            return View(nivelAcesso);
         }
 
-        // GET: Departamentos/Delete/5
+        // GET: NivelAcessos/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,34 +124,34 @@ namespace ProjetoMyTeDev.Views.Departamentos
                 return NotFound();
             }
 
-            var departamento = await _context.Departamento
-                .FirstOrDefaultAsync(m => m.DepartamentoId == id);
-            if (departamento == null)
+            var nivelAcesso = await _context.NivelAcesso
+                .FirstOrDefaultAsync(m => m.NivelAcessoId == id);
+            if (nivelAcesso == null)
             {
                 return NotFound();
             }
 
-            return View(departamento);
+            return View(nivelAcesso);
         }
 
-        // POST: Departamentos/Delete/5
+        // POST: NivelAcessos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var departamento = await _context.Departamento.FindAsync(id);
-            if (departamento != null)
+            var nivelAcesso = await _context.NivelAcesso.FindAsync(id);
+            if (nivelAcesso != null)
             {
-                _context.Departamento.Remove(departamento);
+                _context.NivelAcesso.Remove(nivelAcesso);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool DepartamentoExists(int id)
+        private bool NivelAcessoExists(int id)
         {
-            return _context.Departamento.Any(e => e.DepartamentoId == id);
+            return _context.NivelAcesso.Any(e => e.NivelAcessoId == id);
         }
     }
 }

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using ProjetoMyTeDev.Data;
 using ProjetoMyTeDev.Models;
 
-namespace ProjetoMyTeDev.Views.Cargos
+namespace ProjetoMyTeDev.Controllers
 {
     public class CargosController : Controller
     {

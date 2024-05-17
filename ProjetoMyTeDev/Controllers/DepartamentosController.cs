@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using ProjetoMyTeDev.Data;
 using ProjetoMyTeDev.Models;
 
-namespace ProjetoMyTeDev.Controllers
+namespace ProjetoMyTeDev.Views.Departamentos
 {
     public class DepartamentosController : Controller
     {
@@ -54,7 +54,7 @@ namespace ProjetoMyTeDev.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("DepartamentoId,NomeDepto")] Departamento departamento)
+        public async Task<IActionResult> Create([Bind("DepartamentoId,DepartamentoNome")] Departamento departamento)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace ProjetoMyTeDev.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("DepartamentoId,NomeDepto")] Departamento departamento)
+        public async Task<IActionResult> Edit(int id, [Bind("DepartamentoId,DepartamentoNome")] Departamento departamento)
         {
             if (id != departamento.DepartamentoId)
             {
