@@ -72,13 +72,31 @@
             </tr>
         </thead>
         <tbody>
+            @for (var linha = 0; linha < 5; linha++)
+            {
+                <tr>
+                    <th>
+                        <select class="form-select" aria-label="Selecione a WBS">
+                            <option selected>Selecione a WBS</option>
+                            <option value="1">ILLNESS</option>
+                            <option value="2">TREINAMENTO</option>
+                            <option value="3">ONBOARDING</option>
+                        </select>
+                    </th>
+                </tr>
+            }
+
+        </tbody>
+        <tfooter>
             <tr>
+                <th></th>
                 @foreach (var dia in QuinzenaAtual)
                 {
-                    <th></th>
-                    <td></td>
+                    <th class="text-muted fw-normal">
+                        @Html.Raw("6.0")
+                    </th>
                 }
             </tr>
-        </tbody>
+        </tfooter>
     </table>
 </div>
