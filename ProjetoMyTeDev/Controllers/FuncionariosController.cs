@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ProjetoMyTeDev.Data;
 using ProjetoMyTeDev.Models;
+using System.Globalization;
 
 namespace ProjetoMyTeDev.Controllers
 {
@@ -23,6 +24,7 @@ namespace ProjetoMyTeDev.Controllers
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Funcionario.Include(f => f.Cargo).Include(f => f.Departamento).Include(f => f.NivelAcesso);
+            
             return View(await applicationDbContext.ToListAsync());
         }
 
