@@ -12,5 +12,7 @@ namespace ProjetoMyTeDev.Data
         }
         public DbSet<ProjetoMyTeDev.Models.Funcionario> Funcionario { get; set; } = default!;
         public DbSet<ProjetoMyTeDev.Models.Departamento> Departamento { get; set; } = default!;
+        public DbSet<ProjetoMyTeDev.Models.RegistroDiario> RegistroDiario { get; set; } = default!;
+        public DbSet<ProjetoMyTeDev.Models.Wbs> Wbs { get; set; } = default!;
     }
 }
