@@ -36,7 +36,7 @@
         </nav>
     </div>
     <div class="col">
-        <button class="btn float-end"><i class="bi bi-plus"></i> Adicionar registro</button>
+        <button class="btn btn-secondary float-end"><i class="bi bi-plus"></i> Adicionar registro</button>
     </div>
     <table class="table table-secondary text-center">
         <thead class="">
@@ -73,6 +73,11 @@
         </thead>
         <tbody>
             <tr>
+                @foreach (var dia in QuinzenaAtual)
+                {
+                    <th></th>
+                    <td></td>
+                }
             </tr>
         </tbody>
     </table>
