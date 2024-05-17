@@ -11,9 +11,9 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ProjetoMyTeDev</a>
+                <a style="font-weight:700" class="text-black navbar-brand custom-font mx-4" asp-area="" asp-controller="Home" asp-action="Index">Avanacle</a>                
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -21,19 +21,16 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-black" asp-area="" asp-controller="Home" asp-action="Index">Início</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-black" asp-area="" asp-controller="Home" asp-action="SomenteAdmin">Administrador</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="SomenteAdmin">Administrador</a>
+                            <a class="nav-link text-black" asp-area="" asp-controller="Funcionarios" asp-action="Index">Funcionário</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Funcionarios" asp-action="Index">Funcionário</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="RegistroDiarios" asp-action="Index">Registro Horas</a>
+                            <a class="nav-link text-black" asp-area="" asp-controller="RegistroDiarios" asp-action="Index">Registro Horas</a>
                         </li>
                     </ul>
                     <partial name="_LoginPartial" />
@@ -49,7 +46,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2024 - ProjetoMyTeDev - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2024 - ProjetoMyTeDev - Desenvolvido por: Déborah, Isabella, Giovanna, Lívia e Zandra </a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
