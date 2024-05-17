@@ -6,55 +6,62 @@
     }
 </style>
 
-<div class="container mt-4">
-    <div class="row">
+<div class="container">
+    <div class="row my-4">
         <div class="col-md-8">
             <p style="font-weight:500">Olá, Admin</p>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4 text-end">
             <p>@DateTime.Today.ToString("dddd", System.Globalization.CultureInfo.CreateSpecificCulture("pt-BR")), @DateTime.Today.ToString("dd/MM/yyyy")</p>
         </div>
     </div>
-</div>
 
-
-<div class="container">
     <span class="fs-5 custom-font mt-2" style="font-weight:700">Ações Rápidas</span>
     <div class="row my-4">
-        <div class="col-md-4">
-            <button type="button" class="btn"><i class="bi bi-person-fill-add text-black" style="font-size: 24px;"></i>  Cadastrar funcionário</button>
+        <div class="col-md-2">
+            <button type="button" class="btn"><i class="bi bi-person-fill-add text-black" style="font-size: 24px;"></i> Cadastrar Funcionário</button>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-2">
             <button type="button" class="btn"><i class="bi bi-calendar-plus-fill text-black" style="font-size: 24px;"></i>  Cadastrar feriado</button>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-2">
             <button type="button" class="btn"><i class="bi bi-calendar2-week-fill text-black" style="font-size: 24px;"></i>  Cadastrar WBS</button>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-2">
             <button type="button" class="btn"><i class="bi bi-clipboard2-check-fill text-black" style="font-size: 24px;"></i>  Relatórios</button>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-2">
             <button type="button" class="btn"><i class="bi bi-clock-fill text-black" style="font-size: 24px;"></i>  Cadastrar horas</button>
         </div>
+        <div class="col-md-2">
+            <button type="button" class="btn"><i class="bi bi-people-fill" style="font-size: 24px;"></i>  Listar funcionários</button>
+        </div>
     </div>
-</div>
-
-<div class="container">
     <span class="fs-5 custom-font mt-2" style="font-weight:700">Métricas da Quinzena</span>
     <div class="row my-5">
-        <div class="cor col-md-4">
-             <p>40</p>
-             <p>Funcionários</p>
+        <div class="col-md-4">
+            <div class="card border-0 cor">
+                <div class="card-body">
+                    <h5 class="card-title">40</h5>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">Funcionários</h6>
+                </div>
+            </div>
         </div>
-        <div class="cor col-md-3">
-            <p>5</p>
-            <p>Departamentos</p>
+        <div class="col-md-4">
+            <div class="card border-0 cor">
+                <div class="card-body">
+                    <h5 class="card-title">5</h5>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">Departamentos</h6>
+                </div>
+            </div>
         </div>
-        <div class="cor col-md-3">
-            <p>37</p>
-            <p>Registros nesta quinzena</p>
+        <div class="col-md-4">
+            <div class="card border-0 cor">
+                <div class="card-body">
+                    <h5 class="card-title">37</h5>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">Registros</h6>
+                </div>
+            </div>
         </div>
     </div>
 </div>
