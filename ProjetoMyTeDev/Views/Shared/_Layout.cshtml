@@ -9,11 +9,16 @@
     <link rel="stylesheet" href="~/ProjetoMyTeDev.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
+<style>
+    .custom-font {
+        font-family: "Inter", sans-serif;
+    }
+</style>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-black border-bottom box-shadow mb-3">
+        <nav style="background-color: #D9D9D9" class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ProjetoMyTeDev</a>
+                <a style="font-weight:700" class="text-black navbar-brand custom-font mx-4" asp-area="" asp-controller="Home" asp-action="Index">Avanacle</a>                
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -21,16 +26,16 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Início</a>
+                            <a class="nav-link text-black" asp-area="" asp-controller="Home" asp-action="Index">Início</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="SomenteAdmin">Administrador</a>
+                            <a class="nav-link text-black" asp-area="" asp-controller="Home" asp-action="SomenteAdmin">Administrador</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Funcionarios" asp-action="Index">Funcionário</a>
+                            <a class="nav-link text-black" asp-area="" asp-controller="Funcionarios" asp-action="Index">Funcionário</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="RegistroDiarios" asp-action="Index">Registro Horas</a>
+                            <a class="nav-link text-black" asp-area="" asp-controller="RegistroDiarios" asp-action="Index">Registro Horas</a>
                         </li>
                     </ul>
                     <partial name="_LoginPartial" />
