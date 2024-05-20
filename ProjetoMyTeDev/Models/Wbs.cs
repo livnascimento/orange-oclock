@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Runtime.InteropServices;
 
 namespace ProjetoMyTeDev.Models
 {
@@ -6,13 +7,17 @@ namespace ProjetoMyTeDev.Models
     {
         public int WbsId { get; set; }
 
-        [Display(Name = "WBS código")]
+        [Required]
+        [Display(Name = "Código WBS")]
+        [StringLength(10, MinimumLength = 4, ErrorMessage = "Máximo de 10, mínimo de 4 caracteres")]
         public string? WbsCodigo { get; set; }
 
-        [Display(Name = "WBS Tipo")]
+        [Required]
+        [Display(Name = "Tipo")]
         public string? WbsTipo { get; set; }
 
-        [Display(Name = "WBS Descrição")]
+        [Required]
+        [Display(Name = "Descrição")]
         public string? WbsDescricao { get; set; }
 
         

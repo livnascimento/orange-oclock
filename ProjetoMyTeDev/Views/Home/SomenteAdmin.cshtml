@@ -9,7 +9,7 @@
 <div class="container">
     <div class="row my-4">
         <div class="col-md-8">
-            <p style="font-weight:500">Olá, Admin</p>
+            <p style="font-weight:500">Olá, Administrador!</p>
         </div>
         <div class="col-md-4 text-end">
             <p>@DateTime.Today.ToString("dddd", System.Globalization.CultureInfo.CreateSpecificCulture("pt-BR")), @DateTime.Today.ToString("dd/MM/yyyy")</p>
@@ -19,22 +19,22 @@
     <span class="fs-5 custom-font mt-2" style="font-weight:700">Ações Rápidas</span>
     <div class="row my-4">
         <div class="col-md-2">
-            <button type="button" class="btn"><i class="bi bi-person-fill-add text-black" style="font-size: 24px;"></i> Cadastrar Funcionário</button>
+            <a type="button" class="btn" asp-area="" asp-controller="Funcionarios" asp-action="Create"><i class="bi bi-person-fill-add text-black" style="font-size: 24px;"></i> Cadastrar Funcionário</a>
         </div>
         <div class="col-md-2">
-            <button type="button" class="btn"><i class="bi bi-calendar-plus-fill text-black" style="font-size: 24px;"></i>  Cadastrar feriado</button>
+            <a type="button" class="btn" asp-area="" asp-controller="Departamentos" asp-action="Create"><i class="bi bi-calendar-plus-fill text-black" style="font-size: 24px;"></i>  Cadastrar Departamento</a>
         </div>
         <div class="col-md-2">
-            <button type="button" class="btn"><i class="bi bi-calendar2-week-fill text-black" style="font-size: 24px;"></i>  Cadastrar WBS</button>
+            <a type="button" class="btn" asp-area="" asp-controller="Wbss" asp-action="Create"><i class="bi bi-calendar2-week-fill text-black" style="font-size: 24px;"></i>  Cadastrar WBS</a>
         </div>
         <div class="col-md-2">
-            <button type="button" class="btn"><i class="bi bi-clipboard2-check-fill text-black" style="font-size: 24px;"></i>  Relatórios</button>
+            <a type="button" class="btn"><i class="bi bi-clipboard2-check-fill text-black" style="font-size: 24px;"></i>  Relatórios</a>
         </div>
         <div class="col-md-2">
-            <button type="button" class="btn"><i class="bi bi-clock-fill text-black" style="font-size: 24px;"></i>  Cadastrar horas</button>
+            <a type="button" class="btn" asp-area="" asp-controller="Cargos" asp-action="Create"><i class="bi bi-clock-fill text-black" style="font-size: 24px;"></i>  Cadastrar Cargos</a>
         </div>
         <div class="col-md-2">
-            <button type="button" class="btn"><i class="bi bi-people-fill" style="font-size: 24px;"></i>  Listar funcionários</button>
+            <a type="button" class="btn"><i class="bi bi-people-fill" style="font-size: 24px;"></i>  Listar Funcionários</a>
         </div>
     </div>
     <span class="fs-5 custom-font mt-2" style="font-weight:700">Métricas da Quinzena</span>
@@ -43,7 +43,7 @@
             <div class="card border-0 cor">
                 <div class="card-body">
                     <h5 class="card-title">40</h5>
-                    <h6 class="card-subtitle mb-2 text-body-secondary">Funcionários</h6>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">Funcionários cadastrados</h6>
                 </div>
             </div>
         </div>
@@ -51,7 +51,7 @@
             <div class="card border-0 cor">
                 <div class="card-body">
                     <h5 class="card-title">5</h5>
-                    <h6 class="card-subtitle mb-2 text-body-secondary">Departamentos</h6>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">Departamentos cadastrados</h6>
                 </div>
             </div>
         </div>
@@ -59,7 +59,7 @@
             <div class="card border-0 cor">
                 <div class="card-body">
                     <h5 class="card-title">37</h5>
-                    <h6 class="card-subtitle mb-2 text-body-secondary">Registros</h6>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">Registros lançados</h6>
                 </div>
             </div>
         </div>

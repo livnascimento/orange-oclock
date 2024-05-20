@@ -33,6 +33,8 @@ namespace ProjetoMyTeDev.Models
         public string? Localidade { get; set; }
 
         public Cargo Cargo { get; set; }
+
+        [Display(Name = "Cargo")]
         public int CargoId { get; set; }
         
 
