@@ -50,7 +50,7 @@ namespace ProjetoMyTeDev.Controllers
         public IActionResult Create()
         {
             ViewData["FuncionarioId"] = new SelectList(_context.Funcionario, "FuncionarioId", "Email");
-            ViewData["WbsId"] = new SelectList(_context.Set<Wbs>(), "WbsId", "WbsId");
+            ViewData["Wbs"] = new SelectList(_context.Set<Wbs>(), "WbsId", "WbsDescricao");
             return View();
         }
 
