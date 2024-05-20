@@ -1,48 +1,4 @@
-﻿ @model ProjetoMyTeDev.Models.RegistroDiario
-@*
-@{
-    ViewData["Title"] = "Create";
-}
-
-<h1>Registro diários</h1>
-
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="FuncionarioId" class="control-label"></label>
-                <select asp-for="FuncionarioId" class ="form-control" asp-items="ViewBag.FuncionarioId"></select>
-            </div>
-            <div class="form-group">
-                c
-            </div>
-            <div class="form-group">
-                <label asp-for="Data" class="control-label"></label>
-                <input asp-for="Data" class="form-control" />
-                <span asp-validation-for="Data" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Horas" class="control-label"></label>
-                <input asp-for="Horas" class="form-control" />
-                <span asp-validation-for="Horas" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
- *@
+﻿@model ProjetoMyTeDev.Models.RegistroDiario
 
 @{
 
@@ -51,7 +7,7 @@
     DateOnly data = DateOnly.FromDateTime(DateTime.Now);
 
     string dataFormatada = DateTime.Today.ToString("dddd", System.Globalization.CultureInfo.CreateSpecificCulture("pt-BR")) + ", " + data.ToString("dd / MM / yyyy");
-    List<DateOnly> QuinzenaAtual = new List<DateOnly>(); // ou qualquer data que você queira
+    List<DateOnly> QuinzenaAtual = new List<DateOnly>();
 
     int diaInicial = (data.Day <= 15) ? 1 : 16;
     int diaFinal = (data.Day <= 15) ? 15 : DateTime.DaysInMonth(data.Year, data.Month);
@@ -121,8 +77,11 @@
             {
                 <tr>
                     <th>
-                        <select asp-for="WbsId" class="form-select" asp-items="ViewBag.WbsDescricao">
+                        <select class="form-select" aria-label="Selecione a WBS">
                             <option selected>WBS</option>
+                            <option value="1">ILLNESS</option>
+                            <option value="2">TREINAMENTO</option>
+                            <option value="3">ONBOARDING</option>
                         </select>
                     </th>
                     @foreach (var dia in QuinzenaAtual)
@@ -134,6 +93,7 @@
                         else
                         {
                             <th scope="col"><input class="form-control text-center" size="1" maxlength="1" /></th>
+
                         }
                     }
                 </tr>
