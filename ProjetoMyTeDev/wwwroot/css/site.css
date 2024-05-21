@@ -33,3 +33,7 @@ body {
 .btn-secondary:hover {
     background-color: #d15917;
 }
+
+a {
+    color: #d15917;
+}
