@@ -4,7 +4,7 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Cadastrar nova WBS</h1>
+<h3>Cadastrar nova WBS</h3>
 
 <hr />
 <div class="row">
@@ -27,14 +27,11 @@
                 <span asp-validation-for="WbsDescricao" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Cadastrar" class="btn btn-secondary my-4" />
+                <a asp-area="" asp-controller="Wbss" asp-action="Index" class="btn btn-secondary my-4">Voltar</a>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-area="" asp-controller="Home" asp-action="SomenteAdmin">Back to List</a>
 </div>
 
 @section Scripts {
