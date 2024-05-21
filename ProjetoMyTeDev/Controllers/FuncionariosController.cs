@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using ProjetoMyTeDev.Data;
 using ProjetoMyTeDev.Models;
 using System.Globalization;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ProjetoMyTeDev.Controllers
 {
@@ -20,6 +21,7 @@ namespace ProjetoMyTeDev.Controllers
             _context = context;
         }
 
+        [Authorize(Policy = "RequerPerfilAdmin")]
         // GET: Funcionarios
         public async Task<IActionResult> Index()
         {
@@ -49,6 +51,7 @@ namespace ProjetoMyTeDev.Controllers
             return View(funcionario);
         }
 
+        [Authorize(Policy = "RequerPerfilAdmin")]
         // GET: Funcionarios/Create
         public IActionResult Create()
         {
