@@ -18,9 +18,11 @@
                 <span asp-validation-for="WbsCodigo" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="WbsTipo" class="control-label"></label>
-                <input asp-for="WbsTipo" class="form-control" />
-                <span asp-validation-for="WbsTipo" class="text-danger"></span>
+                <label>WBS Tipo</label>
+                <select asp-for="WbsTipo" class="form-select">
+                    <option value="Chargeability">Chargeability</option>
+                    <option value="Non-chargeability">Non-chargeability</option>
+                </select>
             </div>
             <div class="form-group">
                 <label asp-for="WbsDescricao" class="control-label"></label>
@@ -29,7 +31,7 @@
             </div>
             <div class="form-group">
                 <input type="submit" value="Salvar" class="btn btn-secondary my-4" />
-                <a asp-area="" asp-controller="Cargos" asp-action="Index" class="btn btn-secondary my-4">Voltar</a>
+                <a asp-area="" asp-controller="Wbss" asp-action="Index" class="btn btn-secondary my-4">Voltar</a>
             </div>
         </form>
     </div>
