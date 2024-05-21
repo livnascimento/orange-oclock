@@ -6,10 +6,10 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h3>Registro de Horas</h3>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <class asp-action="Create" class="btn btn-secondary my-4"><i class="bi bi-calendar-plus"></i> Lançamento de Horas</a>
 </p>
 <div class="table-responsive">
     <table class="table">
@@ -47,9 +47,9 @@
                         @Html.DisplayFor(modelItem => item.Horas)
                     </td>
                     <td>
-                        <a asp-action="Edit" asp-route-id="@item.RegistroDiarioId">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.RegistroDiarioId">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.RegistroDiarioId">Delete</a>
+                        <a asp-action="Edit" asp-route-id="@item.RegistroDiarioId"><i class="bi bi-brush"></i> Editar</a>
+                        <a asp-action="Details" asp-route-id="@item.RegistroDiarioId"><i class="bi bi-eye"></i> Visualizar</a>
+                        <a asp-action="Delete" asp-route-id="@item.RegistroDiarioId"><i class="bi bi-trash"></i> Deletar</a>
                     </td>
                 </tr>
             }
