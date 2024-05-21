@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ProjetoMyTeDev.Data;
 using ProjetoMyTeDev.Models;
+using System.Globalization;
 
 namespace ProjetoMyTeDev.Controllers
 {
@@ -22,7 +23,9 @@ namespace ProjetoMyTeDev.Controllers
         // GET: Funcionarios
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Funcionario.ToListAsync());
+            var applicationDbContext = _context.Funcionario.Include(f => f.Cargo).Include(f => f.Departamento).Include(f => f.NivelAcesso);
+            
+            return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Funcionarios/Details/5
@@ -34,6 +37,9 @@ namespace ProjetoMyTeDev.Controllers
             }
 
             var funcionario = await _context.Funcionario
+                .Include(f => f.Cargo)
+                .Include(f => f.Departamento)
+                .Include(f => f.NivelAcesso)
                 .FirstOrDefaultAsync(m => m.FuncionarioId == id);
             if (funcionario == null)
             {
@@ -46,6 +52,9 @@ namespace ProjetoMyTeDev.Controllers
         // GET: Funcionarios/Create
         public IActionResult Create()
         {
+            ViewData["CargoId"] = new SelectList(_context.Set<Cargo>(), "CargoId", "CargoId");
+            ViewData["DepartamentoId"] = new SelectList(_context.Departamento, "DepartamentoId", "DepartamentoNome");
+            ViewData["NivelAcessoId"] = new SelectList(_context.Set<NivelAcesso>(), "NivelAcessoId", "NivelAcessoId");
             return View();
         }
 
@@ -54,7 +63,7 @@ namespace ProjetoMyTeDev.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("FuncionarioId,NomeFunc,NivelAcesso,DeptoFunc,DtContratacao")] Funcionario funcionario)
+        public async Task<IActionResult> Create([Bind("FuncionarioId,FuncionarioNome,Email,Senha,DepartamentoId,NivelAcessoId,DataContratacao,Localidade,CargoId")] Funcionario funcionario)
         {
             if (ModelState.IsValid)
             {
@@ -62,6 +71,9 @@ namespace ProjetoMyTeDev.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["CargoId"] = new SelectList(_context.Set<Cargo>(), "CargoId", "CargoId", funcionario.CargoId);
+            ViewData["DepartamentoId"] = new SelectList(_context.Departamento, "DepartamentoId", "DepartamentoNome", funcionario.DepartamentoId);
+            ViewData["NivelAcessoId"] = new SelectList(_context.Set<NivelAcesso>(), "NivelAcessoId", "NivelAcessoId", funcionario.NivelAcessoId);
             return View(funcionario);
         }
 
@@ -78,6 +90,9 @@ namespace ProjetoMyTeDev.Controllers
             {
                 return NotFound();
             }
+            ViewData["CargoId"] = new SelectList(_context.Set<Cargo>(), "CargoId", "CargoId", funcionario.CargoId);
+            ViewData["DepartamentoId"] = new SelectList(_context.Departamento, "DepartamentoId", "DepartamentoNome", funcionario.DepartamentoId);
+            ViewData["NivelAcessoId"] = new SelectList(_context.Set<NivelAcesso>(), "NivelAcessoId", "NivelAcessoId", funcionario.NivelAcessoId);
             return View(funcionario);
         }
 
@@ -86,7 +101,7 @@ namespace ProjetoMyTeDev.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("FuncionarioId,NomeFunc,NivelAcesso,DeptoFunc,DtContratacao")] Funcionario funcionario)
+        public async Task<IActionResult> Edit(int id, [Bind("FuncionarioId,FuncionarioNome,Email,Senha,DepartamentoId,NivelAcessoId,DataContratacao,Localidade,CargoId")] Funcionario funcionario)
         {
             if (id != funcionario.FuncionarioId)
             {
@@ -113,6 +128,9 @@ namespace ProjetoMyTeDev.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["CargoId"] = new SelectList(_context.Set<Cargo>(), "CargoId", "CargoId", funcionario.CargoId);
+            ViewData["DepartamentoId"] = new SelectList(_context.Departamento, "DepartamentoId", "DepartamentoNome", funcionario.DepartamentoId);
+            ViewData["NivelAcessoId"] = new SelectList(_context.Set<NivelAcesso>(), "NivelAcessoId", "NivelAcessoId", funcionario.NivelAcessoId);
             return View(funcionario);
         }
 
@@ -125,6 +143,9 @@ namespace ProjetoMyTeDev.Controllers
             }
 
             var funcionario = await _context.Funcionario
+                .Include(f => f.Cargo)
+                .Include(f => f.Departamento)
+                .Include(f => f.NivelAcesso)
                 .FirstOrDefaultAsync(m => m.FuncionarioId == id);
             if (funcionario == null)
             {

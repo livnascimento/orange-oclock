@@ -224,6 +224,26 @@ namespace ProjetoMyTeDev.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("ProjetoMyTeDev.Models.Cargo", b =>
+                {
+                    b.Property<int>("CargoId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CargoId"));
+
+                    b.Property<int>("CargaHoraria")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CargoNome")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("CargoId");
+
+                    b.ToTable("Cargo", (string)null);
+                });
+
             modelBuilder.Entity("ProjetoMyTeDev.Models.Departamento", b =>
                 {
                     b.Property<int>("DepartamentoId")
@@ -232,15 +252,13 @@ namespace ProjetoMyTeDev.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DepartamentoId"));
 
-                    b.Property<string>("CodigoAtividade")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NomeDepto")
+                    b.Property<string>("DepartamentoNome")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("DepartamentoId");
 
-                    b.ToTable("Departamento");
+                    b.ToTable("Departamento", (string)null);
                 });
 
             modelBuilder.Entity("ProjetoMyTeDev.Models.Funcionario", b =>
@@ -251,21 +269,109 @@ namespace ProjetoMyTeDev.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FuncionarioId"));
 
-                    b.Property<string>("DeptoFunc")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DtContratacao")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("NivelAcesso")
+                    b.Property<int>("CargoId")
                         .HasColumnType("int");
 
-                    b.Property<string>("NomeFunc")
+                    b.Property<DateTime?>("DataContratacao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("DepartamentoId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FuncionarioNome")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Localidade")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("NivelAcessoId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Senha")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("FuncionarioId");
 
-                    b.ToTable("Funcionario");
+                    b.HasIndex("CargoId");
+
+                    b.HasIndex("DepartamentoId");
+
+                    b.HasIndex("NivelAcessoId");
+
+                    b.ToTable("Funcionario", (string)null);
+                });
+
+            modelBuilder.Entity("ProjetoMyTeDev.Models.NivelAcesso", b =>
+                {
+                    b.Property<int>("NivelAcessoId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("NivelAcessoId"));
+
+                    b.Property<string>("NivelAcessoNome")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("NivelAcessoId");
+
+                    b.ToTable("NivelAcesso", (string)null);
+                });
+
+            modelBuilder.Entity("ProjetoMyTeDev.Models.RegistroDiario", b =>
+                {
+                    b.Property<int>("RegistroDiarioId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RegistroDiarioId"));
+
+                    b.Property<DateTime>("Data")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("FuncionarioId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Horas")
+                        .HasColumnType("int");
+
+                    b.Property<int>("WbsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("RegistroDiarioId");
+
+                    b.HasIndex("FuncionarioId");
+
+                    b.HasIndex("WbsId");
+
+                    b.ToTable("RegistroDiario", (string)null);
+                });
+
+            modelBuilder.Entity("ProjetoMyTeDev.Models.Wbs", b =>
+                {
+                    b.Property<int>("WbsId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("WbsId"));
+
+                    b.Property<string>("WbsCodigo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("WbsDescricao")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("WbsTipo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("WbsId");
+
+                    b.ToTable("Wbs", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -317,6 +423,52 @@ namespace ProjetoMyTeDev.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("ProjetoMyTeDev.Models.Funcionario", b =>
+                {
+                    b.HasOne("ProjetoMyTeDev.Models.Cargo", "Cargo")
+                        .WithMany()
+                        .HasForeignKey("CargoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ProjetoMyTeDev.Models.Departamento", "Departamento")
+                        .WithMany()
+                        .HasForeignKey("DepartamentoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ProjetoMyTeDev.Models.NivelAcesso", "NivelAcesso")
+                        .WithMany()
+                        .HasForeignKey("NivelAcessoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cargo");
+
+                    b.Navigation("Departamento");
+
+                    b.Navigation("NivelAcesso");
+                });
+
+            modelBuilder.Entity("ProjetoMyTeDev.Models.RegistroDiario", b =>
+                {
+                    b.HasOne("ProjetoMyTeDev.Models.Funcionario", "Funcionario")
+                        .WithMany()
+                        .HasForeignKey("FuncionarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ProjetoMyTeDev.Models.Wbs", "Wbs")
+                        .WithMany()
+                        .HasForeignKey("WbsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Funcionario");
+
+                    b.Navigation("Wbs");
                 });
 #pragma warning restore 612, 618
         }

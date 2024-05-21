@@ -11,28 +11,52 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NomeFunc)
+            @Html.DisplayNameFor(model => model.FuncionarioNome)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NomeFunc)
+            @Html.DisplayFor(model => model.FuncionarioNome)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Senha)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Senha)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Departamento)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Departamento.DepartamentoNome)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.NivelAcesso)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NivelAcesso)
+            @Html.DisplayFor(model => model.NivelAcesso.NivelAcessoId)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DeptoFunc)
+            @Html.DisplayNameFor(model => model.DataContratacao)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DeptoFunc)
+            @Html.DisplayFor(model => model.DataContratacao)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DtContratacao)
+            @Html.DisplayNameFor(model => model.Localidade)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DtContratacao)
+            @Html.DisplayFor(model => model.Localidade)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Cargo)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Cargo.CargoId)
         </dd>
     </dl>
 </div>

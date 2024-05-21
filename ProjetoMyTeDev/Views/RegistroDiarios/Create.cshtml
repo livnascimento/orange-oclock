@@ -1,0 +1,118 @@
+﻿@model ProjetoMyTeDev.Models.RegistroDiario
+
+@{
+
+    ViewData["Title"] = "Index";
+
+    DateOnly data = DateOnly.FromDateTime(DateTime.Now);
+
+    string dataFormatada = DateTime.Today.ToString("dddd", System.Globalization.CultureInfo.CreateSpecificCulture("pt-BR")) + ", " + data.ToString("dd / MM / yyyy");
+    List<DateOnly> QuinzenaAtual = new List<DateOnly>();
+
+    int diaInicial = (data.Day <= 15) ? 1 : 16;
+    int diaFinal = (data.Day <= 15) ? 15 : DateTime.DaysInMonth(data.Year, data.Month);
+
+    for (int dia = diaInicial; dia <= diaFinal; dia++)
+    {
+        QuinzenaAtual.Add(new DateOnly(data.Year, data.Month, dia));
+    }
+
+}
+
+<div class="row my-4">
+    <h2 class="col">Cadastre suas horas</h2>
+    <div class="col text-end">@dataFormatada</div>
+</div>
+
+<div class="row mb-2">
+    <div class="col">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination d-flex align-items-center">
+                <li class="page-item"><button class="page-link border-0 text-dark"><i class="bi bi-arrow-left-short fs-4"></i></button></li>
+                &ensp;
+                @QuinzenaAtual[0].ToString("dd/MM/yyyy") - @QuinzenaAtual[^1].ToString("dd/MM/yyyy")
+                &ensp;
+                <li class="page-item"><a class="page-link border-0 text-dark" href="#"><i class="bi bi-arrow-right-short fs-4"></i></a></li>
+            </ul>
+        </nav>
+    </div>
+    <div class="col">
+        <button class="btn btn-secondary float-end"><i class="bi bi-floppy2-fill"></i> &ensp; Salvar</button>
+    </div>
+    <table class="table table-secondary text-center">
+        <thead class="">
+            <tr>
+                <th>WBS</th>
+                @foreach (var dia in QuinzenaAtual)
+                {
+
+                    @if (dia.DayOfWeek.ToString() == "Saturday" || dia.DayOfWeek.ToString() == "Sunday")
+                    {
+                        <th class="text-muted">@Html.Raw("PE")</th>
+                    }
+                    else
+                    {
+                        <th>@Html.Raw("PE")</th>
+                    }
+                }
+            </tr>
+            <tr>
+                <th></th>
+                @foreach (var dia in QuinzenaAtual)
+                {
+                    @if (dia.DayOfWeek.ToString() == "Saturday" || dia.DayOfWeek.ToString() == "Sunday")
+                    {
+                        <th scope="col" class="text-muted"><small class="fw-normal">@dia.DayOfWeek.ToString().Substring(0, 3)</small><br />@dia.Day</th>
+                    }
+                    else
+                    {
+                        <th scope="col"><small class="fw-normal">@dia.DayOfWeek.ToString().Substring(0, 3)</small><br />@dia.Day</th>
+
+                    }
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @for (var linha = 0; linha < 5; linha++)
+            {
+                <tr>
+                    <th>
+                        <select asp-for="WbsId" class="form-select" asp-items="ViewBag.Wbs">
+                            <option selected>WBS</option>
+                        </select>
+                    </th>
+                    @foreach (var dia in QuinzenaAtual)
+                    {
+                        @if (dia.DayOfWeek.ToString() == "Saturday" || dia.DayOfWeek.ToString() == "Sunday")
+                        {
+                            <th><input class="form-control text-center" id="disabledInput" placeholder="0" size="1" disabled></th>
+                        }
+                        else
+                        {
+                            <th scope="col"><input class="form-control text-center" size="1" maxlength="1" /></th>
+
+                        }
+                    }
+                </tr>
+            }
+
+        </tbody>
+        <tfooter>
+            <tr>
+                <th></th>
+                @foreach (var dia in QuinzenaAtual)
+                {
+                    @if (dia.DayOfWeek.ToString() == "Saturday" || dia.DayOfWeek.ToString() == "Sunday")
+                    {
+                        <th>@Html.Raw("0")</th>
+                    }
+                    else
+                    {
+                        <th></th>
+
+                    }
+                }
+            </tr>
+        </tfooter>
+    </table>
+</div>

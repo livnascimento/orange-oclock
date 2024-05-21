@@ -13,41 +13,68 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.NomeFunc)
+                @Html.DisplayNameFor(model => model.FuncionarioNome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Senha)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Departamento)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.NivelAcesso)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DeptoFunc)
+                @Html.DisplayNameFor(model => model.DataContratacao)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DtContratacao)
+                @Html.DisplayNameFor(model => model.Localidade)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cargo)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.NomeFunc)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NivelAcesso)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DeptoFunc)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DtContratacao)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.FuncionarioId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.FuncionarioId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.FuncionarioId">Delete</a>
-            </td>
-        </tr>
-}
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FuncionarioNome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Senha)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Departamento.DepartamentoNome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NivelAcesso.NivelAcessoId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataContratacao)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Localidade)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cargo.CargoId)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.FuncionarioId">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.FuncionarioId">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.FuncionarioId">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+                          

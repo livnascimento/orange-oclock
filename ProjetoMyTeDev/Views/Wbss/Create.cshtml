@@ -1,0 +1,42 @@
+﻿@model ProjetoMyTeDev.Models.Wbs
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Cadastrar nova WBS</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="WbsCodigo" class="control-label"></label>
+                <input asp-for="WbsCodigo" class="form-control" />
+                <span asp-validation-for="WbsCodigo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WbsTipo" class="control-label"></label>
+                <input asp-for="WbsTipo" class="form-control" />
+                <span asp-validation-for="WbsTipo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WbsDescricao" class="control-label"></label>
+                <input asp-for="WbsDescricao" class="form-control" />
+                <span asp-validation-for="WbsDescricao" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-area="" asp-controller="Home" asp-action="SomenteAdmin">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
