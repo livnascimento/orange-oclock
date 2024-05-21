@@ -1,5 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
 html {
     font-size: 14px;
+    font-family: "Inter", sans-serif;
+    
 }
 
 @media (min-width: 768px) {
@@ -19,4 +23,13 @@ html {
 
 body {
     margin-bottom: 60px;
+}
+
+.btn-secondary, .card {
+    background-color: #f56e01;
+    color: azure;
+}
+
+.btn-secondary:hover {
+    background-color: #d15917;
 }

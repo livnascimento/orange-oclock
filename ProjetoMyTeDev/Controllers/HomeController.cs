@@ -1,21 +1,27 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ProjetoMyTeDev.Data;
 using ProjetoMyTeDev.Models;
 using System.Diagnostics;
+using Microsoft.EntityFrameworkCore;
 
 namespace ProjetoMyTeDev.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        private readonly ILogger<HomeController> _logger;
+        private readonly ApplicationDbContext _context;
+
+        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context)
         {
             _logger = logger;
+            _context = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            ViewBag.RegistrosRecentes = await _context.RegistroDiario.OrderByDescending(t => t.Data).Take(10).ToListAsync();
             return View();
         }
 

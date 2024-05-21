@@ -241,7 +241,7 @@ namespace ProjetoMyTeDev.Data.Migrations
 
                     b.HasKey("CargoId");
 
-                    b.ToTable("Cargo");
+                    b.ToTable("Cargo", (string)null);
                 });
 
             modelBuilder.Entity("ProjetoMyTeDev.Models.Departamento", b =>
@@ -258,7 +258,7 @@ namespace ProjetoMyTeDev.Data.Migrations
 
                     b.HasKey("DepartamentoId");
 
-                    b.ToTable("Departamento");
+                    b.ToTable("Departamento", (string)null);
                 });
 
             modelBuilder.Entity("ProjetoMyTeDev.Models.Funcionario", b =>
@@ -304,7 +304,7 @@ namespace ProjetoMyTeDev.Data.Migrations
 
                     b.HasIndex("NivelAcessoId");
 
-                    b.ToTable("Funcionario");
+                    b.ToTable("Funcionario", (string)null);
                 });
 
             modelBuilder.Entity("ProjetoMyTeDev.Models.NivelAcesso", b =>
@@ -320,7 +320,7 @@ namespace ProjetoMyTeDev.Data.Migrations
 
                     b.HasKey("NivelAcessoId");
 
-                    b.ToTable("NivelAcesso");
+                    b.ToTable("NivelAcesso", (string)null);
                 });
 
             modelBuilder.Entity("ProjetoMyTeDev.Models.RegistroDiario", b =>
@@ -349,7 +349,7 @@ namespace ProjetoMyTeDev.Data.Migrations
 
                     b.HasIndex("WbsId");
 
-                    b.ToTable("RegistroDiario");
+                    b.ToTable("RegistroDiario", (string)null);
                 });
 
             modelBuilder.Entity("ProjetoMyTeDev.Models.Wbs", b =>
@@ -371,7 +371,7 @@ namespace ProjetoMyTeDev.Data.Migrations
 
                     b.HasKey("WbsId");
 
-                    b.ToTable("Wbs");
+                    b.ToTable("Wbs", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
