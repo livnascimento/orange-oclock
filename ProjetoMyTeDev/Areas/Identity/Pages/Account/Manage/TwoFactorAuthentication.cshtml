@@ -39,22 +39,22 @@
             if (Model.IsMachineRemembered)
             {
                 <form method="post" style="display: inline-block">
-                    <button type="submit" class="btn btn-primary">Esqueça este navegador</button>
+                    <button type="submit" class="btn btn-secondary my-4">Esqueça este navegador</button>
                 </form>
             }
-            <a asp-page="./Disable2fa" class="btn btn-primary">Desativar</a>
-            <a asp-page="./GenerateRecoveryCodes" class="btn btn-primary">Redefinir códigos de recuperação</a>
+            <a asp-page="./Disable2fa" class="btn btn-secondary my-4">Desativar</a>
+            <a asp-page="./GenerateRecoveryCodes" class="btn btn-secondary my-4">Redefinir códigos de recuperação</a>
         }
 
-        <h4>Authenticator app</h4>
+        
         @if (!Model.HasAuthenticator)
         {
-            <a id="enable-authenticator" asp-page="./EnableAuthenticator" class="btn btn-primary">Adicionar aplicativo autenticador</a>
+            <a id="enable-authenticator" asp-page="./EnableAuthenticator" class="btn btn-secondary my-4">Adicionar aplicativo autenticador</a>
         }
         else
         {
-            <a id="enable-authenticator" asp-page="./EnableAuthenticator" class="btn btn-primary">Configurar aplicativo autenticador</a>
-            <a id="reset-authenticator" asp-page="./ResetAuthenticator" class="btn btn-primary">Redefinir aplicativo autenticador</a>
+            <a id="enable-authenticator" asp-page="./EnableAuthenticator" class="btn btn-secondary my-4">Configurar aplicativo autenticador</a>
+            <a id="reset-authenticator" asp-page="./ResetAuthenticator" class="btn btn-secondary my-4">Redefinir aplicativo autenticador</a>
         }
     }
     else
