@@ -74,9 +74,9 @@ namespace ProjetoMyTeDev.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CargoId"] = new SelectList(_context.Set<Cargo>(), "CargoId", "Cargo", funcionario.CargoId);
-            ViewData["DepartamentoId"] = new SelectList(_context.Departamento, "DepartamentoId", "DepartamentoNome", funcionario.DepartamentoId);
-            ViewData["NivelAcessoId"] = new SelectList(_context.Set<NivelAcesso>(), "NivelAcessoId", "NivelAcesso", funcionario.NivelAcessoId);
+            ViewData["CargoId"] = new SelectList(_context.Set<Cargo>(), "CargoId", "CargoId", funcionario.CargoId);
+            ViewData["DepartamentoId"] = new SelectList(_context.Departamento, "DepartamentoId", "DepartamentoId", funcionario.DepartamentoId);
+            ViewData["NivelAcessoId"] = new SelectList(_context.Set<NivelAcesso>(), "NivelAcessoId", "NivelAcessoId", funcionario.NivelAcessoId);
             return View(funcionario);
         }
 
