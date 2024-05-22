@@ -1,14 +1,15 @@
 ﻿@model IEnumerable<ProjetoMyTeDev.Models.Cargo>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Cargos";
 }
 
-<h1>Index</h1>
+<h3>Cargos</h3>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-secondary my-4">Cadastrar Cargo</a>
 </p>
+
 <table class="table">
     <thead>
         <tr>
@@ -31,9 +32,9 @@
                 @Html.DisplayFor(modelItem => item.CargaHoraria)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.CargoId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.CargoId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.CargoId">Delete</a>
+                <a asp-action="Edit" class="btn btn-secondary my-4" asp-route-id="@item.CargoId"><i class="bi bi-brush"></i> Editar</a>
+                <a asp-action="Details" class="btn btn-secondary my-4" asp-route-id="@item.CargoId"><i class="bi bi-eye"></i> Visualizar</a>
+                <a asp-action="Delete" class="btn btn-secondary my-4" asp-route-id="@item.CargoId"><i class="bi bi-trash"></i> Deletar</a>
             </td>
         </tr>
 }

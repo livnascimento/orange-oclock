@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Freeman&family=Poetsen+One&display=swap');
 
 html {
     font-size: 14px;
     font-family: "Inter", sans-serif;
-    
 }
 
 @media (min-width: 768px) {
@@ -13,7 +13,8 @@ html {
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #f56e01;
+    border: #f56e01;
 }
 
 html {
@@ -28,12 +29,23 @@ body {
 .btn-secondary, .card {
     background-color: #f56e01;
     color: azure;
+    border: 0;
 }
 
 .btn-secondary:hover {
     background-color: #d15917;
 }
 
-a {
-    color: #d15917;
+a, .nav-link {
+    color: #f56e01;
+}
+
+    a:hover, .nav-link:hover {
+        color: #923e10;
+    }
+
+.dropdown-item.active,
+.dropdown-item:active {
+    background: #f56e01;
+    color: #fff;
 }

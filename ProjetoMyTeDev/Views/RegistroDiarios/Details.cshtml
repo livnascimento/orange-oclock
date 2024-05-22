@@ -1,13 +1,12 @@
 ﻿@model ProjetoMyTeDev.Models.RegistroDiario
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalhes Registro";
 }
 
-<h1>Details</h1>
+<h3>Detalhes do Registro</h3>
 
 <div>
-    <h4>RegistroDiario</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -37,6 +36,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.RegistroDiarioId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" class="btn btn-secondary my-4" asp-route-id="@Model?.RegistroDiarioId">Editar</a> |
+    <a asp-area="" asp-controller="RegistroDiarios" asp-action="Index" class="btn btn-secondary my-4">Voltar</a>
 </div>

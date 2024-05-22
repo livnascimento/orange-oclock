@@ -1,12 +1,10 @@
 ﻿@model ProjetoMyTeDev.Models.Funcionario
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Editar Funcionário";
 }
 
-<h1>Edit</h1>
-
-<h4>Funcionario</h4>
+<h3>Editar</h3>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -44,9 +42,12 @@
                 <span asp-validation-for="DataContratacao" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Localidade" class="control-label"></label>
-                <input asp-for="Localidade" class="form-control" />
-                <span asp-validation-for="Localidade" class="text-danger"></span>
+                <select asp-for="Localidade" class="form-select">
+                    <option value="Recife">Recife</option>
+                    <option value="São Paulo">São Paulo</option>
+                    <option value="Rio de Janeiro">Rio de Janeiro</option>
+                    <option value="Nova Lima">Nova Lima</option>
+                </select>
             </div>
             <div class="form-group">
                 <label asp-for="CargoId" class="control-label"></label>
@@ -54,15 +55,14 @@
                 <span asp-validation-for="CargoId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                class="form-group">
+                <input type="submit" value="Salvar" class="btn btn-secondary my-4" />
+                <a asp-area="" asp-controller="Funcionarios" asp-action="Index" class="btn btn-secondary my-4">Voltar</a>
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

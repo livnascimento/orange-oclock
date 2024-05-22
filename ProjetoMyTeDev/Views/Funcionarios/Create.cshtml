@@ -1,7 +1,7 @@
 ﻿@model ProjetoMyTeDev.Models.Funcionario
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Cadastrar Funcionário";
 }
 
 <h1>Cadastrar novo funcionário</h1>
@@ -40,23 +40,24 @@
                 <span asp-validation-for="DataContratacao" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Localidade" class="control-label"></label>
-                <input asp-for="Localidade" class="form-control" />
-                <span asp-validation-for="Localidade" class="text-danger"></span>
+                <label>Localidade</label>
+                <select asp-for="Localidade" class="form-select">
+                    <option value="Recife">Recife</option>
+                    <option value="São Paulo">São Paulo</option>
+                    <option value="Rio de Janeiro">Rio de Janeiro</option>
+                    <option value="Nova Lima">Nova Lima</option>
+                </select>
             </div>
             <div class="form-group">
                 <label asp-for="CargoId" class="control-label"></label>
                 <select asp-for="CargoId" class ="form-control" asp-items="ViewBag.CargoId"></select>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Cadastrar" class="btn btn-secondary" />
+                <a asp-controller="Funcionarios" class="btn btn-secondary my-4" asp-action="Index">Voltar</a>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-area="" asp-controller="Home" asp-action="SomenteAdmin">Back to List</a>
 </div>
 
 @section Scripts {

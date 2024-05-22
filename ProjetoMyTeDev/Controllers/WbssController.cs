@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +20,7 @@ namespace ProjetoMyTeDev.Controllers
             _context = context;
         }
 
+        [Authorize(Policy = "RequerPerfilAdmin")]
         // GET: Wbss
         public async Task<IActionResult> Index()
         {
@@ -43,6 +45,7 @@ namespace ProjetoMyTeDev.Controllers
             return View(wbs);
         }
 
+        [Authorize(Policy = "RequerPerfilAdmin")]
         // GET: Wbss/Create
         public IActionResult Create()
         {

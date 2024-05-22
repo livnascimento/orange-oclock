@@ -1,14 +1,13 @@
 ﻿@model ProjetoMyTeDev.Models.Wbs
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Deletar WBS";
 }
 
-<h1>Delete</h1>
-
-<h3>Are you sure you want to delete this?</h3>
+<h3>Deletar WBS</h3>
+<br/>
+<h4>Você tem certeza de que deseja deletar este registro?</h4>
 <div>
-    <h4>Wbs</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -33,7 +32,7 @@
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="WbsId" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <input type="submit" value="Deletar" class="btn btn-secondary my-4" />
+        <a asp-area="" asp-controller="Wbss" asp-action="Index" class="btn btn-secondary my-4">Voltar</a>
     </form>
 </div>

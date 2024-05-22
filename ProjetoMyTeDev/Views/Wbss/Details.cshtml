@@ -1,10 +1,10 @@
 ﻿@model ProjetoMyTeDev.Models.Wbs
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalhes WBS";
 }
 
-<h1>Details</h1>
+<h3>Detalhes da WBS</h3>
 
 <div>
     <h4>Wbs</h4>
@@ -31,6 +31,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.WbsId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" class="btn btn-secondary my-4" asp-route-id="@Model?.WbsId">Editar</a>
+    <a asp-area="" asp-controller="Wbss" asp-action="Index" class="btn btn-secondary my-4">Voltar</a>
 </div>

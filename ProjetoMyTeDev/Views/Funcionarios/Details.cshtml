@@ -1,13 +1,13 @@
 ﻿@model ProjetoMyTeDev.Models.Funcionario
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalhes Funcionário";
 }
 
-<h1>Details</h1>
+<h3>Detalhes do Funcionário</h3>
 
 <div>
-    <h4>Funcionario</h4>
+    <h4>Funcionário</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -61,6 +61,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.FuncionarioId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" class="btn btn-secondary my-4" asp-route-id="@Model?.FuncionarioId">Editar</a>
+    <a asp-area="" asp-controller="Funcionario" asp-action="Index" class="btn btn-secondary my-4">Voltar</a>
 </div>

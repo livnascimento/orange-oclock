@@ -1,14 +1,12 @@
 ﻿@model ProjetoMyTeDev.Models.Departamento
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Deletar Departamento";
 }
 
-<h1>Delete</h1>
-
-<h3>Are you sure you want to delete this?</h3>
+<h3>Deletar Departamento</h3>
 <div>
-    <h4>Departamento</h4>
+    <h3>Tem certeza de que deseja excluir?</h3>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -20,8 +18,8 @@
     </dl>
     
     <form asp-action="Delete">
-        <input type="hidden" asp-for="DepartamentoId" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <input type="hidden" class="btn btn-secondary my-4"  asp-for="DepartamentoId" />
+        <input type="submit" value="Deletar" class="btn btn-secondary my-4" /> 
+        <a class="btn btn-secondary my-4" asp-controller="Departamentos" asp-action="Index">Voltar</a>
     </form>
 </div>

@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<ProjetoMyTeDev.Models.Funcionario>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Funcionários";
 }
 
-<h1>Index</h1>
+<h3>Funcionário</h3>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-secondary my-4">Cadastrar Funcionário</a>
 </p>
 <table class="table">
     <thead>
@@ -69,9 +69,9 @@
                     @Html.DisplayFor(modelItem => item.Cargo.CargoId)
                 </td>
                 <td>
-                    <a asp-page="./Edit" asp-route-id="@item.FuncionarioId">Edit</a> |
-                    <a asp-page="./Details" asp-route-id="@item.FuncionarioId">Details</a> |
-                    <a asp-page="./Delete" asp-route-id="@item.FuncionarioId">Delete</a>
+                    <a asp-action="Edit" class="btn btn-secondary my-4" asp-route-id="@item.FuncionarioId"><i class="bi bi-brush"></i> Editar</a>
+                    <a asp-action="Details" class="btn btn-secondary my-4" asp-route-id="@item.FuncionarioId"><i class="bi bi-eye"></i> Visualizar</a>
+                    <a asp-action="Delete" class="btn btn-secondary my-4" asp-route-id="@item.FuncionarioId"><i class="bi bi-trash"></i> Deletar</a>
                 </td>
             </tr>
         }

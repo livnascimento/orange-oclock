@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using ProjetoMyTeDev.Data;
 using ProjetoMyTeDev.Models;
 using System.Globalization;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ProjetoMyTeDev.Controllers
 {
@@ -20,6 +21,7 @@ namespace ProjetoMyTeDev.Controllers
             _context = context;
         }
 
+        [Authorize(Policy = "RequerPerfilAdmin")]
         // GET: Funcionarios
         public async Task<IActionResult> Index()
         {
@@ -49,6 +51,7 @@ namespace ProjetoMyTeDev.Controllers
             return View(funcionario);
         }
 
+        [Authorize(Policy = "RequerPerfilAdmin")]
         // GET: Funcionarios/Create
         public IActionResult Create()
         {
@@ -71,9 +74,9 @@ namespace ProjetoMyTeDev.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CargoId"] = new SelectList(_context.Set<Cargo>(), "CargoId", "CargoId", funcionario.CargoId);
+            ViewData["CargoId"] = new SelectList(_context.Set<Cargo>(), "CargoId", "Cargo", funcionario.CargoId);
             ViewData["DepartamentoId"] = new SelectList(_context.Departamento, "DepartamentoId", "DepartamentoNome", funcionario.DepartamentoId);
-            ViewData["NivelAcessoId"] = new SelectList(_context.Set<NivelAcesso>(), "NivelAcessoId", "NivelAcessoId", funcionario.NivelAcessoId);
+            ViewData["NivelAcessoId"] = new SelectList(_context.Set<NivelAcesso>(), "NivelAcessoId", "NivelAcesso", funcionario.NivelAcessoId);
             return View(funcionario);
         }
 
