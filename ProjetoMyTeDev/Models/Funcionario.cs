@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ProjetoMyTeDev.Models
 {
@@ -9,18 +8,21 @@ namespace ProjetoMyTeDev.Models
 
         [Display(Name = "Nome Funcionário")]
         [Required]
-        public string? FuncionarioNome { get; set; }
-        [EmailAddress(ErrorMessage = "O campo E-mail não é um endereço válido.")]
-        [Display(Name = "E-mail")]
+        public string FuncionarioNome { get; set; }
+
+        [EmailAddress(ErrorMessage = "O campo Email não é um endereço válido.")]
+        [Display(Name = "Email")]
         [Required]
         public string Email { get; set; }
+
         [Required]
         public string Senha { get; set; }
 
         [Display(Name = "Departamento")]
         [Required]
         public int DepartamentoId { get; set; }
-        public Departamento Departamento { get; set; }
+        public Departamento? Departamento { get; set; }
+
         [Display(Name = "Nível de Acesso")]
         [Required]
         public int NivelAcessoId { get; set; }
@@ -35,6 +37,7 @@ namespace ProjetoMyTeDev.Models
         public Cargo Cargo { get; set; }
 
         [Display(Name = "Cargo")]
+        [Required]
         public int CargoId { get; set; }
         
 
