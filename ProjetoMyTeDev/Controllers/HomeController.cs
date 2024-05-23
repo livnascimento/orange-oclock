@@ -42,5 +42,10 @@ namespace ProjetoMyTeDev.Controllers
 
             return View();
         }
+
+        public IActionResult ContateNos()
+        {
+            return View();
+        }
     }
 }
