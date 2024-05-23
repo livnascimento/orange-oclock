@@ -57,7 +57,7 @@
                     @Html.DisplayFor(modelItem => item.Departamento.DepartamentoNome)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.NivelAcesso.NivelAcessoId)
+                    @Html.DisplayFor(modelItem => item.NivelAcesso.NivelAcessoNome)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.DataContratacao)
@@ -66,7 +66,7 @@
                     @Html.DisplayFor(modelItem => item.Localidade)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Cargo.CargoId)
+                    @Html.DisplayFor(modelItem => item.Cargo.CargoNome)
                 </td>
                 <td>
                     <a asp-action="Edit" class="btn btn-secondary my-4" asp-route-id="@item.FuncionarioId"><i class="bi bi-brush"></i> Editar</a>
