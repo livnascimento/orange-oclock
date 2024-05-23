@@ -58,7 +58,7 @@ namespace ProjetoMyTeDev.Controllers
         // GET: Funcionarios/Create
         public IActionResult Create()
         {
-            Console.WriteLine("Texto teste");
+            
             ViewData["CargoId"] = new SelectList(_context.Cargo, "CargoId", "CargoNome");
             ViewData["DepartamentoId"] = new SelectList(_context.Departamento, "DepartamentoId", "DepartamentoNome");
             ViewData["NivelAcessoId"] = new SelectList(_context.NivelAcesso, "NivelAcessoId", "NivelAcessoNome");
@@ -74,7 +74,7 @@ namespace ProjetoMyTeDev.Controllers
         {
             if (ModelState.IsValid)
             {
-                Console.WriteLine("Texto teste");
+  
                 _context.Add(funcionario);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

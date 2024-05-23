@@ -6,7 +6,7 @@ namespace ProjetoMyTeDev.Models
     {
         public int FuncionarioId { get; set; }
 
-        [Display(Name = "Nome Funcionário")]
+        [Display(Name = "Funcionário")]
         [Required]
         public string FuncionarioNome { get; set; }
 
@@ -26,7 +26,8 @@ namespace ProjetoMyTeDev.Models
         [Display(Name = "Nível de Acesso")]
         [Required]
         public int NivelAcessoId { get; set; }
-        public NivelAcesso NivelAcesso { get; set; }
+        [Display(Name = "Acesso")]
+        public NivelAcesso? NivelAcesso { get; set; }
 
         [Display(Name = "Data de Contratação")]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
@@ -34,7 +35,7 @@ namespace ProjetoMyTeDev.Models
 
         public string? Localidade { get; set; }
 
-        public Cargo Cargo { get; set; }
+        public Cargo? Cargo { get; set; }
 
         [Display(Name = "Cargo")]
         [Required]
