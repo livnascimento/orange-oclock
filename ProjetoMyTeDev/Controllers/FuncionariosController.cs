@@ -25,7 +25,10 @@ namespace ProjetoMyTeDev.Controllers
         // GET: Funcionarios
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Funcionario.Include(f => f.Cargo).Include(f => f.Departamento).Include(f => f.NivelAcesso);
+            var applicationDbContext = _context.Funcionario
+                .Include(f => f.Cargo)
+                .Include(f => f.Departamento)              
+                .Include(f => f.NivelAcesso);
             
             return View(await applicationDbContext.ToListAsync());
         }
@@ -55,9 +58,9 @@ namespace ProjetoMyTeDev.Controllers
         // GET: Funcionarios/Create
         public IActionResult Create()
         {
-            ViewData["CargoId"] = new SelectList(_context.Set<Cargo>(), "CargoId", "CargoId");
+            ViewData["CargoId"] = new SelectList(_context.Cargo, "CargoId", "CargoNome");
             ViewData["DepartamentoId"] = new SelectList(_context.Departamento, "DepartamentoId", "DepartamentoNome");
-            ViewData["NivelAcessoId"] = new SelectList(_context.Set<NivelAcesso>(), "NivelAcessoId", "NivelAcessoId");
+            ViewData["NivelAcessoId"] = new SelectList(_context.NivelAcesso, "NivelAcessoId", "NivelAcessoNome");
             return View();
         }
 
@@ -74,9 +77,9 @@ namespace ProjetoMyTeDev.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CargoId"] = new SelectList(_context.Set<Cargo>(), "CargoId", "CargoId", funcionario.CargoId);
-            ViewData["DepartamentoId"] = new SelectList(_context.Departamento, "DepartamentoId", "DepartamentoId", funcionario.DepartamentoId);
-            ViewData["NivelAcessoId"] = new SelectList(_context.Set<NivelAcesso>(), "NivelAcessoId", "NivelAcessoId", funcionario.NivelAcessoId);
+            ViewData["CargoId"] = new SelectList(_context.Cargo, "CargoId", "CargoNome", funcionario.CargoId);
+            ViewData["DepartamentoId"] = new SelectList(_context.Departamento, "DepartamentoId", "DepartamentoNome", funcionario.DepartamentoId);
+            ViewData["NivelAcessoId"] = new SelectList(_context.NivelAcesso, "NivelAcessoId", "NivelAcessoNome", funcionario.NivelAcessoId);
             return View(funcionario);
         }
 
@@ -93,9 +96,9 @@ namespace ProjetoMyTeDev.Controllers
             {
                 return NotFound();
             }
-            ViewData["CargoId"] = new SelectList(_context.Set<Cargo>(), "CargoId", "CargoId", funcionario.CargoId);
+            ViewData["CargoId"] = new SelectList(_context.Cargo, "CargoId", "CargoNome", funcionario.CargoId);
             ViewData["DepartamentoId"] = new SelectList(_context.Departamento, "DepartamentoId", "DepartamentoNome", funcionario.DepartamentoId);
-            ViewData["NivelAcessoId"] = new SelectList(_context.Set<NivelAcesso>(), "NivelAcessoId", "NivelAcessoId", funcionario.NivelAcessoId);
+            ViewData["NivelAcessoId"] = new SelectList(_context.NivelAcesso, "NivelAcessoId", "NivelAcessoNome", funcionario.NivelAcessoId);
             return View(funcionario);
         }
 
@@ -131,9 +134,9 @@ namespace ProjetoMyTeDev.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CargoId"] = new SelectList(_context.Set<Cargo>(), "CargoId", "CargoId", funcionario.CargoId);
+            ViewData["CargoId"] = new SelectList(_context.Cargo, "CargoId", "CargoNome", funcionario.CargoId);
             ViewData["DepartamentoId"] = new SelectList(_context.Departamento, "DepartamentoId", "DepartamentoNome", funcionario.DepartamentoId);
-            ViewData["NivelAcessoId"] = new SelectList(_context.Set<NivelAcesso>(), "NivelAcessoId", "NivelAcessoId", funcionario.NivelAcessoId);
+            ViewData["NivelAcessoId"] = new SelectList(_context.NivelAcesso, "NivelAcessoId", "NivelAcessoNome", funcionario.NivelAcessoId);
             return View(funcionario);
         }
 
