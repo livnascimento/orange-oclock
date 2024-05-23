@@ -38,7 +38,7 @@
             @Html.DisplayNameFor(model => model.NivelAcesso)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NivelAcesso.NivelAcessoId)
+            @Html.DisplayFor(model => model.NivelAcesso.NivelAcessoNome)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.DataContratacao)
@@ -56,13 +56,13 @@
             @Html.DisplayNameFor(model => model.Cargo)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Cargo.CargoId)
+            @Html.DisplayFor(model => model.Cargo.CargoNome)
         </dd>
     </dl>
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="FuncionarioId" />
-        <input type="submit" value="Deletar" class="btn btn-secondary my-4" />
+        <input type="submit" value="Deletar" class="btn btn-danger" />
         <a asp-area="" asp-controller="Funcionarios" asp-action="Index" class="btn btn-secondary my-4">Voltar</a>
     </form>
 </div>
