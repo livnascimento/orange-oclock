@@ -4,7 +4,7 @@
     ViewData["Title"] = "Cadastrar Funcionário";
 }
 
-<h1>Cadastrar novo funcionário</h1>
+<h1>Cadastrar Novo Funcionário</h1>
 
 <hr />
 <div class="row">
@@ -29,10 +29,12 @@
             <div class="form-group">
                 <label asp-for="DepartamentoId" class="control-label"></label>
                 <select asp-for="DepartamentoId" class ="form-control" asp-items="ViewBag.DepartamentoId"></select>
+                <span asp-validation-for="DepartamentoId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="NivelAcessoId" class="control-label"></label>
                 <select asp-for="NivelAcessoId" class ="form-control" asp-items="ViewBag.NivelAcessoId"></select>
+                <span asp-validation-for="NivelAcessoId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="DataContratacao" class="control-label"></label>
@@ -47,14 +49,16 @@
                     <option value="Rio de Janeiro">Rio de Janeiro</option>
                     <option value="Nova Lima">Nova Lima</option>
                 </select>
+                <span asp-validation-for="Localidade" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="CargoId" class="control-label"></label>
                 <select asp-for="CargoId" class ="form-control" asp-items="ViewBag.CargoId"></select>
+                <span asp-validation-for="CargoId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Cadastrar" class="btn btn-secondary" />
-                <a asp-controller="Funcionarios" class="btn btn-secondary my-4" asp-action="Index">Voltar</a>
+                <input type="submit" value="Cadastrar" class="btn btn-secondary my-4" />
+                <a asp-area="" asp-controller="Funcionarios" asp-action="Index" class="btn btn-secondary my-4">Voltar</a>
             </div>
         </form>
     </div>
