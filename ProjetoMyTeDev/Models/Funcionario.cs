@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 
 namespace ProjetoMyTeDev.Models
 {
-    public class Funcionario
+    public class  Funcionario
     {
         public int FuncionarioId { get; set; }
 

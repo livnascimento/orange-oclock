@@ -1,11 +1,6 @@
-﻿@model IEnumerable<ProjetoMyTeDev.Models.RegistroDiario>
-@{
+﻿@{
     ViewData["Title"] = "Dashboard";
 }
-@{
-    RegistroDiario registrosDiario = ViewBag.RegistrosDiarios; 
-}
-
 <style>
     #icone {
         display: flex;
@@ -41,7 +36,7 @@
     <div class="col-md-3">
         <div class="card border-0">
             <div class="card-body">
-                <h4 class="card-title fw-bold">40</h4>
+                <h4 class="card-title fw-bold">@ViewBag.Funcionario</h4>
                 <p class="card-subtitle mb-2">Funcionários cadastrados</p>
             </div>
         </div>
@@ -49,7 +44,7 @@
     <div class="col-md-3">
         <div class="card border-0">
             <div class="card-body">
-                <h4 class="card-title fw-bold">5</h4>
+                <h4 class="card-title fw-bold">@ViewBag.Departamento</h4>
                 <p class="card-subtitle mb-2">Departamentos cadastrados</p>
             </div>
         </div>
@@ -57,21 +52,9 @@
     <div class="col-md-3">
         <div class="card border-0">
             <div class="card-body">
-                <h4 class="card-title fw-bold">37</h4>
+                <h4 class="card-title fw-bold">@ViewBag.RegistroDiario</h4>
                 <p class="card-subtitle mb-2">Registros lançados</p>
             </div>
         </div>
     </div>
 </div>
-<h5 class="my-5 fw-bold">10 últimos registros lançados</h5>
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>@Html.DisplayNameFor(model => model.Funcionario.FuncionarioNome)</th>
-            <th>@Html.DisplayNameFor(model => model.Wbs.WbsDescricao)</th>
-            <th>@Html.DisplayNameFor(model => model.Data)</th>
-            <th>@Html.DisplayNameFor(model => model.Horas)</th>
-        </tr>
-    </thead>
-</table>
