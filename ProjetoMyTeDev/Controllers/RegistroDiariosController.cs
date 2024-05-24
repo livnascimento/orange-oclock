@@ -22,7 +22,7 @@ namespace ProjetoMyTeDev.Controllers
         // GET: RegistroDiarios
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.RegistroDiario.Include(r => r.Funcionario).Include(r => r.Wbs);
+            var applicationDbContext = _context.RegistroDiario.Include(r => r.Wbs);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -35,7 +35,6 @@ namespace ProjetoMyTeDev.Controllers
             }
 
             var registroDiario = await _context.RegistroDiario
-                .Include(r => r.Funcionario)
                 .Include(r => r.Wbs)
                 .FirstOrDefaultAsync(m => m.RegistroDiarioId == id);
             if (registroDiario == null)
@@ -49,8 +48,7 @@ namespace ProjetoMyTeDev.Controllers
         // GET: RegistroDiarios/Create
         public IActionResult Create()
         {
-            ViewData["FuncionarioId"] = new SelectList(_context.Funcionario, "FuncionarioId", "Email");
-            ViewData["Wbs"] = new SelectList(_context.Set<Wbs>(), "WbsId", "WbsDescricao");
+            ViewData["WbsId"] = new SelectList(_context.Wbs, "WbsId", "WbsCodigo");
             return View();
         }
 
@@ -59,7 +57,7 @@ namespace ProjetoMyTeDev.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("RegistroDiarioId,FuncionarioId,WbsId,Data,Horas")] RegistroDiario registroDiario)
+        public async Task<IActionResult> Create([Bind("RegistroDiarioId,ApplicationUserId,WbsId,Data,Horas")] RegistroDiario registroDiario)
         {
             if (ModelState.IsValid)
             {
@@ -67,8 +65,7 @@ namespace ProjetoMyTeDev.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["FuncionarioId"] = new SelectList(_context.Funcionario, "FuncionarioId", "Email", registroDiario.FuncionarioId);
-            ViewData["WbsId"] = new SelectList(_context.Set<Wbs>(), "WbsId", "WbsId", registroDiario.WbsId);
+            ViewData["WbsId"] = new SelectList(_context.Wbs, "WbsId", "WbsCodigo", registroDiario.WbsId);
             return View(registroDiario);
         }
 
@@ -85,8 +82,7 @@ namespace ProjetoMyTeDev.Controllers
             {
                 return NotFound();
             }
-            ViewData["FuncionarioId"] = new SelectList(_context.Funcionario, "FuncionarioId", "Email", registroDiario.FuncionarioId);
-            ViewData["WbsId"] = new SelectList(_context.Set<Wbs>(), "WbsId", "WbsId", registroDiario.WbsId);
+            ViewData["WbsId"] = new SelectList(_context.Wbs, "WbsId", "WbsCodigo", registroDiario.WbsId);
             return View(registroDiario);
         }
 
@@ -95,7 +91,7 @@ namespace ProjetoMyTeDev.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("RegistroDiarioId,FuncionarioId,WbsId,Data,Horas")] RegistroDiario registroDiario)
+        public async Task<IActionResult> Edit(int id, [Bind("RegistroDiarioId,ApplicationUserId,WbsId,Data,Horas")] RegistroDiario registroDiario)
         {
             if (id != registroDiario.RegistroDiarioId)
             {
@@ -122,8 +118,7 @@ namespace ProjetoMyTeDev.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["FuncionarioId"] = new SelectList(_context.Funcionario, "FuncionarioId", "Email", registroDiario.FuncionarioId);
-            ViewData["WbsId"] = new SelectList(_context.Set<Wbs>(), "WbsId", "WbsId", registroDiario.WbsId);
+            ViewData["WbsId"] = new SelectList(_context.Wbs, "WbsId", "WbsCodigo", registroDiario.WbsId);
             return View(registroDiario);
         }
 
@@ -136,7 +131,6 @@ namespace ProjetoMyTeDev.Controllers
             }
 
             var registroDiario = await _context.RegistroDiario
-                .Include(r => r.Funcionario)
                 .Include(r => r.Wbs)
                 .FirstOrDefaultAsync(m => m.RegistroDiarioId == id);
             if (registroDiario == null)

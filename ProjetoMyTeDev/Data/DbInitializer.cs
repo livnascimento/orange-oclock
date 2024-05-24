@@ -1,7 +1,5 @@
 ﻿using ProjetoMyTeDev.Data;
 using Microsoft.AspNetCore.Identity;
-using ProjetoMyTeDev.Data;
-
 
 public class DbInitializer
 {

@@ -3,11 +3,11 @@
     public class RegistroDiario
     {
         public int RegistroDiarioId { get; set; }
-        public Funcionario Funcionario { get; set; }
-        public int FuncionarioId { get; set; }
-        public Wbs Wbs { get; set; }
+        public ApplicationUser? ApplicationUser { get; set; }
+        public int ApplicationUserId { get; set; }
+        public Wbs? Wbs { get; set; }
         public int WbsId {  get; set; }
-        public DateTime Data {  get; set; }
+        public DateOnly Data {  get; set; }
         public int Horas {  get; set; }
     }
 }

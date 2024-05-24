@@ -1,4 +1,8 @@
-﻿@model ProjetoMyTeDev.Models.RegistroDiario
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@model ProjetoMyTeDev.Models.RegistroDiario
 
 @{
 
@@ -23,6 +27,13 @@
 <div class="row my-4">
     <h2 class="col">Cadastre suas horas</h2>
     <div class="col text-end">@dataFormatada</div>
+</div>
+
+<div>
+    @if (SignInManager.IsSignedIn(User))
+    {
+        @Html.Raw(User.Identity.Name)
+    }
 </div>
 
 <div class="row mb-2">
