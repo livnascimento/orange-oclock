@@ -39,7 +39,7 @@ namespace ProjetoMyTeDev.Controllers
         [Authorize(Policy = "RequerPerfilAdmin")]
         public IActionResult SomenteAdmin()
         {
-            ViewBag.Funcionario = _context.Funcionario.Count();
+            ViewBag.Funcionario = _context.ApplicationUser.Count();
             ViewBag.Departamento = _context.Departamento.Count();
             ViewBag.RegistroDiario = _context.RegistroDiario.Count();
 

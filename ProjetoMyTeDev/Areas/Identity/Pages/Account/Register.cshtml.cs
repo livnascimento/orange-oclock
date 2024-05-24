@@ -18,6 +18,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using ProjetoMyTeDev.Models;
 
 namespace ProjetoMyTeDev.Areas.Identity.Pages.Account
 {
@@ -36,6 +37,7 @@ namespace ProjetoMyTeDev.Areas.Identity.Pages.Account
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender)
+
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -78,6 +80,27 @@ namespace ProjetoMyTeDev.Areas.Identity.Pages.Account
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
+
+            [Required]
+            [Display(Name = "Nome do Funcionário")]
+            public string Nome { get; set; }
+
+            [Display(Name = "Departamento")]
+            [Required]
+            public int DepartamentoId { get; set; }
+            public Departamento? Departamento { get; set; }
+
+            [Display(Name = "Data de Contratação")]
+            [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
+            public DateOnly? DataContratacao { get; set; }
+            
+            [Required]
+            public string? Localidade { get; set; }
+
+            [Display(Name = "Cargo")]
+            [Required]
+            public int CargoId { get; set; }
+            public Cargo? Cargo { get; set; }
 
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
