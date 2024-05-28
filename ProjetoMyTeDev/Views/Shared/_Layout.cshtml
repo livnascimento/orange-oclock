@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
-    <header>
+    <header class="bg-light">
         <nav class="navbar navbar-expand-sm navbar-toggleable-md border-bottom box-shadow mb-3">
             <div class="container">
                  <a class="navbar-brand m-0" asp-area="" asp-controller="Home" asp-action="Index">
@@ -25,34 +25,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <div class="dropdown">
-                                <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Área do Administrador
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item text-dark" asp-area="" asp-controller="Home" asp-action="SomenteAdmin">Dashboard</a></li>
-                                    <li><a class="dropdown-item text-dark" asp-area="" asp-controller="Departamentos" asp-action="Index">Gerenciar Departamento</a></li>
-                                    <li><a class="dropdown-item text-dark" asp-area="" asp-controller="Wbss" asp-action="Index">Gerenciar WBS</a></li>
-                                    <li><a class="dropdown-item text-dark" asp-area="" asp-controller="Cargos" asp-action="Index">Gerenciar Cargos</a></li>
-                                    <li><a class="dropdown-item text-dark" asp-area="" asp-controller="NivelAcessos" asp-action="Index">Nível de Acesso</a></li>
-                                    <li><a class="dropdown-item text-dark" asp-area="" asp-controller="Funcionarios" asp-action="Index">Gerenciar Funcionários</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <div class="dropdown">
-                                <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Funcionário
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item text-dark" asp-area="" asp-controller="RegistroDiarios" asp-action="Create">Registro de Horas</a></li>
-                                </ul>
-                            </div>
-                            @* <a class="nav-link text-black" asp-area="" asp-controller="Funcionarios" asp-action="Index">Funcionário</a> *@
-                        </li>
-                    </ul>
+                    <partial name="_AdminPartial"/>
                     <partial name="_LoginPartial" />
                 </div>
             </div>
@@ -64,7 +37,7 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-center text-wrap">
+    <footer class="bg-light border-top footer text-center text-wrap">
         <div class="container">
            &copy; 2024 - Orange O'clock - Desenvolvido por: Déborah, Isabella, Giovanna, Lívia e Zandra
         </div>
