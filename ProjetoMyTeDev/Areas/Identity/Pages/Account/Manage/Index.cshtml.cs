@@ -9,59 +9,63 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using ProjetoMyTeDev.Models;
 
 namespace ProjetoMyTeDev.Areas.Identity.Pages.Account.Manage
 {
     public class IndexModel : PageModel
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
 
         public IndexModel(
-            UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager)
+            UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
         }
 
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
         [Display(Name = "Usuário")]
         public string Username { get; set; }
 
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
         [TempData]
         public string StatusMessage { get; set; }
 
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
         [BindProperty]
         public InputModel Input { get; set; }
 
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
         public class InputModel
         {
-            /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
-            /// </summary>
+            
             [Phone]
             [Display(Name = "Telefone")]
             public string PhoneNumber { get; set; }
+            [Display(Name = "Nome do Funcionário")]
+            [Required]
+            [DataType(DataType.Text)]
+            public string? Nome { get; set; }
+            [Display(Name = "Departamento")]
+            [Required]
+            public int DepartamentoId { get; set; }
+            public Departamento? Departamento { get; set; }
+
+            [DataType(DataType.Date)]
+            [Display(Name = "Data de Contratação")]
+            [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
+            public DateOnly? DataContratacao { get; set; }
+
+            [DataType(DataType.Text)]
+            public string? Localidade { get; set; }
+
+            public Cargo? Cargo { get; set; }
+
+            [Display(Name = "Cargo")]
+            [Required]
+            public int CargoId { get; set; }
         }
 
-        private async Task LoadAsync(IdentityUser user)
+        private async Task LoadAsync(ApplicationUser user)
         {
             var userName = await _userManager.GetUserNameAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
@@ -70,6 +74,15 @@ namespace ProjetoMyTeDev.Areas.Identity.Pages.Account.Manage
 
             Input = new InputModel
             {
+                Nome = user.Nome,
+                Departamento = user.Departamento,
+                DepartamentoId = user.DepartamentoId,
+                DataContratacao = user.DataContratacao,
+                Localidade = user.Localidade,
+                Cargo = user.Cargo,
+                CargoId = user.CargoId,
+                    
+
                 PhoneNumber = phoneNumber
             };
         }
@@ -110,7 +123,32 @@ namespace ProjetoMyTeDev.Areas.Identity.Pages.Account.Manage
                     return RedirectToPage();
                 }
             }
+            if (Input.Nome != user.Nome) 
+            {
+                Input.Nome = user.Nome;
+            }
 
+            if (Input.CargoId != user.CargoId)
+            {
+                Input.CargoId = user.CargoId;
+            }
+
+            if (Input.Localidade != user.Localidade) 
+            {
+                Input.Localidade = user.Localidade;
+            }
+
+            if (Input.DepartamentoId != user.DepartamentoId)
+            {
+                Input.DepartamentoId = user.DepartamentoId;
+            }
+
+            if (Input.DataContratacao != user.DataContratacao)
+            { 
+                Input.DataContratacao = user.DataContratacao;
+            }
+
+            await _userManager.UpdateAsync(user);
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";
             return RedirectToPage();
