@@ -3,9 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ProjetoMyTeDev.Models
 {
-    public class  ApplicationUser : IdentityUser
-    {
-        [Display(Name="Nome do Funcionário")]
+    public class ApplicationUser : IdentityUser
+    { 
+        [Display(Name = "Nome do Funcionário")]
         [Required]
         public string? Nome { get; set; }
         [Display(Name = "Departamento")]
