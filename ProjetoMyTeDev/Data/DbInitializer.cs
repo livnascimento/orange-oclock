@@ -1,5 +1,6 @@
 ﻿using ProjetoMyTeDev.Data;
 using Microsoft.AspNetCore.Identity;
+using ProjetoMyTeDev.Models;
 
 public class DbInitializer
 {
@@ -14,7 +15,7 @@ public class DbInitializer
             .GetRequiredService<RoleManager<IdentityRole>>();
 
         var userManager = serviceProvider
-            .GetRequiredService<UserManager<IdentityUser>>();
+            .GetRequiredService<UserManager<ApplicationUser>>();
 
         var config = serviceProvider
             .GetRequiredService<IConfiguration>();
@@ -33,7 +34,7 @@ public class DbInitializer
 
         if (admin == null)
         {
-            admin = new IdentityUser { UserName = adminEmail, Email = adminEmail, EmailConfirmed = true };
+            admin = new ApplicationUser { UserName = adminEmail, Email = adminEmail, EmailConfirmed = true };
             var result = await userManager.CreateAsync(admin, adminPassword);
 
             if (result.Succeeded)
