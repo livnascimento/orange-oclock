@@ -39,9 +39,14 @@ a, .nav-link {
     color: #f56e01;
 }
 
-    a:hover, .nav-link:hover {
-        color: #923e10;
-    }
+.shadow-alter {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    border: 1px solid transparent;
+}
+
+a:hover, .nav-link:hover {
+    color: #923e10;
+}
 
 .dropdown-item.active,
 .dropdown-item:active {

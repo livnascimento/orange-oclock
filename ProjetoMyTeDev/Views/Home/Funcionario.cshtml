@@ -1,0 +1,73 @@
+﻿@model IEnumerable<ProjetoMyTeDev.Models.ApplicationUser>
+
+@{
+    ViewData["Title"] = "Gerenciar Funcionário";
+}
+
+<h3>Funcionário</h3>
+
+<p>
+    <a asp-action="Create" class="btn btn-secondary my-4">Cadastrar Funcionário</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PasswordHash)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Departamento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataContratacao)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Localidade)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cargo)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PasswordHash)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Departamento)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataContratacao)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Localidade)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cargo)
+                </td>
+                <td>
+                    
+                    <a asp-action="Edit" class="btn btn-secondary my-4" asp-route-id="@item.Id"><i class="bi bi-brush"></i> Editar</a>
+                    <a asp-action="Details" class="btn btn-secondary my-4" asp-route-id="@item.Id"><i class="bi bi-eye"></i> Visualizar</a>
+                    <a asp-action="Delete" class="btn btn-secondary my-4" asp-route-id="@item.Id"><i class="bi bi-trash"></i> Deletar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

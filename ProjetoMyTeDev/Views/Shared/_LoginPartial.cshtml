@@ -1,24 +1,76 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
+@* @model ProjetoMyTeDev.Models.ApplicationUser
+ *@
+
+<style>
+    .icon-person {
+        font-size: 0.7rem;
+        padding-right: 0.7rem;
+        vertical-align: middle;
+    }
+    .dropdown-toggle-before::before {
+        display: inline-block;
+        margin-right: .255em;
+        vertical-align: .255em;
+        content: "";
+        border-top: .3em solid;
+        border-right: .3em solid transparent;
+        border-bottom: 0;
+        border-left: .3em solid transparent;
+    }
+
+    @* Tirando a borda do Perfil quando clica *@
+    .btn-borda {
+        border: none;
+    }
+
+    .email {
+        color: #898989;
+        font-size: 0.8rem;
+        margin-left: 0.1rem;
+    }
+
+    .item-menu {
+        left: -110% !important;
+        border-radius: 10px;
+        margin-top: -0.3rem !important;
+    }
+</style>
 
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
         <div class="dropdown border-0">
-            <a class="btn dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <a class="btn dropdown-toggle-before btn-borda" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <img src="https://th.bing.com/th/id/OIP.3KyM14_WA8SeZ6t6_8789AAAAA?w=266&h=266&rs=1&pid=ImgDetMain" width="40" class="rounded-circle"></img>
             </a>
 
-            <ul class="dropdown-menu">
+            <ul class="dropdown-menu item-menu shadow-alter">
+                <li class="m-3">
+                    <div class="text-start">
+                        @* Simulação sem pegar dados do banco *@
+                        <span class="fw-medium">Joana Café</span> <br />
+                        <span class="email">joanacafe@gmail.com</span>
+                    </div>
+                </li>
                 <li>
-                    <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Meu perfil</a>
+                    <hr class="mx-2" />
+                </li>
+                <li>
+                    <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
+                        <i class="fa-regular fa-user icon-person"></i>Meu perfil
+                    </a>
                 </li>
                 <li>
                     <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                        <button type="submit" class="dropdown-item"><i class="bi bi-box-arrow-left fs-5"></i>&ensp;Logout</button>
+                        <button type="submit" class="dropdown-item" style="padding-left: 0.95rem"><i class="fa-solid fa-power-off icon-person"></i>Sair</button>
                     </form>
                 </li>
+                @* <li>
+                    <a> </a>
+                </li> *@
             </ul>
         </div>
     }
