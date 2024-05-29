@@ -1,0 +1,88 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using ProjetoMyTeDev.Areas.Identity.Data
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@if (!SignInManager.IsSignedIn(User))
+{
+    <style>
+        body {
+            background-image: url("img/background.png");
+        }
+    </style>
+
+    <section class="row align-items-center">
+        <div class="col-md-4 text-start">
+            <h1 class="fw-bold my-5">Tempo é dinheiro, <strong>poupe-o</strong>.</h1>
+            <h6 class="fw-medium my-4">Com o Orange O'clock você agiliza a gestão de jornada dos seus funcionários a qualquer hora e em qualquer dispositivo.</h6>
+
+            <a type="button" class="col btn btn-secondary" asp-area="" asp-controller="Home" asp-action="ContateNos">Contate-nos</a>
+
+        </div>
+        <div class="col-md-8 text-center">
+            <img class="img-fluid" src="~/img/home.png" />
+        </div>
+
+    </section>
+
+}
+else
+{
+    <style>
+        #icone {
+            display: flex;
+            width: 48px;
+            height: 35px;
+        }
+
+        .btn {
+            border: 0;
+            width: 100%;
+        }
+    </style>
+    <div class="row my-4">
+        <div class="col-md-8">
+            <h2 class="fw-bold">Dashboard</h2>
+        </div>
+        <div class="col-md-4 text-end">
+            <p>@DateTime.Today.ToString("dddd", System.Globalization.CultureInfo.CreateSpecificCulture("pt-BR")), @DateTime.Today.ToString("dd/MM/yyyy")</p>
+        </div>
+    </div>
+
+    <h5 class="fw-bold mb-4">Ações Rápidas</h5>
+    <div class="row">
+        <div class="col-md-3">
+            <a type="button" class="btn btn-secondary d-flex align-items-center" asp-area="" asp-controller="RegistroDiarios" asp-action="Index"><i class="bi bi-clipboard-data-fill fs-2 mx-4"></i>Gerar relatório</a>
+        </div>
+        <div class="col-md-3">
+            <a type="button" class="btn btn-secondary d-flex align-items-center" asp-area="" asp-controller="Funcionarios" asp-action="Index"><i class="bi bi-person-lines-fill fs-2 mx-4"></i>Listar Funcionários</a>
+        </div>
+    </div>
+    <h5 class="my-5 fw-bold">Métricas da Quinzena</h5>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card border-0">
+                <div class="card-body">
+                    <h4 class="card-title fw-bold">@ViewBag.Funcionario</h4>
+                    <p class="card-subtitle mb-2">Funcionários cadastrados</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-0">
+                <div class="card-body">
+                    <h4 class="card-title fw-bold">@ViewBag.Departamento</h4>
+                    <p class="card-subtitle mb-2">Departamentos cadastrados</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-0">
+                <div class="card-body">
+                    <h4 class="card-title fw-bold">@ViewBag.RegistroDiario</h4>
+                    <p class="card-subtitle mb-2">Registros lançados</p>
+                </div>
+            </div>
+        </div>
+    </div>
+}

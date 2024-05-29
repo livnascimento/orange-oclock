@@ -1,25 +1,2 @@
-﻿@{
-    ViewData["Title"] = "Tela Inicial";
-}
-
-<style>
-    body {
-        background-image: url("img/background.png");
-    }
-
-</style>
-
-<section class="row align-items-center">
-    <div class="col-md-4 text-start">
-        <h1 class="fw-bold my-5">Tempo é dinheiro, <strong>poupe-o</strong>.</h1>
-        <h6 class="fw-medium my-4">Com o Orange O'clock você agiliza a gestão de jornada dos seus funcionários a qualquer hora e em qualquer dispositivo.</h6>
-
-        <a type="button" class="col btn btn-secondary" asp-area="" asp-controller="Home" asp-action="ContateNos">Contate-nos</a>
-
-    </div>
-    <div class="col-md-8 text-center">
-        <img class="img-fluid" src="~/img/home.png" />
-    </div>
-    <h2 class="text-center fw-bolder my-5">Depoimentos</h2>
-    
-</section>
+﻿@page
+<partial name="_IndexPartial" />

@@ -1,4 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Identity
+@using ProjetoMyTeDev.Areas.Identity.Data
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
@@ -21,6 +22,7 @@
         QuinzenaAtual.Add(new DateOnly(data.Year, data.Month, dia));
     }
 
+    var usuario = @UserManager.GetUserAsync(User).Result;
 }
 
 
@@ -29,10 +31,10 @@
     <div class="col text-end">@dataFormatada</div>
 </div>
 
-<div>
+<div id="funcionario-id" style="display: none;">
     @if (SignInManager.IsSignedIn(User))
     {
-        @Html.Raw(User.Identity.Name)
+        @Html.Raw(usuario.Id)
     }
 </div>
 

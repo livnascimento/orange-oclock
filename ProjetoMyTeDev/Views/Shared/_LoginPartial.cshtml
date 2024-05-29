@@ -1,8 +1,13 @@
-﻿@using Microsoft.AspNetCore.Identity
+﻿@using Microsoft.AspNetCore.Http;
+@using Microsoft.AspNetCore.Identity
+@using ProjetoMyTeDev.Areas.Identity.Data
+
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
-@* @model ProjetoMyTeDev.Models.ApplicationUser
- *@
+
+@{
+    var usuario = @UserManager.GetUserAsync(User).Result;
+}
 
 <style>
     .icon-person {
@@ -50,9 +55,8 @@
             <ul class="dropdown-menu item-menu shadow-alter">
                 <li class="m-3">
                     <div class="text-start">
-                        @* Simulação sem pegar dados do banco *@
-                        <span class="fw-medium">Joana Café</span> <br />
-                        <span class="email">joanacafe@gmail.com</span>
+                        <span class="fw-medium">@usuario.Nome</span><br />
+                        <span class="email">@usuario.Email</span>
                     </div>
                 </li>
                 <li>
