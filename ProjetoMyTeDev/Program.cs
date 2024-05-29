@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProjetoMyTeDev.Data;
-using ProjetoMyTeDev.Models;
+using ProjetoMyTeDev.Areas.Identity.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,9 +13,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
-        .AddEntityFrameworkStores<ApplicationDbContext>()
-        .AddDefaultUI()
-        .AddDefaultTokenProviders(); 
+        .AddEntityFrameworkStores<ApplicationDbContext>(); 
 
 builder.Services.AddControllersWithViews();
 
@@ -30,6 +28,8 @@ builder.Services.Configure<IdentityOptions>(options =>
        options.User.RequireUniqueEmail = true;
 
 });
+
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 
@@ -50,6 +50,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
