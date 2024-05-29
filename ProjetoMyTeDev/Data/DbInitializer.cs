@@ -29,13 +29,12 @@ public class DbInitializer
 
         var adminEmail = config["AdminCredentials:Email"];
         var adminPassword = config["AdminCredentials:Password"];
-        var Nome = config["AdminCredentials:Nome"];
 
         var admin = await userManager.FindByEmailAsync(adminEmail);
 
         if (admin == null)
         {
-            admin = new ApplicationUser { UserName = adminEmail, Email = adminEmail, EmailConfirmed = true, Nome = Nome,  };
+            admin = new ApplicationUser { UserName = adminEmail, Email = adminEmail, EmailConfirmed = true  };
             var result = await userManager.CreateAsync(admin, adminPassword);
 
             if (result.Succeeded)

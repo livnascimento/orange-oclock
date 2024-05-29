@@ -8,7 +8,7 @@ using ProjetoMyTeDev.Data;
 
 #nullable disable
 
-namespace ProjetoMyTeDev.Data.Migrations
+namespace ProjetoMyTeDev.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -241,7 +241,7 @@ namespace ProjetoMyTeDev.Data.Migrations
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.ToTable("Usuarios", (string)null);
+                    b.ToTable("AspNetUsers", (string)null);
                 });
 
             modelBuilder.Entity("ProjetoMyTeDev.Models.Cargo", b =>
@@ -305,10 +305,8 @@ namespace ProjetoMyTeDev.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RegistroDiarioId"));
 
-                    b.Property<int>("ApplicationUserId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ApplicationUserId1")
+                    b.Property<string>("ApplicationUserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateOnly>("Data")
@@ -322,7 +320,7 @@ namespace ProjetoMyTeDev.Data.Migrations
 
                     b.HasKey("RegistroDiarioId");
 
-                    b.HasIndex("ApplicationUserId1");
+                    b.HasIndex("ApplicationUserId");
 
                     b.HasIndex("WbsId");
 
@@ -429,7 +427,9 @@ namespace ProjetoMyTeDev.Data.Migrations
                 {
                     b.HasOne("ProjetoMyTeDev.Areas.Identity.Data.ApplicationUser", "ApplicationUser")
                         .WithMany()
-                        .HasForeignKey("ApplicationUserId1");
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("ProjetoMyTeDev.Models.Wbs", "Wbs")
                         .WithMany()

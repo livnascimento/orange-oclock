@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ProjetoMyTeDev.Data;
 using ProjetoMyTeDev.Models;
+using ProjetoMyTeDev.Areas.Identity.Data;
 
 namespace ProjetoMyTeDev.Controllers
 {

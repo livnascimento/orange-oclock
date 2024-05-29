@@ -5,7 +5,7 @@
 namespace ProjetoMyTeDev.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class AdicionandoNomeAoApplicationUser : Migration
+    public partial class CorrecaoFuncionarioId : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

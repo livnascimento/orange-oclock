@@ -9,11 +9,11 @@ using ProjetoMyTeDev.Data;
 
 #nullable disable
 
-namespace ProjetoMyTeDev.Data.Migrations
+namespace ProjetoMyTeDev.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240528170020_ApplicationUser")]
-    partial class ApplicationUser
+    [Migration("20240529130005_ResetMigrations")]
+    partial class ResetMigrations
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -162,7 +162,7 @@ namespace ProjetoMyTeDev.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("ProjetoMyTeDev.Models.ApplicationUser", b =>
+            modelBuilder.Entity("ProjetoMyTeDev.Areas.Identity.Data.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -244,7 +244,7 @@ namespace ProjetoMyTeDev.Data.Migrations
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.ToTable("Usuarios", (string)null);
+                    b.ToTable("AspNetUsers", (string)null);
                 });
 
             modelBuilder.Entity("ProjetoMyTeDev.Models.Cargo", b =>
@@ -308,10 +308,8 @@ namespace ProjetoMyTeDev.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RegistroDiarioId"));
 
-                    b.Property<int>("ApplicationUserId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ApplicationUserId1")
+                    b.Property<string>("ApplicationUserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateOnly>("Data")
@@ -325,7 +323,7 @@ namespace ProjetoMyTeDev.Data.Migrations
 
                     b.HasKey("RegistroDiarioId");
 
-                    b.HasIndex("ApplicationUserId1");
+                    b.HasIndex("ApplicationUserId");
 
                     b.HasIndex("WbsId");
 
@@ -369,8 +367,8 @@ namespace ProjetoMyTeDev.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("ProjetoMyTeDev.Models.ApplicationUser", null)
-                        .WithMany("Claims")
+                    b.HasOne("ProjetoMyTeDev.Areas.Identity.Data.ApplicationUser", null)
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -378,8 +376,8 @@ namespace ProjetoMyTeDev.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("ProjetoMyTeDev.Models.ApplicationUser", null)
-                        .WithMany("Logins")
+                    b.HasOne("ProjetoMyTeDev.Areas.Identity.Data.ApplicationUser", null)
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -393,8 +391,8 @@ namespace ProjetoMyTeDev.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ProjetoMyTeDev.Models.ApplicationUser", null)
-                        .WithMany("UserRoles")
+                    b.HasOne("ProjetoMyTeDev.Areas.Identity.Data.ApplicationUser", null)
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -402,14 +400,14 @@ namespace ProjetoMyTeDev.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("ProjetoMyTeDev.Models.ApplicationUser", null)
-                        .WithMany("Tokens")
+                    b.HasOne("ProjetoMyTeDev.Areas.Identity.Data.ApplicationUser", null)
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ProjetoMyTeDev.Models.ApplicationUser", b =>
+            modelBuilder.Entity("ProjetoMyTeDev.Areas.Identity.Data.ApplicationUser", b =>
                 {
                     b.HasOne("ProjetoMyTeDev.Models.Cargo", "Cargo")
                         .WithMany()
@@ -430,9 +428,11 @@ namespace ProjetoMyTeDev.Data.Migrations
 
             modelBuilder.Entity("ProjetoMyTeDev.Models.RegistroDiario", b =>
                 {
-                    b.HasOne("ProjetoMyTeDev.Models.ApplicationUser", "ApplicationUser")
+                    b.HasOne("ProjetoMyTeDev.Areas.Identity.Data.ApplicationUser", "ApplicationUser")
                         .WithMany()
-                        .HasForeignKey("ApplicationUserId1");
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("ProjetoMyTeDev.Models.Wbs", "Wbs")
                         .WithMany()
@@ -443,17 +443,6 @@ namespace ProjetoMyTeDev.Data.Migrations
                     b.Navigation("ApplicationUser");
 
                     b.Navigation("Wbs");
-                });
-
-            modelBuilder.Entity("ProjetoMyTeDev.Models.ApplicationUser", b =>
-                {
-                    b.Navigation("Claims");
-
-                    b.Navigation("Logins");
-
-                    b.Navigation("Tokens");
-
-                    b.Navigation("UserRoles");
                 });
 #pragma warning restore 612, 618
         }

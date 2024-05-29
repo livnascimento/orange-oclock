@@ -22,12 +22,6 @@ namespace ProjetoMyTeDev.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
-            modelBuilder.Entity<ApplicationUser>(b =>
-            {
-                b.ToTable("Usuarios");
-            });
-
         }
     }
 }
