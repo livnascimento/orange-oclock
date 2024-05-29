@@ -31,13 +31,17 @@ body {
     border: 0;
 }
 
-.btn-secondary:hover {
-    background-color: #d15917;
-}
+    .btn-secondary:hover {
+        background-color: #d15917;
+    }
 
 a, .nav-link {
     color: #f56e01;
 }
+
+    .nav-link.active, .nav-pills .show > .nav-link {
+        background-color: #f56e01 !important;
+    }
 
 .shadow-alter {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
