@@ -9,15 +9,13 @@
 <h3>Registro de Horas</h3>
 
 <p>
-    <class asp-action="Create" class="btn btn-secondary my-4"><i class="bi bi-calendar-plus"></i> Lançamento de Horas</a>
+    <a asp-controller="RegistroDiarios" asp-action="Create" class="btn btn-secondary my-4"><i class="bi bi-calendar-plus"></i> Lançamento de Horas</a>
+    <a asp-controller="Home" asp-action="SomenteAdmin" class="btn btn-outline-secondary my-4">Voltar</a>
 </p>
 <div class="table-responsive">
     <table class="table">
         <thead>
             <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Funcionario)
-                </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Wbs)
                 </th>
@@ -34,9 +32,6 @@
             @foreach (var item in Model)
             {
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Funcionario.Email)
-                    </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Wbs.WbsId)
                     </td>

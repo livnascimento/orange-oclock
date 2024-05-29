@@ -5,9 +5,19 @@
     ViewData["Title"] = "Login";
 }
 
-<div class="row">
-    <img class="col-md-6 m-0 p-0 object-fit-cover" src="https://th.bing.com/th/id/OIG1.Jpwkc0uMlXWy3UJ2dQ1w?pid=ImgGn"/>
-    <div class="col-md-6">
+<style>
+    header, footer {
+        display: none;
+    }
+
+    body {
+        background-image: url("../../../../img/background.png");
+    }
+</style>
+
+<div class="row d-flex justify-content-center">
+    <div class="col-md-6 d-none d-lg-flex"></div>
+    <div class="col-md-6 bg-white h-100">
         <section class="mx-5 mt-auto">
             <form id="account" method="post">
                 <h2 class="my-5">Faça seu login</h2>
@@ -19,7 +29,7 @@
                 </div>
                 <div class="form-floating mb-3">
                     <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="password" />
-                    <label asp-for="Input.Password" class="form-label">Password</label>
+                    <label asp-for="Input.Password" class="form-label">Senha</label>
                     <span asp-validation-for="Input.Password" class="text-danger"></span>
                 </div>
                 <div class="checkbox mb-3">
@@ -29,7 +39,7 @@
                     </label>
                 </div>
                 <div class="my-4">
-                    <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-secondary border-0">Log in</button>
+                    <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-secondary border-0">Entrar</button>
                 </div>
                 <div class="text-center">
                     <p>
@@ -39,7 +49,7 @@
                         <a class="text-decoration-none" id="resend-confirmation" asp-page="./ResendEmailConfirmation">Reenviar confirmação de email</a>
                     </p>
                     <p>
-                        <a class="text-decoration-none" id="forgot-password" asp-page="./ForgotPassword">Esqueceu a sua senha? Clique aqui.</a>
+                        <a class="text-decoration-none" id="forgot-password" asp-page="./ForgotPassword">Esqueceu a sua senha? Clique aqui</a>
                     </p>
                 </div>
             </form>

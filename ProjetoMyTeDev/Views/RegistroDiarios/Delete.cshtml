@@ -11,12 +11,6 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Funcionario)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Funcionario.Email)
-        </dd>
-        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Wbs)
         </dt>
         <dd class = "col-sm-10">
@@ -38,7 +32,7 @@
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="RegistroDiarioId" />
-        <input type="submit" value="Deletar" class="btn btn-secondary my-4" />
+        <input type="submit" value="Deletar" class="btn btn-danger" />
         <a asp-area="" asp-controller="RegistroDiarios" asp-action="Index" class="btn btn-secondary my-4">Voltar</a>
     </form>
 </div>

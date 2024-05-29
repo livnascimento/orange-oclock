@@ -1,4 +1,9 @@
-﻿@model ProjetoMyTeDev.Models.RegistroDiario
+﻿@using Microsoft.AspNetCore.Identity
+@using ProjetoMyTeDev.Areas.Identity.Data
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@model ProjetoMyTeDev.Models.RegistroDiario
 
 @{
 
@@ -17,12 +22,20 @@
         QuinzenaAtual.Add(new DateOnly(data.Year, data.Month, dia));
     }
 
+    var usuario = @UserManager.GetUserAsync(User).Result;
 }
 
 
 <div class="row my-4">
     <h2 class="col">Cadastre suas horas</h2>
     <div class="col text-end">@dataFormatada</div>
+</div>
+
+<div id="funcionario-id" style="display: none;">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        @Html.Raw(usuario.Id)
+    }
 </div>
 
 <div class="row mb-2">

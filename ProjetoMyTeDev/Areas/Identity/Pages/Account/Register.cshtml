@@ -1,5 +1,5 @@
 ﻿@page
-@model RegisterModel
+@model ProjetoMyTeDev.Areas.Identity.Pages.Account.RegisterModel
 @{
     ViewData["Title"] = "Cadastro";
 }
@@ -18,19 +18,72 @@
                     <span asp-validation-for="Input.Email" class="text-danger"></span>
                 </div>
                 <div class="form-floating mb-3">
-                    <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
-                    <label asp-for="Input.Password">Senha</label>
-                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                    <input asp-for="Input.Nome" class="form-control" aria-required="true" placeholder="" />
+                    <label asp-for="Input.Nome">Nome do Funcionário</label>
+                    <span asp-validation-for="Input.Nome" class="text-danger"></span>
                 </div>
-                <div class="form-floating mb-3">
-                    <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
-                    <label asp-for="Input.ConfirmPassword">Confirme sua senha</label>
-                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-floating mb-3">
+                            <select class="form-select" asp-for="Input.DepartamentoId" asp-items="Model.Departamentos">
+                                <option selected>Selecione o Departamento</option>
+                            </select>
+                            <label asp-for="Input.DepartamentoId">Departamento</label>
+                            <span asp-validation-for="Input.DepartamentoId" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-floating mb-3">
+                            <input asp-for="Input.DataContratacao" class="form-control" type="date" aria-required="true" placeholder="" />
+                            <label asp-for="Input.DataContratacao">Data de Contratação</label>
+                            <span asp-validation-for="Input.DataContratacao" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-floating mb-3">
+                            <select asp-for="Input.Localidade" class="form-control" aria-required="true">
+                                <option selected>Selecione a localidade</option>
+                                <option value="SP">São Paulo, SP</option>
+                                <option value="PE">Recife, PE</option>
+                                <option value="RJ">Rio de Janeiro, RJ</option>
+                                <option value="MG">Nova Lima, MG</option>
+                            </select>
+                            <label asp-for="Input.Localidade">Localidade</label>
+                            <span asp-validation-for="Input.Localidade" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-floating mb-3">
+                            <select asp-for="Input.CargoId" class="form-select" asp-items="Model.Cargos">
+                                <option selected>Selecione o cargo</option>
+                            </select>
+                            <label asp-for="Input.CargoId">Cargo</label>
+                            <span asp-validation-for="Input.CargoId" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-floating mb-3">
+                            <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+                            <label asp-for="Input.Password">Senha</label>
+                            <span asp-validation-for="Input.Password" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-floating mb-3">
+                            <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+                            <label asp-for="Input.ConfirmPassword">Confirme sua senha</label>
+                            <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                        </div>
+                    </div>
                 </div>
                 <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-secondary my-4">Cadastre-se</button>
                 <div class="text-center">
                     <p>
-                        <a class="text-decoration-none" asp-area="Identity" asp-page="/Account/Login">Já tem uma conta? Faça login</a>
+                        <a class="text-decoration-none" asp-area="Identity" asp-page="/Account/Login">Já tem uma conta? Faça seu login</a>
                     </p>
                 </div>
             </form>

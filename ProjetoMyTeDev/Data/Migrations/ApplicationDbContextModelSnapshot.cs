@@ -74,71 +74,6 @@ namespace ProjetoMyTeDev.Data.Migrations
                     b.ToTable("AspNetRoleClaims", (string)null);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedEmail")
-                        .HasDatabaseName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasDatabaseName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.ToTable("AspNetUsers", (string)null);
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
                     b.Property<int>("Id")
@@ -224,6 +159,91 @@ namespace ProjetoMyTeDev.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("ProjetoMyTeDev.Areas.Identity.Data.ApplicationUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CargoId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateOnly?>("DataContratacao")
+                        .HasColumnType("date");
+
+                    b.Property<int>("DepartamentoId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Localidade")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CargoId");
+
+                    b.HasIndex("DepartamentoId");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("Usuarios", (string)null);
+                });
+
             modelBuilder.Entity("ProjetoMyTeDev.Models.Cargo", b =>
                 {
                     b.Property<int>("CargoId")
@@ -241,7 +261,7 @@ namespace ProjetoMyTeDev.Data.Migrations
 
                     b.HasKey("CargoId");
 
-                    b.ToTable("Cargo", (string)null);
+                    b.ToTable("Cargo");
                 });
 
             modelBuilder.Entity("ProjetoMyTeDev.Models.Departamento", b =>
@@ -258,53 +278,7 @@ namespace ProjetoMyTeDev.Data.Migrations
 
                     b.HasKey("DepartamentoId");
 
-                    b.ToTable("Departamento", (string)null);
-                });
-
-            modelBuilder.Entity("ProjetoMyTeDev.Models.Funcionario", b =>
-                {
-                    b.Property<int>("FuncionarioId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FuncionarioId"));
-
-                    b.Property<int>("CargoId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("DataContratacao")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("DepartamentoId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FuncionarioNome")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Localidade")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("NivelAcessoId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Senha")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("FuncionarioId");
-
-                    b.HasIndex("CargoId");
-
-                    b.HasIndex("DepartamentoId");
-
-                    b.HasIndex("NivelAcessoId");
-
-                    b.ToTable("Funcionario", (string)null);
+                    b.ToTable("Departamento");
                 });
 
             modelBuilder.Entity("ProjetoMyTeDev.Models.NivelAcesso", b =>
@@ -320,7 +294,7 @@ namespace ProjetoMyTeDev.Data.Migrations
 
                     b.HasKey("NivelAcessoId");
 
-                    b.ToTable("NivelAcesso", (string)null);
+                    b.ToTable("NivelAcesso");
                 });
 
             modelBuilder.Entity("ProjetoMyTeDev.Models.RegistroDiario", b =>
@@ -331,11 +305,14 @@ namespace ProjetoMyTeDev.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RegistroDiarioId"));
 
-                    b.Property<DateTime>("Data")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("FuncionarioId")
+                    b.Property<int>("ApplicationUserId")
                         .HasColumnType("int");
+
+                    b.Property<string>("ApplicationUserId1")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateOnly>("Data")
+                        .HasColumnType("date");
 
                     b.Property<int>("Horas")
                         .HasColumnType("int");
@@ -345,11 +322,11 @@ namespace ProjetoMyTeDev.Data.Migrations
 
                     b.HasKey("RegistroDiarioId");
 
-                    b.HasIndex("FuncionarioId");
+                    b.HasIndex("ApplicationUserId1");
 
                     b.HasIndex("WbsId");
 
-                    b.ToTable("RegistroDiario", (string)null);
+                    b.ToTable("RegistroDiario");
                 });
 
             modelBuilder.Entity("ProjetoMyTeDev.Models.Wbs", b =>
@@ -361,17 +338,21 @@ namespace ProjetoMyTeDev.Data.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("WbsId"));
 
                     b.Property<string>("WbsCodigo")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("WbsDescricao")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("WbsTipo")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("WbsId");
 
-                    b.ToTable("Wbs", (string)null);
+                    b.ToTable("Wbs");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -385,7 +366,7 @@ namespace ProjetoMyTeDev.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("ProjetoMyTeDev.Areas.Identity.Data.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -394,7 +375,7 @@ namespace ProjetoMyTeDev.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("ProjetoMyTeDev.Areas.Identity.Data.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -409,7 +390,7 @@ namespace ProjetoMyTeDev.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("ProjetoMyTeDev.Areas.Identity.Data.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -418,14 +399,14 @@ namespace ProjetoMyTeDev.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("ProjetoMyTeDev.Areas.Identity.Data.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ProjetoMyTeDev.Models.Funcionario", b =>
+            modelBuilder.Entity("ProjetoMyTeDev.Areas.Identity.Data.ApplicationUser", b =>
                 {
                     b.HasOne("ProjetoMyTeDev.Models.Cargo", "Cargo")
                         .WithMany()
@@ -439,26 +420,16 @@ namespace ProjetoMyTeDev.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ProjetoMyTeDev.Models.NivelAcesso", "NivelAcesso")
-                        .WithMany()
-                        .HasForeignKey("NivelAcessoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Cargo");
 
                     b.Navigation("Departamento");
-
-                    b.Navigation("NivelAcesso");
                 });
 
             modelBuilder.Entity("ProjetoMyTeDev.Models.RegistroDiario", b =>
                 {
-                    b.HasOne("ProjetoMyTeDev.Models.Funcionario", "Funcionario")
+                    b.HasOne("ProjetoMyTeDev.Areas.Identity.Data.ApplicationUser", "ApplicationUser")
                         .WithMany()
-                        .HasForeignKey("FuncionarioId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ApplicationUserId1");
 
                     b.HasOne("ProjetoMyTeDev.Models.Wbs", "Wbs")
                         .WithMany()
@@ -466,7 +437,7 @@ namespace ProjetoMyTeDev.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Funcionario");
+                    b.Navigation("ApplicationUser");
 
                     b.Navigation("Wbs");
                 });
