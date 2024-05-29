@@ -18,6 +18,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.WebUtilities;
 using ProjetoMyTeDev.Data;
+using ProjetoMyTeDev.Areas.Identity.Data;
 using ProjetoMyTeDev.Models;
 
 namespace ProjetoMyTeDev.Areas.Identity.Pages.Account
@@ -59,7 +60,6 @@ namespace ProjetoMyTeDev.Areas.Identity.Pages.Account
         public string ReturnUrl { get; set; }
         public SelectList Departamentos { get; set; }
         public SelectList Cargos { get; set; }
-
 
         public IList<AuthenticationScheme> ExternalLogins { get; set; }
 

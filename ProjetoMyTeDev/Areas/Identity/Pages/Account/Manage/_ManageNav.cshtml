@@ -1,4 +1,4 @@
-﻿@using ProjetoMyTeDev.Models;
+﻿@using ProjetoMyTeDev.Areas.Identity.Data
 @inject SignInManager<ApplicationUser> SignInManager
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();

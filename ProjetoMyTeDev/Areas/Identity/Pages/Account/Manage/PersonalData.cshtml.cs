@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using ProjetoMyTeDev.Models;
+using ProjetoMyTeDev.Areas.Identity.Data;
 
 namespace ProjetoMyTeDev.Areas.Identity.Pages.Account.Manage
 {
