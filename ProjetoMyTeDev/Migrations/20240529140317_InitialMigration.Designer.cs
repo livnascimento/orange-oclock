@@ -12,8 +12,8 @@ using ProjetoMyTeDev.Data;
 namespace ProjetoMyTeDev.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240529130005_ResetMigrations")]
-    partial class ResetMigrations
+    [Migration("20240529140317_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
