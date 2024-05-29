@@ -48,7 +48,7 @@ namespace ProjetoMyTeDev.Controllers
         // GET: RegistroDiarios/Create
         public IActionResult Create()
         {
-            ViewData["WbsId"] = new SelectList(_context.Wbs, "WbsId", "WbsCodigo");
+            ViewData["Wbs"] = new SelectList(_context.Wbs, "WbsId", "WbsCodigo");
             return View();
         }
 
@@ -57,7 +57,8 @@ namespace ProjetoMyTeDev.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("RegistroDiarioId,ApplicationUserId,WbsId,Data,Horas")] RegistroDiario registroDiario)
+        //public async Task<IActionResult> Create([Bind("RegistroDiarioId,ApplicationUserId,WbsId,Data,Horas")] RegistroDiario registroDiario)
+        public async Task<IActionResult> Create(RegistroDiario registroDiario)
         {
             if (ModelState.IsValid)
             {
@@ -65,7 +66,7 @@ namespace ProjetoMyTeDev.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["WbsId"] = new SelectList(_context.Wbs, "WbsId", "WbsCodigo", registroDiario.WbsId);
+            ViewData["Wbs"] = new SelectList(_context.Wbs, "WbsId", "WbsCodigo", registroDiario.WbsId);
             return View(registroDiario);
         }
 
