@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using ProjetoMyTeDev.Models;
+using ProjetoMyTeDev.Areas.Identity.Data;
 
 namespace ProjetoMyTeDev.Data
 {
@@ -12,7 +12,7 @@ namespace ProjetoMyTeDev.Data
             : base(options)
         {
         }
-        public DbSet<ProjetoMyTeDev.Models.ApplicationUser> ApplicationUser { get; set; } = default!;
+        public DbSet<ProjetoMyTeDev.Areas.Identity.Data.ApplicationUser> ApplicationUser { get; set; } = default!;
         public DbSet<ProjetoMyTeDev.Models.Departamento> Departamento { get; set; } = default!;
         public DbSet<ProjetoMyTeDev.Models.RegistroDiario> RegistroDiario { get; set; } = default!;
         public DbSet<ProjetoMyTeDev.Models.Wbs> Wbs { get; set; } = default!;

@@ -1,6 +1,6 @@
 ﻿using ProjetoMyTeDev.Data;
 using Microsoft.AspNetCore.Identity;
-using ProjetoMyTeDev.Models;
+using ProjetoMyTeDev.Areas.Identity.Data;
 
 public class DbInitializer
 {
@@ -29,12 +29,13 @@ public class DbInitializer
 
         var adminEmail = config["AdminCredentials:Email"];
         var adminPassword = config["AdminCredentials:Password"];
+        var Nome = config["AdminCredentials:Nome"];
 
         var admin = await userManager.FindByEmailAsync(adminEmail);
 
         if (admin == null)
         {
-            admin = new ApplicationUser { UserName = adminEmail, Email = adminEmail, EmailConfirmed = true };
+            admin = new ApplicationUser { UserName = adminEmail, Email = adminEmail, EmailConfirmed = true, Nome = Nome,  };
             var result = await userManager.CreateAsync(admin, adminPassword);
 
             if (result.Succeeded)
