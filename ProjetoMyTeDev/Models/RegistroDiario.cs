@@ -1,4 +1,6 @@
-﻿namespace ProjetoMyTeDev.Models
+﻿using ProjetoMyTeDev.Areas.Identity.Data;
+
+namespace ProjetoMyTeDev.Models
 {
     public class RegistroDiario
     {
