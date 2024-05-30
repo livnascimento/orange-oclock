@@ -28,61 +28,68 @@
 }
 else
 {
-    <style>
-        #icone {
-            display: flex;
-            width: 48px;
-            height: 35px;
-        }
+    if (User.IsInRole("admin"))
+    {
+        <style>
+            #icone {
+                display: flex;
+                width: 48px;
+                height: 35px;
+            }
 
-        .btn {
-            border: 0;
-            width: 100%;
-        }
-    </style>
-    <div class="row my-4">
-        <div class="col-md-8">
-            <h2 class="fw-bold">Dashboard</h2>
+            .btn {
+                border: 0;
+                width: 100%;
+            }
+        </style>
+        <div class="row my-4">
+            <div class="col-md-8">
+                <h2 class="fw-bold">Dashboard</h2>
+            </div>
+            <div class="col-md-4 text-end">
+                <p>@DateTime.Today.ToString("dddd", System.Globalization.CultureInfo.CreateSpecificCulture("pt-BR")), @DateTime.Today.ToString("dd/MM/yyyy")</p>
+            </div>
         </div>
-        <div class="col-md-4 text-end">
-            <p>@DateTime.Today.ToString("dddd", System.Globalization.CultureInfo.CreateSpecificCulture("pt-BR")), @DateTime.Today.ToString("dd/MM/yyyy")</p>
-        </div>
-    </div>
 
-    <h5 class="fw-bold mb-4">Ações Rápidas</h5>
-    <div class="row">
-        <div class="col-md-3">
-            <a type="button" class="btn btn-secondary d-flex align-items-center" asp-area="" asp-controller="RegistroDiarios" asp-action="Index"><i class="bi bi-clipboard-data-fill fs-2 mx-4"></i>Gerar relatório</a>
+        <h5 class="fw-bold mb-4">Ações Rápidas</h5>
+        <div class="row">
+            <div class="col-md-3">
+                <a type="button" class="btn btn-secondary d-flex align-items-center" asp-area="" asp-controller="RegistroDiarios" asp-action="Index"><i class="bi bi-clipboard-data-fill fs-2 mx-4"></i>Gerar relatório</a>
+            </div>
+            <div class="col-md-3">
+                <a type="button" class="btn btn-secondary d-flex align-items-center" asp-area="" asp-controller="Funcionarios" asp-action="Index"><i class="bi bi-person-lines-fill fs-2 mx-4"></i>Listar Funcionários</a>
+            </div>
         </div>
-        <div class="col-md-3">
-            <a type="button" class="btn btn-secondary d-flex align-items-center" asp-area="" asp-controller="Funcionarios" asp-action="Index"><i class="bi bi-person-lines-fill fs-2 mx-4"></i>Listar Funcionários</a>
-        </div>
-    </div>
-    <h5 class="my-5 fw-bold">Métricas da Quinzena</h5>
-    <div class="row">
-        <div class="col-md-3">
-            <div class="card border-0">
-                <div class="card-body">
-                    <h4 class="card-title fw-bold">@ViewBag.Funcionario</h4>
-                    <p class="card-subtitle mb-2">Funcionários cadastrados</p>
+        <h5 class="my-5 fw-bold">Métricas da Quinzena</h5>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card border-0">
+                    <div class="card-body">
+                        <h4 class="card-title fw-bold">@ViewBag.Funcionario</h4>
+                        <p class="card-subtitle mb-2">Funcionários cadastrados</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card border-0">
+                    <div class="card-body">
+                        <h4 class="card-title fw-bold">@ViewBag.Departamento</h4>
+                        <p class="card-subtitle mb-2">Departamentos cadastrados</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card border-0">
+                    <div class="card-body">
+                        <h4 class="card-title fw-bold">@ViewBag.RegistroDiario</h4>
+                        <p class="card-subtitle mb-2">Registros lançados</p>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="card border-0">
-                <div class="card-body">
-                    <h4 class="card-title fw-bold">@ViewBag.Departamento</h4>
-                    <p class="card-subtitle mb-2">Departamentos cadastrados</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card border-0">
-                <div class="card-body">
-                    <h4 class="card-title fw-bold">@ViewBag.RegistroDiario</h4>
-                    <p class="card-subtitle mb-2">Registros lançados</p>
-                </div>
-            </div>
-        </div>
-    </div>
+    }
+    else
+    {
+        <h1>Index do funcionário (user)</h1>
+    }
 }
