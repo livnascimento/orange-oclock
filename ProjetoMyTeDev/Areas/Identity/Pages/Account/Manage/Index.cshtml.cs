@@ -64,6 +64,7 @@ namespace ProjetoMyTeDev.Areas.Identity.Pages.Account.Manage
             [Display(Name = "Cargo")]
             [Required]
             public int CargoId { get; set; }
+            public bool Ativo { get; set; }
         }
 
         private async Task LoadAsync(ApplicationUser user)
@@ -82,7 +83,7 @@ namespace ProjetoMyTeDev.Areas.Identity.Pages.Account.Manage
                 Localidade = user.Localidade,
                 Cargo = user.Cargo,
                 CargoId = user.CargoId,
-                    
+                Ativo = user.Ativo,                    
 
                 PhoneNumber = phoneNumber
             };
@@ -147,6 +148,10 @@ namespace ProjetoMyTeDev.Areas.Identity.Pages.Account.Manage
             if (Input.DataContratacao != user.DataContratacao)
             { 
                 Input.DataContratacao = user.DataContratacao;
+            }
+            if (Input.Ativo != user.Ativo)
+            { 
+                Input.Ativo = user.Ativo;
             }
 
             await _userManager.UpdateAsync(user);

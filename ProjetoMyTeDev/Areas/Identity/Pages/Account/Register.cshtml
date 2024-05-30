@@ -79,6 +79,11 @@
                             <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
                         </div>
                     </div>
+                    <div class="form-check mb-3 ms-3">
+                        <label asp-for="Input.Ativo" class="form-check-label">Ativo</label>
+                        <input asp-for="Input.Ativo" type="checkbox" class="form-check-input custom-checkbox" disabled checked autocomplete="new-password" aria-required="true" />
+                        <span asp-validation-for="Input.Ativo" class="text-danger"></span>
+                    </div>
                 </div>
                 <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-secondary my-4">Cadastre-se</button>
                 <div class="text-center">

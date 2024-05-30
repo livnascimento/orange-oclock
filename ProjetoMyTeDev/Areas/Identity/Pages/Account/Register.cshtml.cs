@@ -110,6 +110,8 @@ namespace ProjetoMyTeDev.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+            public bool Ativo { get; set; }
         }
 
 
@@ -140,6 +142,7 @@ namespace ProjetoMyTeDev.Areas.Identity.Pages.Account
                 user.Localidade = Input.Localidade;
                 user.Cargo = Input.Cargo;
                 user.CargoId = Input.CargoId;
+                user.Ativo = Input.Ativo;   
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);

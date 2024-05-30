@@ -26,5 +26,7 @@ namespace ProjetoMyTeDev.Areas.Identity.Data
         [Display(Name = "Cargo")]
         [Required]
         public int CargoId { get; set; }
+
+        public bool Ativo {  get; set; }
     }
 }
