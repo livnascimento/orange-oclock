@@ -4,6 +4,7 @@ using ProjetoMyTeDev.Data;
 using ProjetoMyTeDev.Models;
 using System.Diagnostics;
 using Microsoft.EntityFrameworkCore;
+using ProjetoMyTeDev.Areas.Identity.Data;
 
 namespace ProjetoMyTeDev.Controllers
 {
@@ -37,13 +38,12 @@ namespace ProjetoMyTeDev.Controllers
         }
 
         [Authorize(Policy = "RequerPerfilAdmin")]
-        public IActionResult SomenteAdmin()
+        public async Task<IActionResult> Funcionario()
         {
-            ViewBag.Funcionario = _context.ApplicationUser.Count();
-            ViewBag.Departamento = _context.Departamento.Count();
-            ViewBag.RegistroDiario = _context.RegistroDiario.Count();
 
-            return View();
+            var funcionarios = await _context.ApplicationUser.Include(f => f.Departamento).Include(f => f.Cargo).ToListAsync();
+
+            return View(funcionarios);
         }
 
         public IActionResult ContateNos()

@@ -17,6 +17,13 @@
                     <label asp-for="Input.Email">E-mail</label>
                     <span asp-validation-for="Input.Email" class="text-danger"></span>
                 </div>
+                <div class="col">
+                    <div class="form-floating mb-3">
+                        <input asp-for="Input.PhoneNumber" class="form-control" aria-required="true" placeholder="(DDD) 9xxxx-xxxx" />
+                        <label asp-for="Input.PhoneNumber">Telefone</label>
+                        <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+                    </div>
+                </div>
                 <div class="form-floating mb-3">
                     <input asp-for="Input.Nome" class="form-control" aria-required="true" placeholder="" />
                     <label asp-for="Input.Nome">Nome do Funcionário</label>

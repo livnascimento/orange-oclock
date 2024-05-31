@@ -12,8 +12,8 @@ using ProjetoMyTeDev.Data;
 namespace ProjetoMyTeDev.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240531134151_AddTelefone")]
-    partial class AddTelefone
+    [Migration("20240531142308_Migration1")]
+    partial class Migration1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

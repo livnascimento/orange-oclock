@@ -57,6 +57,7 @@ namespace ProjetoMyTeDev.Areas.Identity.Pages.Account
         [BindProperty]
         public InputModel Input { get; set; }
 
+
         public string ReturnUrl { get; set; }
         public SelectList Departamentos { get; set; }
         public SelectList Cargos { get; set; }
@@ -71,7 +72,11 @@ namespace ProjetoMyTeDev.Areas.Identity.Pages.Account
             [Display(Name = "Email")]
             public string Email { get; set; }
 
+            [Required]
+            [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Formato de telefone não é válido.")]
             public string PhoneNumber { get; set; }
+
+
             [Display(Name = "Nome do Funcionário")]
             [Required]
             [DataType(DataType.Text)]
@@ -142,7 +147,8 @@ namespace ProjetoMyTeDev.Areas.Identity.Pages.Account
                 user.Localidade = Input.Localidade;
                 user.Cargo = Input.Cargo;
                 user.CargoId = Input.CargoId;
-                user.Ativo = Input.Ativo;   
+                user.Ativo = Input.Ativo;  
+                user.PhoneNumber = Input.PhoneNumber;
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
