@@ -8,7 +8,7 @@ using ProjetoMyTeDev.Data;
 
 #nullable disable
 
-namespace ProjetoMyTeDev.Data.Migrations
+namespace ProjetoMyTeDev.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot

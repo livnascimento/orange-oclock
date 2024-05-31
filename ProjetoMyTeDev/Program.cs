@@ -23,7 +23,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("RequerPerfilAdmin",
-        policy => policy.RequireRole("Administrator"));
+        policy => policy.RequireRole("admin"));
 });
 
 builder.Services.Configure<IdentityOptions>(options =>
