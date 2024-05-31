@@ -44,7 +44,7 @@
     }
 </style>
 
-<ul class="navbar-nav">
+<nav class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
         <div class="dropdown border-0">
@@ -55,8 +55,11 @@
             <ul class="dropdown-menu item-menu shadow-alter">
                 <li class="m-3">
                     <div class="text-start">
-                        <span class="fw-medium">@usuario.Nome</span><br />
-                        <span class="email">@usuario.Email</span>
+                        @if(usuario != null)
+                        {
+                            <span class="fw-medium">@usuario.Nome</span><br />
+                            <span class="email">@usuario.Email</span>
+                        }
                     </div>
                 </li>
                 <li>
@@ -72,9 +75,6 @@
                         <button type="submit" class="dropdown-item" style="padding-left: 0.95rem"><i class="fa-solid fa-power-off icon-person"></i>Sair</button>
                     </form>
                 </li>
-                @* <li>
-                    <a> </a>
-                </li> *@
             </ul>
         </div>
     }
@@ -84,4 +84,4 @@
             <a class="nav-link" asp-area="Identity" asp-page="/Account/Login">Login</a>
         </li>
     }
-</ul>
+</nav>

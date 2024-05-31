@@ -92,7 +92,7 @@ public class DbInitializer
 
         if (admin == null)
         {
-            admin = new ApplicationUser { UserName = adminEmail, Email = adminEmail, EmailConfirmed = true, Nome = Nome, CargoId = 2, DepartamentoId = 2, Localidade = "PE" };
+            admin = new ApplicationUser { UserName = adminEmail, Email = adminEmail, EmailConfirmed = true, Nome = Nome, CargoId = 2, DepartamentoId = 2, Localidade = "PE", PhoneNumber = "81999999999" };
             var result = await userManager.CreateAsync(admin, adminPassword);
 
             if (result.Succeeded)

@@ -31,6 +31,6 @@ namespace ProjetoMyTeDev.Areas.Identity.Data
 
         [Required]
         [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Formato de telefone não é válido.")]
-        public string? PhoneNumber { get; set; }
+        public override string? PhoneNumber { get; set; }
     }
 }
