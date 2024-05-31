@@ -9,11 +9,11 @@ using ProjetoMyTeDev.Data;
 
 #nullable disable
 
-namespace ProjetoMyTeDev.Data.Migrations
+namespace ProjetoMyTeDev.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240530225633_AdicionandoCargoEDepartamentoPadroes")]
-    partial class AdicionandoCargoEDepartamentoPadroes
+    [Migration("20240531122237_ProjAtualizado")]
+    partial class ProjAtualizado
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -165,6 +165,9 @@ namespace ProjetoMyTeDev.Data.Migrations
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
+
+                    b.Property<bool>("Ativo")
+                        .HasColumnType("bit");
 
                     b.Property<int>("CargoId")
                         .HasColumnType("int");

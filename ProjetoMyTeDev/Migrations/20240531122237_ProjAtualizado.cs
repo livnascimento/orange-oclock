@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace ProjetoMyTeDev.Data.Migrations
+namespace ProjetoMyTeDev.Migrations
 {
     /// <inheritdoc />
-    public partial class AdicionandoRoles : Migration
+    public partial class ProjAtualizado : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -50,19 +50,6 @@ namespace ProjetoMyTeDev.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Departamento", x => x.DepartamentoId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "NivelAcesso",
-                columns: table => new
-                {
-                    NivelAcessoId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    NivelAcessoNome = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_NivelAcesso", x => x.NivelAcessoId);
                 });
 
             migrationBuilder.CreateTable(
@@ -111,6 +98,7 @@ namespace ProjetoMyTeDev.Data.Migrations
                     DataContratacao = table.Column<DateOnly>(type: "date", nullable: true),
                     Localidade = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CargoId = table.Column<int>(type: "int", nullable: false),
+                    Ativo = table.Column<bool>(type: "bit", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -168,8 +156,8 @@ namespace ProjetoMyTeDev.Data.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    ProviderKey = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ProviderKey = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
@@ -213,8 +201,8 @@ namespace ProjetoMyTeDev.Data.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -332,9 +320,6 @@ namespace ProjetoMyTeDev.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
-
-            migrationBuilder.DropTable(
-                name: "NivelAcesso");
 
             migrationBuilder.DropTable(
                 name: "RegistroDiario");
