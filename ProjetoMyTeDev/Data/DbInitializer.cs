@@ -66,6 +66,12 @@ public class DbInitializer
                 context.Departamento.Add(departamento);
         }
 
+        foreach (var wbs in wbss)
+        {
+            if (!context.Wbs.Any(d => d.WbsCodigo == wbs.WbsCodigo))
+                context.Wbs.Add(wbs);
+        }
+
         await context.SaveChangesAsync();
 
         if (!await roleManager.RoleExistsAsync(adminRole))
