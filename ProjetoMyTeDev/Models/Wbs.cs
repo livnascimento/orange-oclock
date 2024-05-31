@@ -12,6 +12,7 @@ namespace ProjetoMyTeDev.Models
         [StringLength(10, MinimumLength = 4, ErrorMessage = "Máximo de 10, mínimo de 4 caracteres")]
         public string? WbsCodigo { get; set; }
 
+
         [Required]
         [Display(Name = "Tipo")]
         public string? WbsTipo { get; set; }

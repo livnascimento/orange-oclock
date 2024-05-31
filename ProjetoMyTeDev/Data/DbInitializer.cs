@@ -35,11 +35,20 @@ public class DbInitializer
         var departamentos = new List<Departamento>
         {
             new Departamento { DepartamentoNome = "RH"},
-            new Departamento { DepartamentoNome = "TI"},
+            new Departamento { DepartamentoNome = "Tecnologia"},
             new Departamento { DepartamentoNome = "Marketing"},
             new Departamento { DepartamentoNome = "Financeiro"},
             new Departamento { DepartamentoNome = "Vendas"},
             new Departamento { DepartamentoNome = "Administrativo"}
+        };
+
+        var wbss = new List<Wbs>
+        {
+            new Wbs { WbsCodigo = "WBS7182711", WbsTipo = "Non-Chargeability", WbsDescricao = "Férias"},
+            new Wbs { WbsCodigo = "WDO1025246", WbsTipo = "Chargeability", WbsDescricao = "Day-Off"},
+            new Wbs { WbsCodigo = "WST3520872", WbsTipo = "Non-Chargeability", WbsDescricao = "Sem tarefa"},
+            new Wbs { WbsCodigo = "WIP8918823", WbsTipo = "Chargeability", WbsDescricao = "Implementação"},
+            new Wbs { WbsCodigo = "WDE0283714", WbsTipo = "Chargeability", WbsDescricao = "Desenvolvimento"},
         };
 
         var adminRole = "admin";

@@ -28,5 +28,9 @@ namespace ProjetoMyTeDev.Areas.Identity.Data
         public int CargoId { get; set; }
 
         public bool Ativo {  get; set; }
+
+        [Required]
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Formato de telefone não é válido.")]
+        public string? PhoneNumber { get; set; }
     }
 }
