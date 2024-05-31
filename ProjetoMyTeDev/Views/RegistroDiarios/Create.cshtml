@@ -70,7 +70,7 @@
 
                 @if (dia.DayOfWeek.ToString() == "Saturday" || dia.DayOfWeek.ToString() == "Sunday")
                 {
-                    <th class="text-muted">@Html.Raw("PE")</th>
+                    <th class="text-muted" style="background-color: #E8E8E8;">@Html.Raw("PE")</th>
                 }
                 else
                 {
@@ -85,7 +85,7 @@
                 <span class="d-none">@dia</span>
                 @if (dia.DayOfWeek.ToString() == "Saturday" || dia.DayOfWeek.ToString() == "Sunday")
                 {
-                    <th scope="col" class="text-muted"><small class="fw-normal">@dia.DayOfWeek.ToString().Substring(0, 3)</small><br /><span>@dia.Day</span></th>
+                    <th scope="col" class="text-muted" style="background-color: #E8E8E8;"><small class="fw-normal">@dia.DayOfWeek.ToString().Substring(0, 3)</small><br /><span>@dia.Day</span></th>
                 }
                 else
                 {
@@ -108,7 +108,7 @@
                 {
                     @if (dia.DayOfWeek.ToString() == "Saturday" || dia.DayOfWeek.ToString() == "Sunday")
                     {
-                        <td><input class="form-control text-center registro-diario" id="disabledInput" placeholder="0" size="1" disabled></td>
+                        <td style="background-color: #E8E8E8;"><input class="form-control text-center registro-diario border-mutted" size="1" style="background-color: #E8E8E8; border-color: #f2f2f2;"></td>
                     }
                     else
                     {
@@ -120,17 +120,16 @@
     </tbody>
     <tfooter>
         <tr>
-            <th></th>
+            <th class="text-start">Total</th>
             @foreach (var dia in QuinzenaAtual)
             {
                 @if (dia.DayOfWeek.ToString() == "Saturday" || dia.DayOfWeek.ToString() == "Sunday")
                 {
-                    <th>@Html.Raw("0")</th>
+                    <th style="background-color: #E8E8E8;"></th>
                 }
                 else
                 {
                     <th></th>
-
                 }
             }
         </tr>
