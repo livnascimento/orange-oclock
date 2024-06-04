@@ -5,6 +5,7 @@ using ProjetoMyTeDev.Models;
 using System.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 using ProjetoMyTeDev.Areas.Identity.Data;
+using Microsoft.AspNetCore.Http;
 
 namespace ProjetoMyTeDev.Controllers
 {
@@ -37,11 +38,45 @@ namespace ProjetoMyTeDev.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        [Authorize(Policy = "RequerPerfilAdmin")]
-        public async Task<IActionResult> Funcionario()
-        {
+        //[Authorize(Policy = "RequerPerfilAdmin")]
+        //public async Task<IActionResult> Funcionario()
+        //{
 
-            var funcionarios = await _context.ApplicationUser.Include(f => f.Departamento).Include(f => f.Cargo).ToListAsync();
+        //    var funcionarios = await _context.ApplicationUser.Include(f => f.Departamento).Include(f => f.Cargo).ToListAsync();
+
+        //    return View(funcionarios);
+        //}
+
+        public async Task<IActionResult> Funcionario(string nome, string localidade, string cargo, string departamento)
+        {
+            var query = _context.ApplicationUser.Include(f => f.Departamento).Include(f => f.Cargo).AsQueryable();
+
+            if (!string.IsNullOrEmpty(nome))
+            {
+                query = query.Where(f => f.Nome.Contains(nome));
+            }
+
+            if (!string.IsNullOrEmpty(localidade))
+            {
+                query = query.Where(f => f.Localidade.Contains(localidade));
+            }
+
+            if (!string.IsNullOrEmpty(cargo))
+            {
+                query = query.Where(f => f.Cargo.CargoNome.Contains(cargo));
+            }
+
+            if (!string.IsNullOrEmpty(departamento))
+            {
+                query = query.Where(f => f.Departamento.DepartamentoNome.Contains(departamento));
+            }
+
+            ViewBag.Nome = nome;
+            ViewBag.Localidade = localidade;
+            ViewBag.Cargo = cargo;
+            ViewBag.Departamento = departamento;
+
+            var funcionarios = await query.ToListAsync();
 
             return View(funcionarios);
         }
