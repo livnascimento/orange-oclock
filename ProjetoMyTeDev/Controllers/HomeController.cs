@@ -7,6 +7,10 @@ using Microsoft.EntityFrameworkCore;
 using ProjetoMyTeDev.Areas.Identity.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using NuGet.Protocol;
+using Microsoft.AspNetCore.Identity;
+
+
 
 namespace ProjetoMyTeDev.Controllers
 {
@@ -15,11 +19,13 @@ namespace ProjetoMyTeDev.Controllers
 
         private readonly ILogger<HomeController> _logger;
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context)
+        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context, UserManager <ApplicationUser> userManager)
         {
             _logger = logger;
             _context = context;
+            _userManager = userManager;
         }
 
         public async Task<IActionResult> Index()
@@ -105,6 +111,57 @@ namespace ProjetoMyTeDev.Controllers
             ViewBag.Cargos = new SelectList(_context.Cargo, "CargoId", "CargoNome", funcionario.CargoId);
             return View(funcionario);
         }
+
+      
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditFuncionario(string? id, [Bind("Id,Nome,Email,DepartamentoId,DataContratacao,Localidade,CargoId,PhoneNumber")] ApplicationUser applicationUser)
+        {
+            
+
+            var user = await _userManager.GetUserAsync(User);
+
+            if (user == null)
+            {
+                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+            }
+
+            if (ModelState.IsValid)
+            {
+
+
+                try
+                {
+                    await _userManager.UpdateAsync(user);
+                    //await _signIManager.RefreshSignInAsync(user);
+
+                }
+                catch (DbUpdateConcurrencyException)
+
+                {
+
+                    if (await _context.ApplicationUser.FindAsync(id) == null)
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Funcionario));
+            }
+            var funcionario = await _context.ApplicationUser.FindAsync(id);
+            ViewBag.Departamentos = new SelectList(_context.Departamento, "DepartamentoId", "DepartamentoNome", funcionario.DepartamentoId);
+            ViewBag.Cargos = new SelectList(_context.Cargo, "CargoId", "CargoNome", funcionario.CargoId);
+
+
+            return View (funcionario);
+        }
+
+
 
         public async Task<IActionResult> DetailsFuncionario(string? Id)
         {
