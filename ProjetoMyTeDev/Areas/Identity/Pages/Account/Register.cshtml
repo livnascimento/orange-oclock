@@ -19,7 +19,7 @@
                 </div>
                 <div class="col">
                     <div class="form-floating mb-3">
-                        <input asp-for="Input.PhoneNumber" class="form-control" aria-required="true" placeholder="" />
+                        <input asp-for="Input.PhoneNumber" class="form-control" aria-required="true" placeholder="" id="PhoneNumber" />
                         <label asp-for="Input.PhoneNumber">Telefone</label>
                         <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
                     </div>
@@ -106,3 +106,15 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var phoneInput = document.getElementById('PhoneNumber');
+
+        phoneInput.addEventListener('input', function (e) {
+            var x = e.target.value.replace(/\D/g, '');
+            x = x.match(/(\d{0,2})(\d{0,4})(\d{0,4})/);
+            e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
+        });
+    });
+</script>
