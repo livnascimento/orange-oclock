@@ -105,5 +105,22 @@ namespace ProjetoMyTeDev.Controllers
             ViewBag.Cargos = new SelectList(_context.Cargo, "CargoId", "CargoNome", funcionario.CargoId);
             return View(funcionario);
         }
+
+        public async Task<IActionResult> DetailsFuncionario(string? Id)
+        {
+            if (Id == null)
+            {
+                return NotFound();
+            }
+
+            var funcionario = await _context.ApplicationUser.Include(User => User.Departamento).Include(User => User.Cargo).FirstOrDefaultAsync(user => user.Id == Id);
+
+            if (funcionario == null)
+            {
+                return NotFound();
+            }
+           
+            return View(funcionario);
+        }
     }
 }
