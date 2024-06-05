@@ -128,6 +128,14 @@ namespace ProjetoMyTeDev.Controllers
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
+            user.Nome = applicationUser.Nome;
+            user.Email = applicationUser.Email;
+            user.DepartamentoId = applicationUser.DepartamentoId;
+            user.DataContratacao = applicationUser.DataContratacao;
+            user.Localidade = applicationUser.Localidade;
+            user.CargoId = applicationUser.CargoId;
+            user.PhoneNumber = applicationUser.PhoneNumber;
+
             if (ModelState.IsValid)
             {
 
