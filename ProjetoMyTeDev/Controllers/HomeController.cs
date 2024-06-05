@@ -6,6 +6,7 @@ using System.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 using ProjetoMyTeDev.Areas.Identity.Data;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ProjetoMyTeDev.Controllers
 {
@@ -84,6 +85,25 @@ namespace ProjetoMyTeDev.Controllers
         public IActionResult ContateNos()
         {
             return View();
+        }
+
+        public async Task <IActionResult> EditFuncionario(string? Id)
+        {
+            
+            if (Id == null)
+            {
+                return NotFound();
+            }
+
+            var funcionario = await _context.ApplicationUser.FindAsync(Id);
+
+            if (funcionario == null)
+            {
+                return NotFound();
+            }
+            ViewBag.Departamentos = new SelectList(_context.Departamento, "DepartamentoId", "DepartamentoNome", funcionario.DepartamentoId);
+            ViewBag.Cargos = new SelectList(_context.Cargo, "CargoId", "CargoNome", funcionario.CargoId);
+            return View(funcionario);
         }
     }
 }
