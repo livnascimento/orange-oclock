@@ -11,20 +11,13 @@
 
     var registros = new RegistroDiario[] { };
 
-    List<DateOnly> Quinzena = ViewBag.Quinzena;
+    List<DateTime> Quinzena = ViewBag.Quinzena;
 }
 
 
 <div class="row my-4">
     <h2 class="col">Cadastre suas horas</h2>
     <div class="col text-end">@ViewBag.DataFormatada</div>
-</div>
-
-<div id="funcionario-id" style="display: none;">
-    @if (SignInManager.IsSignedIn(User))
-    {
-        @Html.Raw(usuario.Id)
-    }
 </div>
 
 <div class="row mb-2">
@@ -36,7 +29,7 @@
                 <span id="data-inicial">@Quinzena[0].ToString("dd/MM/yyyy")</span>&ensp; - &ensp;
                 <span id="data-final">@Quinzena[^1].ToString("dd/MM/yyyy")</span>
                 &ensp;
-                <li class="page-item"><a class="page-link border-0 text-dark" id="quinzena-direita"><i class="bi bi-arrow-right-short fs-4"></i></a></li>
+                <li class="page-item"><button class="page-link border-0 text-dark" id="quinzena-direita"><i class="bi bi-arrow-right-short fs-4"></i></button></li>
             </ul>
         </nav>
     </div>
@@ -123,6 +116,7 @@
     </tfooter>
 </table>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
     const quinzenaEsquerda = document.getElementById('quinzena-esquerda');
     const quinzenaDireita = document.getElementById('quinzena-direita');
@@ -134,14 +128,15 @@
     const dataFim = criarData(dataFinal.textContent);
 
 
-    quinzenaEsquerda.addEventListener('click', () => {
-
+    quinzenaEsquerda.addEventListener('click', async () => {
         if (dataInicio.getDate() == 1) {
             dataInicio.setDate(16);
             dataInicio.setMonth(dataInicio.getMonth() - 1);
 
             if (dataInicio.getFullYear() < new Date().getFullYear()) {
-                exibirToast("Ops! Você não pode visualizar o ano anterior.");
+                exibirToast("Ops! Você não pode visualizar o ano seguinte.");
+                dataInicio.setDate(1);
+                dataInicio.setMonth(dataInicio.getMonth() + 1);
                 return;
             }
 
@@ -149,8 +144,6 @@
             dataFim.setMonth(dataInicio.getMonth() + 1);
             dataFim.setDate(0);
 
-            dataInicial.textContent = dataInicio.toLocaleDateString('pt-BR');
-            dataFinal.textContent = dataFim.toLocaleDateString('pt-BR');
         }
         else if (dataInicio.getDate() == 16) {
             dataInicio.setDate(1);
@@ -159,12 +152,9 @@
             dataFim.setFullYear(dataInicio.getFullYear());
             dataFim.setMonth(dataInicio.getMonth());
             dataFim.setDate(15);
-
-            dataInicial.textContent = dataInicio.toLocaleDateString('pt-BR');
-            dataFinal.textContent = dataFim.toLocaleDateString('pt-BR');
         }
+        location.href = `/RegistroDiarios/Index?diaInicial=${dataInicio.toJSON()}&diaFinal=${dataFim.toJSON()}`;
 
-        // atualizarDados(dataInicio, dataFim);
     });
 
     quinzenaDireita.addEventListener('click', () => {
@@ -175,45 +165,30 @@
             dataFim.setFullYear(dataInicio.getFullYear());
             dataFim.setMonth(dataInicio.getMonth() + 1);
             dataFim.setDate(0);
-
-            dataInicial.textContent = dataInicio.toLocaleDateString('pt-BR');
-            dataFinal.textContent = dataFim.toLocaleDateString('pt-BR');
         }
         else if (dataInicio.getDate() == 16) {
             dataInicio.setDate(1);
             dataInicio.setMonth(dataInicio.getMonth() + 1);
 
-
             if (dataInicio.getFullYear() > new Date().getFullYear()) {
                 exibirToast("Ops! Você não pode visualizar o ano seguinte.");
+                dataInicio.setDate(16);
+                dataInicio.setMonth(dataInicio.getMonth() - 1);
                 return;
             }
 
             dataFim.setDate(15);
             dataFim.setMonth(dataInicio.getMonth());
             dataFim.setFullYear(dataInicio.getFullYear());
-
-            dataInicial.textContent = dataInicio.toLocaleDateString('pt-BR');
-            dataFinal.textContent = dataFim.toLocaleDateString('pt-BR');
         }
 
-        // atualizarDados(dataInicio, dataFim);
+        location.href = `/RegistroDiarios/Index?diaInicial=${dataInicio.toJSON()}&diaFinal=${dataFim.toJSON()}`;
+
     });
 
     function criarData(dataStr) {
         const diaMesAno = dataStr.split('/');
         return new Date(diaMesAno[2], diaMesAno[1] - 1, diaMesAno[0]);
-    }
-
-    function atualizarDados(inicio, fim) {
-        const quinzena = [];
-
-        for (let dia = inicio; dia <= fim; dia.setDate(dia.getDate() + 1)) {
-            quinzena.push(new Date(dia));
-        }
-
-        console.log(quinzena);
-
     }
 
 </script>
