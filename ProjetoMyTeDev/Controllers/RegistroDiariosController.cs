@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using NuGet.Protocol;
 using ProjetoMyTeDev.Data;
 using ProjetoMyTeDev.Models;
-using ProjetoMyTeDev.Areas.Identity.Data;
+using System.Diagnostics;
 
 namespace ProjetoMyTeDev.Controllers
 {
@@ -20,11 +17,38 @@ namespace ProjetoMyTeDev.Controllers
             _context = context;
         }
 
+        List<RegistroDiario> registros = new List<RegistroDiario>();
+
         // GET: RegistroDiarios
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(DateTime? diaInicial = null, DateTime? diaFinal = null)
         {
-            var applicationDbContext = _context.RegistroDiario.Include(r => r.Wbs);
-            return View(await applicationDbContext.ToListAsync());
+            DateTime data = DateTime.Now;
+
+            string dataFormatada = DateTime.Today.ToString("dddd", System.Globalization.CultureInfo.CreateSpecificCulture("pt-BR")) + ", " + data.ToString("dd/MM/yyyy");
+
+            List<DateTime> QuinzenaAtual = new List<DateTime>();
+
+
+            if (diaInicial == null || diaFinal == null)
+            {
+                diaInicial = new DateTime(data.Year, data.Month, (data.Day <= 15) ? 1 : 16);
+                diaFinal = (data.Day <= 15) ? new DateTime(data.Year, data.Month, 15) : new DateTime(data.Year, data.Month, DateTime.DaysInMonth(data.Year, data.Month));
+
+            }
+
+            diaInicial = (DateTime)diaInicial;
+            diaFinal = (DateTime)diaFinal;
+
+            for (DateTime dia = (DateTime)diaInicial; dia <= diaFinal; dia = dia.AddDays(1))
+            {
+                QuinzenaAtual.Add(dia);
+            }
+
+            ViewBag.Quinzena = QuinzenaAtual;
+            ViewBag.DataFormatada = dataFormatada;
+
+            var context = _context.RegistroDiario.Include(r => r.Wbs);
+            return View(await context.ToListAsync());
         }
 
         // GET: RegistroDiarios/Details/5
@@ -54,21 +78,23 @@ namespace ProjetoMyTeDev.Controllers
         }
 
         // POST: RegistroDiarios/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Create([Bind("RegistroDiarioId,ApplicationUserId,WbsId,Data,Horas")] RegistroDiario registroDiario)
-        public async Task<IActionResult> Create(RegistroDiario registroDiario)
+        public async Task<IActionResult> Create([FromBody] List<RegistroDiario> registrosDiarios)
         {
+            Debug.WriteLine(registrosDiarios.ToJson());
+            
             if (ModelState.IsValid)
             {
-                _context.Add(registroDiario);
+                foreach(var registro in registrosDiarios)
+                {
+                    _context.Add(registro);
+                }
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Wbs"] = new SelectList(_context.Wbs, "WbsId", "WbsCodigo", registroDiario.WbsId);
-            return View(registroDiario);
+            //ViewData["Wbs"] = new SelectList(_context.Wbs, "WbsId", "WbsCodigo", registroDiario.WbsId);
+            return View();
         }
 
         // GET: RegistroDiarios/Edit/5
