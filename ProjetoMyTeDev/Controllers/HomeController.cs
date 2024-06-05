@@ -121,7 +121,7 @@ namespace ProjetoMyTeDev.Controllers
         {
             
 
-            var user = await _userManager.GetUserAsync(User);
+            var user = await _userManager.FindByIdAsync(applicationUser.Id);
 
             if (user == null)
             {
