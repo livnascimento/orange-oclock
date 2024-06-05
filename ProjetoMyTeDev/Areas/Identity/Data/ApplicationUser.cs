@@ -29,6 +29,7 @@ namespace ProjetoMyTeDev.Areas.Identity.Data
 
         public bool Ativo {  get; set; }
 
+        [Display(Name = "Telefone")]
         [Required]
         [RegularExpression(@"^\(\d{2}\) \d{4}-\d{4}$", ErrorMessage = "Formato de telefone não é válido.")]
         public override string? PhoneNumber { get; set; }

@@ -20,14 +20,14 @@
                     <span asp-validation-for="Nome" class="text-danger"></span>
                     </div>
                 </div>
-                <div class="form-group col-md-5">
+                <div class="form-group col-md-2">
                     <div class="form-group">
                         <label asp-for="PhoneNumber" class="control-label"></label>
                         <input asp-for="PhoneNumber" class="form-control" />
                         <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                     </div>
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-3">
                     <label asp-for="Email" class="control-label"></label>
                     <input asp-for="Email" class="form-control" />
                     <span asp-validation-for="Email" class="text-danger"></span>
@@ -36,7 +36,7 @@
 
             <div class="col-md">
                 <div class="row">
-                    <div class="form-group col-md-5">
+                    <div class="form-group col-md-2">
                         <label asp-for="DepartamentoId" class="control-label"></label>
                         <select asp-for="DepartamentoId" class="form-select" asp-items="@ViewBag.Departamentos"></select>
                         <span asp-validation-for="DepartamentoId" class="text-danger"></span>
@@ -47,13 +47,7 @@
                         <input asp-for="DataContratacao" type="date" class="form-control" />
                         <span asp-validation-for="DataContratacao" class="text-danger"></span>
                     </div>
-                </div>
-            </div>
-
-            <div class="col-md">
-                <div class="row">
-
-                    <div class="form-group col-md-3">
+                    <div class="form-group col-md-2">
                         <label asp-for="Localidade" class="control-label"></label>
                         <select asp-for="Localidade" class="form-select">
                             <option value="Recife">Recife</option>
@@ -62,15 +56,13 @@
                             <option value="Nova Lima">Nova Lima</option>
                         </select>
                     </div>
-
-                    <div class="form-group col-md-3">
+                    <div class="form-group col-md-2">
                         <label asp-for="CargoId" class="control-label"></label>
                         <select asp-for="CargoId" class="form-select" asp-items="@ViewBag.Cargos"></select>
                         <span asp-validation-for="CargoId" class="text-danger"></span>
                     </div>
                 </div>
-            </div> 
-            
+            </div>
             
             <div class="form-group">
                 <input type="submit" value="Salvar" class="btn btn-secondary my-4" />
