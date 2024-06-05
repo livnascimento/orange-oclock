@@ -1,0 +1,54 @@
+﻿@* @model ProjetoMyTeDev.Areas.Identity.Data.ApplicationUser
+
+@{
+    ViewData["Title"] = "Detalhes Funcionário";
+}
+
+<h3>Detalhes do Funcionário</h3>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Departamento)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Departamento.DepartamentoNome)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DataContratacao)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DataContratacao)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Localidade)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Localidade)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Cargo)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Cargo.CargoNome)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" class="btn btn-secondary my-4" asp-route-id="@Model?.FuncionarioId">Editar</a>
+    <a asp-area="" asp-controller="Funcionarios" asp-action="Index" class="btn btn-secondary my-4">Voltar</a>
+</div> *@

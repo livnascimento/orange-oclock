@@ -1,5 +1,8 @@
 ﻿@model ProjetoMyTeDev.Areas.Identity.Data.ApplicationUser
 
+@{
+    ViewData["Title"] = "Editar Funcionário";
+}
 
 <h3>Editar Funcionário</h3>
 <hr />
@@ -59,11 +62,12 @@
                         <span asp-validation-for="CargoId" class="text-danger"></span>
                     </div>
                 </div>
-            </div>
-
+            </div> 
+            <!-- NAO ESTÁ FUNCIONANDO O BOTAO DE SALVAR-->
+            
             <div class="form-group">
-                <input type="submit" value="Salvar" class="btn btn-secondary my-4" />
-                <a asp-area="" asp-controller="Home" asp-action="Funcionario" class="btn btn-secondary my-4">Voltar</a>
+                <input type="submit" asp-route-id="Id" value="Salvar" class="btn btn-secondary my-4" />
+                <a asp-area="" asp-controller="Home" asp-action="Funcionario" class="btn btn-outline-secondary my-4">Voltar</a>
             </div>
         </form>
     </div>
