@@ -95,7 +95,7 @@
             <tr>
                 <th>
                     <select asp-for="WbsId" class="form-select wbs-select">
-                        <option selected>Selecione a WBS</option>
+                        <option value="0" selected>Selecione a WBS</option>
                         @foreach (var item in ViewBag.Wbs)
                         {
                             <option value="@item.WbsId">
@@ -136,15 +136,6 @@
     </tfooter>
 </table>
 
-<form asp-action="Create" id="registro-diario">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <input type="hidden" asp-for="ApplicationUserId" id="ApplicationUserId" />
-    <input type="hidden" asp-for="WbsId" id="WbsId" />
-    <input type="hidden" asp-for="Data" id="Data" />
-    <input type="hidden" asp-for="Horas" id="Horas" />
-    <input type="submit" value="Create" class="btn btn-primary" style="display: none;" />
-</form>
-
 <script>
     if (document.querySelector('#salvar-horas')) {
         document.querySelector('#salvar-horas').addEventListener('click', async function (e) {
@@ -170,7 +161,7 @@
             document.querySelectorAll(".wbs-select").forEach((wbsSelect, index) => {
                 let selectedOption = wbsSelect.options[wbsSelect.selectedIndex];
 
-                if (selectedOption.value != "WBS") {
+                if (selectedOption.value != "0") {
                     wbs.push({ wbsId: selectedOption.value, row: index })
                 }
             });
