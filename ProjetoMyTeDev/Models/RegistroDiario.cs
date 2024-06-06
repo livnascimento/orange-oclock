@@ -9,7 +9,7 @@ namespace ProjetoMyTeDev.Models
         public string? ApplicationUserId { get; set; }
         public Wbs? Wbs { get; set; }
         public int WbsId {  get; set; }
-        public DateOnly Data {  get; set; }
+        public DateTime Data {  get; set; }
         public int Horas {  get; set; }
     }
 }
