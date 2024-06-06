@@ -72,7 +72,6 @@ public class DbInitializer
                 context.Wbs.Add(wbs);
         }
 
-        await context.SaveChangesAsync();
 
         if (!await roleManager.RoleExistsAsync(adminRole))
         {
@@ -107,6 +106,7 @@ public class DbInitializer
                 await userManager.AddToRoleAsync(admin, adminRole);
             }
         }
+        await context.SaveChangesAsync();
 
     }
 }
