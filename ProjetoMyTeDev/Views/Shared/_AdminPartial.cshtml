@@ -1,7 +1,9 @@
-﻿@using Microsoft.AspNetCore.Identity
+﻿
+@using Microsoft.AspNetCore.Identity
 @using ProjetoMyTeDev.Areas.Identity.Data
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
+
 @{
     <ul class="ms-auto navbar-nav flex-grow-1">
         @if (SignInManager.IsSignedIn(User))
@@ -18,6 +20,16 @@
                             <li><a class="dropdown-item text-dark" asp-area="" asp-controller="Wbss" asp-action="Index">Gerenciar WBS</a></li>
                             <li><a class="dropdown-item text-dark" asp-area="" asp-controller="Cargos" asp-action="Index">Gerenciar Cargos</a></li>
                             <li><a class="dropdown-item text-dark" asp-area="" asp-controller="Home" asp-action="Funcionario">Gerenciar Funcionários</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div class="dropdown">
+                        <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Área do Funcionário
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item text-dark" asp-area="" asp-controller="RegistroDiarios" asp-action="Create">Registro de Horas</a></li>
                         </ul>
                     </div>
                 </li>

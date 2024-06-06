@@ -1,0 +1,93 @@
+﻿@model ProjetoMyTeDev.Areas.Identity.Data.ApplicationUser
+
+@{
+    ViewData["Title"] = "Editar Funcionário";
+}
+
+<h3>Editar Funcionário</h3>
+<hr />
+<div class="row">
+    <div class="col-md">
+        <form asp-action="EditFuncionario">
+            <div class="row">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="@Model.Id" />
+
+                <div class="form-group col-md-5">
+                    <div class="form-group">
+                    <label asp-for="Nome" class="control-label"></label>
+                    <input asp-for="Nome" class="form-control" />
+                    <span asp-validation-for="Nome" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group col-md-2">
+                    <div class="form-group">
+                        <label asp-for="PhoneNumber" class="control-label"></label>
+                        <input asp-for="PhoneNumber" class="form-control" />
+                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="Email" class="control-label"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="col-md">
+                <div class="row">
+                    <div class="form-group col-md-2">
+                        <label asp-for="DepartamentoId" class="control-label"></label>
+                        <select asp-for="DepartamentoId" class="form-select" asp-items="@ViewBag.Departamentos"></select>
+                        <span asp-validation-for="DepartamentoId" class="text-danger"></span>
+                    </div>
+                  
+                    <div class="form-group col-md-2">
+                        <label asp-for="DataContratacao" class="control-label"></label>
+                        <input asp-for="DataContratacao" type="date" class="form-control" />
+                        <span asp-validation-for="DataContratacao" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label asp-for="Localidade" class="control-label"></label>
+                        <select asp-for="Localidade" class="form-select">
+                            <option value="Recife">Recife</option>
+                            <option value="São Paulo">São Paulo</option>
+                            <option value="Rio de Janeiro">Rio de Janeiro</option>
+                            <option value="Nova Lima">Nova Lima</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label asp-for="CargoId" class="control-label"></label>
+                        <select asp-for="CargoId" class="form-select" asp-items="@ViewBag.Cargos"></select>
+                        <span asp-validation-for="CargoId" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <input type="submit" value="Salvar" class="btn btn-secondary my-4" />
+                <a asp-area="" asp-controller="Home" asp-action="Funcionario" class="btn btn-outline-secondary my-4">Voltar</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var phoneInput = document.getElementById('PhoneNumber');
+
+        phoneInput.addEventListener('input', function (e) {
+            var x = e.target.value.replace(/\D/g, '');
+            x = x.match(/(\d{0,2})(\d{0,4})(\d{0,4})/);
+            e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
+        });
+    });
+</script>
+

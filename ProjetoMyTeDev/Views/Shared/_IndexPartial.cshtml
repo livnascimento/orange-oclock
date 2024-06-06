@@ -1,7 +1,11 @@
-﻿@using Microsoft.AspNetCore.Identity
+﻿@{
+    ViewData["Title"] = "Dashboard";
+}
+@using Microsoft.AspNetCore.Identity
 @using ProjetoMyTeDev.Areas.Identity.Data
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
+
 
 @if (!SignInManager.IsSignedIn(User))
 {
