@@ -1,13 +1,12 @@
-﻿@using Microsoft.AspNetCore.Identity
+﻿@model IEnumerable<ProjetoMyTeDev.Models.RegistroDiario>
+@using Microsoft.AspNetCore.Identity
 @using ProjetoMyTeDev.Areas.Identity.Data
+@using System.Diagnostics
 @inject SignInManager<ApplicationUser> SignInManager
-@inject UserManager<ApplicationUser> UserManager
 
 @{
 
     ViewData["Title"] = "Cadastrar Registro";
-
-    var usuario = @UserManager.GetUserAsync(User).Result;
 
     var registros = new RegistroDiario[] { };
 
@@ -50,11 +49,11 @@
 
                 @if (dia.DayOfWeek.ToString() == "Saturday" || dia.DayOfWeek.ToString() == "Sunday")
                 {
-                    <th class="text-muted" style="background-color: #E8E8E8;">@Html.Raw(usuario.Localidade)</th>
+                    <th class="text-muted" style="background-color: #E8E8E8;">@Html.Raw(ViewBag.usuario.Localidade)</th>
                 }
                 else
                 {
-                    <th style="color: #d15917;">@Html.Raw(usuario.Localidade)</th>
+                    <th style="color: #d15917;">@Html.Raw(ViewBag.usuario.Localidade)</th>
                 }
             }
         </tr>
@@ -75,25 +74,60 @@
             }
         </tr>
     </thead>
-    <tbody>
-        @for (var linha = 0; linha < 5; linha++)
+    <tbody class="align-middle">
+        @if (ViewBag.Wbs.Count != 0)
+        {
+            @foreach (var wbs in ViewBag.Wbs)
+            {
+                <tr>
+                    <th>
+                        @wbs.WbsCodigo
+                        <br />
+                        <small class="text-muted fw-medium">@wbs.WbsDescricao</small>
+                    </th>
+
+                    @foreach (var dia in ViewBag.Quinzena)
+                    {
+                        var registro = Model.FirstOrDefault(r => DateOnly.FromDateTime(r.Data) == DateOnly.FromDateTime(dia) && r.WbsId == wbs.WbsId);
+
+                        @if (registro != null)
+                        {
+                            @if (dia.DayOfWeek.ToString() == "Saturday" || dia.DayOfWeek.ToString() == "Sunday")
+                            {
+                                <td style="background-color: #E8E8E8;">@registro.Horas</td>
+                            }
+                            else
+                            {
+                                <td scope="col">@registro.Horas</td>
+                            }
+
+                        }
+                        else
+                        {
+                            @if (dia.DayOfWeek.ToString() == "Saturday" || dia.DayOfWeek.ToString() == "Sunday")
+                            {
+                                <td style="background-color: #E8E8E8;">-</td>
+                            }
+                            else
+                            {
+                                <td scope="col">-</td>
+                            }
+                        }
+                    }
+                </tr>
+            }
+        }
+        else
         {
             <tr>
                 <th>
-                    @* <select asp-for="WbsId" class="form-select wbs-select" asp-items="ViewBag.Wbs">
-                <option selected>WBS</option>
-                </select> *@
                 </th>
                 @foreach (var dia in ViewBag.Quinzena)
                 {
-                    @if (dia.DayOfWeek.ToString() == "Saturday" || dia.DayOfWeek.ToString() == "Sunday")
-                    {
-                        <td style="background-color: #E8E8E8;">0</td>
-                    }
-                    else
-                    {
-                        <td scope="col">0</td>
-                    }
+                    <th class="text-muted">
+                        -
+                    </th>
+
                 }
             </tr>
         }
