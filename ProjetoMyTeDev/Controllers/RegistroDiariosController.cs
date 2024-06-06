@@ -196,5 +196,14 @@ namespace ProjetoMyTeDev.Controllers
         {
             return _context.RegistroDiario.Any(e => e.RegistroDiarioId == id);
         }
+
+        public IActionResult RelatorioRegistro()
+        {
+            var registros = _context.RegistroDiario.Include(r => r.Wbs)
+                .OrderByDescending(r => r.Horas) //ordernando decrescente as horas lançadas
+                .ToList();
+
+            return View(registros);  
+        }
     }
 }
