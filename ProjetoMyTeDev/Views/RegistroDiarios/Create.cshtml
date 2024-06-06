@@ -32,17 +32,11 @@
     <div class="col text-end">@dataFormatada</div>
 </div>
 
-<div class="row mb-2">
+<div class="row mb-5">
     <div class="col">
-        <nav aria-label="Page navigation example">
-            <ul class="pagination d-flex align-items-center">
-                <li class="page-item"><button class="page-link border-0 text-dark" id="quinzena-esquerda" disabled><i class="bi bi-arrow-left-short fs-4"></i></button></li>
-                &ensp;
-                @QuinzenaAtual[0].ToString("dd/MM/yyyy") - @QuinzenaAtual[^1].ToString("dd/MM/yyyy")
-                &ensp;
-                <li class="page-item"><button class="page-link border-0 text-dark" id="quinzena-esquerda" disabled><i class="bi bi-arrow-right-short fs-4"></i></button></li>
-            </ul>
-        </nav>
+        <h6>
+            @QuinzenaAtual[0].ToString("dd/MM/yyyy") - @QuinzenaAtual[^1].ToString("dd/MM/yyyy")
+        </h6>
     </div>
     <div class="toast align-items-center border-0 bg-danger text-light float-end position-fixed" style="top: 20%; left:65%;" role="alert" aria-live="assertive" aria-atomic="true" id="daily-register-toast">
         <div class="d-flex">
@@ -166,6 +160,8 @@
                 }
             });
 
+            console.log(wbs);
+
             wbs.forEach(codigo => {
                 let wbsRepetidos = wbs.filter(w => w.wbsId == codigo.wbsId);
 
@@ -250,19 +246,14 @@
                 },
                 body: JSON.stringify(registros)
             })
-            .then(result => {
-                window.location = `/RegistroDiarios/`
-            })
+                .then(result => {
+                    window.location = `/RegistroDiarios/`
+                })
         })
 
-        document.getElementById('registro-diario').addEventListener('submit', function (event) {
-            event.preventDefault(); // Impede o envio do formulário
-            const inputValor = document.getElementById('WbsId').value;
-            console.log('Valor do campo: ' + inputValor);
-        });
     }
 
-    const exibirToast = (erro) => {
+    function exibirToast(erro) {
         let toastHTMLElement = document.querySelector("#daily-register-toast");
         let toastBody = document.querySelector(".toast-body");
         toastBody.innerHTML = erro;

@@ -92,8 +92,6 @@ namespace ProjetoMyTeDev.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([FromBody]List<RegistroDiario> registrosDiarios)
         {
-            Debug.WriteLine(registrosDiarios[0]);
-            
             if (ModelState.IsValid)
             {
                 foreach(var registro in registrosDiarios)
