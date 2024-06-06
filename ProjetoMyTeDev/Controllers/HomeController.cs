@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using NuGet.Protocol;
 using Microsoft.AspNetCore.Identity;
+using System.Threading.Tasks;
 
 
 
@@ -92,47 +93,45 @@ namespace ProjetoMyTeDev.Controllers
         {
             return View();
         }
-        public async Task<IActionResult> Delete(string id)
+        //public async Task<IActionResult> Delete(string id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    var usuario = await _userManager.FindByIdAsync(id);
+        //    if (usuario == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return View(usuario);
+        //}
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteFuncionario(string Id)
         {
-            if (id == null)
+            if (Id == null)
             {
                 return NotFound();
             }
+            var funcionario = await _context.ApplicationUser.FindAsync(Id);
 
-            var usuario = await _userManager.FindByIdAsync(id);
-            if (usuario == null)
-            {
-                return NotFound();
-            }
-
-            return View(usuario);
-        }
-
-        // POST: Usuarios/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteFuncionario(string id)
-        {
-            var usuario = await _userManager.FindByIdAsync(id);
-            if (usuario == null)
-            {
-                return NotFound();
-            }
-
-            var result = await _userManager.DeleteAsync(usuario);
+            var result = await _userManager.DeleteAsync(funcionario);
             if (result.Succeeded)
             {
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Funcionario));
             }
-            foreach (var error in result.Errors)
+            else
             {
-                ModelState.AddModelError(string.Empty, error.Description);
+                return RedirectToAction("Error");
             }
-            return View(usuario);
         }
-    
 
-public async Task <IActionResult> EditFuncionario(string? Id)
+
+
+        public async Task <IActionResult> EditFuncionario(string? Id)
         {
             
             if (Id == null)
