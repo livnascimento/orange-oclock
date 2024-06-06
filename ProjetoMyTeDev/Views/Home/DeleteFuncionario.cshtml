@@ -1,0 +1,26 @@
+﻿@model ProjetoMyTeDev.Areas.Identity.Data.ApplicationUser
+
+@{
+    ViewData["Title"] = "Deletar Funcionário";
+}
+
+<h3>Deletar Funcionário</h3>
+<br />
+<h4>Você tem certeza de que deseja deletar este registro?</h4>
+<div>
+
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Nome)
+    </dl>
+
+    <form asp-controller="Home" asp-action="DeleteFuncionario" method="post">
+        <input type="hidden" asp-for="Id" /> <!-- Adiciona um campo hidden para enviar o ID do funcionário -->
+        <button type="submit" class="btn btn-danger"><i class="bi bi-trash"></i> Deletar</button>
+        <a class="btn btn-secondary my-4" asp-controller="Home" asp-action="Funcionario">Voltar</a>
+    </form>
+</div>

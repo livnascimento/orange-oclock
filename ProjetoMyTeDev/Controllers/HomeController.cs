@@ -92,8 +92,47 @@ namespace ProjetoMyTeDev.Controllers
         {
             return View();
         }
+        public async Task<IActionResult> Delete(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-        public async Task <IActionResult> EditFuncionario(string? Id)
+            var usuario = await _userManager.FindByIdAsync(id);
+            if (usuario == null)
+            {
+                return NotFound();
+            }
+
+            return View(usuario);
+        }
+
+        // POST: Usuarios/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteFuncionario(string id)
+        {
+            var usuario = await _userManager.FindByIdAsync(id);
+            if (usuario == null)
+            {
+                return NotFound();
+            }
+
+            var result = await _userManager.DeleteAsync(usuario);
+            if (result.Succeeded)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
+            }
+            return View(usuario);
+        }
+    
+
+public async Task <IActionResult> EditFuncionario(string? Id)
         {
             
             if (Id == null)
