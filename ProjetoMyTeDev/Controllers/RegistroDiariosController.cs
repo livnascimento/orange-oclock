@@ -205,5 +205,13 @@ namespace ProjetoMyTeDev.Controllers
 
             return View(registros);  
         }
+
+        public IActionResult RelatorioRegistroFunc()
+        {
+            var registros = _context.RegistroDiario.Include(r => r.Wbs)
+                .ToList();
+
+            return View(registros);
+        }
     }
 }

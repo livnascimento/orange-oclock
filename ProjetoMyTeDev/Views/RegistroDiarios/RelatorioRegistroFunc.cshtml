@@ -1,11 +1,11 @@
 ﻿@model IEnumerable<ProjetoMyTeDev.Models.RegistroDiario>
 
 @{
-    ViewData["Title"] = "Relatório Registro WBS";
+    ViewData["Title"] = "Registro Funcionário";
 }
 
-<div style ="font-size: 25px; margin-bottom: 20px; text-align: center;color: darkorange;font-weight: bold;">
-    <p>Registros de WBS geral</p>
+<div style="font-size: 25px; margin-bottom: 20px; text-align: center;color: darkorange;font-weight: bold;">
+    <p>Registros de WBS por funcionário</p>
     <a asp-area="" asp-controller="Home" asp-action="Index" class="btn btn-secondary my-4" style="font-size: 15px !important; padding: 4px 10px !important; width: 120px !important; height: 30px !important;">Voltar</a>
 </div>
 
@@ -24,9 +24,9 @@
             <th style="font-weight: bold; font-size: 15px;">
                 @Html.DisplayNameFor(model => model.Horas)
             </th>
-           
 
-            
+
+
             <th></th>
         </tr>
     </thead>
@@ -48,6 +48,6 @@
                 </td>
             </tr>
         }
-    
+
     </tbody>
 </table>

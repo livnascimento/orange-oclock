@@ -20,6 +20,7 @@
                             <li><a class="dropdown-item text-dark" asp-area="" asp-controller="Wbss" asp-action="Index">Gerenciar WBS</a></li>
                             <li><a class="dropdown-item text-dark" asp-area="" asp-controller="Cargos" asp-action="Index">Gerenciar Cargos</a></li>
                             <li><a class="dropdown-item text-dark" asp-area="" asp-controller="Home" asp-action="Funcionario">Gerenciar Funcionários</a></li>
+                            <li><a class="dropdown-item text-dark" asp-area="" asp-controller="RegistroDiarios" asp-action="RelatorioRegistro">Relatório WBS</a></li>
                         </ul>
                     </div>
                 </li>
@@ -30,6 +31,7 @@
                         </button>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item text-dark" asp-area="" asp-controller="RegistroDiarios" asp-action="Create">Registro de Horas</a></li>
+                            
                         </ul>
                     </div>
                 </li>
@@ -42,7 +44,8 @@
                             Funcionário
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item text-dark" asp-area="" asp-controller="RegistroDiarios" asp-action="Create">Registro de Horas</a></li>
+                            <li><a class="dropdown-item text-dark" asp-area="" asp-controller="RegistroDiarios" asp-action="Create">Registrar Horas</a></li>
+                            <li><a class="dropdown-item text-dark" asp-area="" asp-controller="RegistroDiarios" asp-action="RelatorioRegistroFunc">Relatório WBS</a></li>
                         </ul>
                     </div>
                     @* <a class="nav-link text-black" asp-area="" asp-controller="Funcionarios" asp-action="Index">Funcionário</a> *@
