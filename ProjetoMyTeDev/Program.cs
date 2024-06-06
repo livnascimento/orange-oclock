@@ -18,8 +18,6 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => options.S
         .AddDefaultUI()
         .AddDefaultTokenProviders(); 
 
-builder.Services.AddControllersWithViews();
-
 builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("RequerPerfilAdmin",
@@ -33,7 +31,10 @@ builder.Services.Configure<IdentityOptions>(options =>
 });
 
 builder.Services.AddHttpContextAccessor();
-builder.Services.AddRazorPages();
+builder.Services.AddRazorPages(options =>
+{
+    options.Conventions.AddAreaPageRoute("Controllers", "/Create", "Controllers/RegistroDiariosController");
+});
 
 var app = builder.Build();
 
