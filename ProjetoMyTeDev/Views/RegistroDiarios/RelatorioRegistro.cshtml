@@ -1,0 +1,53 @@
+﻿@model IEnumerable<ProjetoMyTeDev.Models.RegistroDiario>
+
+@{
+    ViewData["Title"] = "Relatório Registro WBS";
+}
+
+<div style="font-size: 20px; margin-bottom: 20px; text-align: center;color: darkorange;font-weight: bold;">Relatórios dos Registros por WBS</div><br />
+
+<table class="table">
+    <thead>
+        <tr>
+            <th style="font-weight: bold; font-size: 15px;">
+                @Html.DisplayNameFor(model => model.RegistroDiarioId)
+            </th>
+            <td style="font-weight: bold; font-size: 15px;">
+                @Html.DisplayNameFor(model => model.Wbs.WbsCodigo)
+            </td>
+            <td style="font-weight: bold; font-size: 15px;">
+                @Html.DisplayNameFor(model => model.Wbs.WbsDescricao)
+            </td>
+            <th style="font-weight: bold; font-size: 15px;">
+                @Html.DisplayNameFor(model => model.Horas)
+            </th>
+           
+
+            
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RegistroDiarioId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Wbs.WbsCodigo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Wbs.WbsDescricao)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Horas)
+                </td>
+               
+                <td>
+                    <a asp-area="" asp-controller="Home" asp-action="Index" class="btn btn-secondary my-4">Voltar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

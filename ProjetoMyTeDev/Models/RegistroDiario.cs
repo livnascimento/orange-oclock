@@ -1,9 +1,11 @@
 ﻿using ProjetoMyTeDev.Areas.Identity.Data;
+using System.ComponentModel.DataAnnotations;
 
 namespace ProjetoMyTeDev.Models
 {
     public class RegistroDiario
     {
+        [Display(Name = "ID Registro")]
         public int RegistroDiarioId { get; set; }
         public ApplicationUser? ApplicationUser { get; set; }
         public string? ApplicationUserId { get; set; }
