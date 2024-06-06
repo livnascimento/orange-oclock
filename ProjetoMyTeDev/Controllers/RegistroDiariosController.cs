@@ -1,20 +1,24 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using NuGet.Protocol;
 using ProjetoMyTeDev.Data;
 using ProjetoMyTeDev.Models;
 using System.Diagnostics;
+using ProjetoMyTeDev.Areas.Identity.Data;
 
 namespace ProjetoMyTeDev.Controllers
 {
     public class RegistroDiariosController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public RegistroDiariosController(ApplicationDbContext context)
+        public RegistroDiariosController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         List<RegistroDiario> registros = new List<RegistroDiario>();
@@ -28,6 +32,7 @@ namespace ProjetoMyTeDev.Controllers
 
             List<DateTime> QuinzenaAtual = new List<DateTime>();
 
+            ViewBag.usuario = _userManager.GetUserAsync(User).Result;
 
             if (diaInicial == null || diaFinal == null)
             {
@@ -47,7 +52,10 @@ namespace ProjetoMyTeDev.Controllers
             ViewBag.Quinzena = QuinzenaAtual;
             ViewBag.DataFormatada = dataFormatada;
 
-            var context = _context.RegistroDiario.Include(r => r.Wbs);
+
+            var context = _context.RegistroDiario.Include(r => r.Wbs).Where(r => r.Data >= diaInicial && r.Data <= diaFinal).Where(r => r.ApplicationUserId == _userManager.GetUserId(User));
+            ViewBag.Wbs = await context.GroupBy(r => r.Wbs).Select(g => g.First().Wbs).ToListAsync();
+
             return View(await context.ToListAsync());
         }
 
@@ -71,18 +79,20 @@ namespace ProjetoMyTeDev.Controllers
         }
 
         // GET: RegistroDiarios/Create
+        [HttpGet]
         public IActionResult Create()
         {
-            ViewData["Wbs"] = new SelectList(_context.Wbs, "WbsId", "WbsCodigo");
+            ViewBag.usuario = _userManager.GetUserAsync(User).Result;
+            ViewData["Wbs"] = _context.Wbs.ToList();
             return View();
         }
 
         // POST: RegistroDiarios/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([FromBody] List<RegistroDiario> registrosDiarios)
+        public async Task<IActionResult> Create([FromBody]List<RegistroDiario> registrosDiarios)
         {
-            Debug.WriteLine(registrosDiarios.ToJson());
+            Debug.WriteLine(registrosDiarios[0]);
             
             if (ModelState.IsValid)
             {
@@ -90,11 +100,11 @@ namespace ProjetoMyTeDev.Controllers
                 {
                     _context.Add(registro);
                 }
+            }
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-            }
             //ViewData["Wbs"] = new SelectList(_context.Wbs, "WbsId", "WbsCodigo", registroDiario.WbsId);
-            return View();
+            //return View();
         }
 
         // GET: RegistroDiarios/Edit/5
