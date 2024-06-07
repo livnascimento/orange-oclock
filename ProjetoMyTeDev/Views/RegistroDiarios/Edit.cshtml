@@ -1,40 +1,231 @@
-﻿@model ProjetoMyTeDev.Models.RegistroDiario
+﻿@model IEnumerable<ProjetoMyTeDev.Models.RegistroDiario>
+@using Microsoft.AspNetCore.Identity
+@using ProjetoMyTeDev.Areas.Identity.Data
+@using System.Diagnostics
+@inject SignInManager<ApplicationUser> SignInManager
 
 @{
-    ViewData["Title"] = "Editar Registro";
+
+    ViewData["Title"] = "Cadastrar Registro";
+
+    var registros = new RegistroDiario[] { };
+
+    List<DateTime> Quinzena = ViewBag.Quinzena;
 }
 
-<h3>Editar Lançamento de Horas</h3>
 
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="RegistroDiarioId" />
-            <div class="form-group">
-                <label asp-for="WbsId" class="control-label"></label>
-                <select asp-for="WbsId" class="form-control" asp-items="ViewBag.WbsId"></select>
-                <span asp-validation-for="WbsId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Data" class="control-label"></label>
-                <input asp-for="Data" class="form-control" />
-                <span asp-validation-for="Data" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Horas" class="control-label"></label>
-                <input asp-for="Horas" class="form-control" />
-                <span asp-validation-for="Horas" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-secondary my-4" />
-                <a asp-area="" asp-controller="RegistroDiarios" asp-action="Index" class="btn btn-secondary my-4">Voltar</a>
-            </div>
-        </form>
-    </div>
+<div class="row my-4">
+    <h2 class="col">Cadastre suas horas</h2>
+    <div class="col text-end">@ViewBag.DataFormatada</div>
 </div>
 
+<div class="row mb-2">
+    <div class="col">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination d-flex align-items-center">
+                <li class="page-item"><button class="page-link border-0 text-dark" id="quinzena-esquerda"><i class="bi bi-arrow-left-short fs-4"></i></button></li>
+                &ensp;
+                <span id="data-inicial">@Quinzena[0].ToString("dd/MM/yyyy")</span>&ensp; - &ensp;
+                <span id="data-final">@Quinzena[^1].ToString("dd/MM/yyyy")</span>
+                &ensp;
+                <li class="page-item"><button class="page-link border-0 text-dark" id="quinzena-direita"><i class="bi bi-arrow-right-short fs-4"></i></button></li>
+            </ul>
+        </nav>
+    </div>
+    <div class="toast align-items-center border-0 bg-danger text-light float-end position-fixed" style="top: 20%; left:65%;" role="alert" aria-live="assertive" aria-atomic="true" id="daily-register-toast">
+        <div class="d-flex">
+            <div class="toast-body">
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+</div>
+<table class="table text-center" id="quinzena-tabela">
+    <thead class="">
+        <tr>
+            <th>WBS</th>
+            @foreach (var dia in ViewBag.Quinzena)
+            {
+
+                @if (dia.DayOfWeek.ToString() == "Saturday" || dia.DayOfWeek.ToString() == "Sunday")
+                {
+                    <th class="text-muted" style="background-color: #E8E8E8;">@Html.Raw(ViewBag.usuario.Localidade)</th>
+                }
+                else
+                {
+                    <th style="color: #d15917;">@Html.Raw(ViewBag.usuario.Localidade)</th>
+                }
+            }
+        </tr>
+        <tr>
+            <th></th>
+            @foreach (var dia in ViewBag.Quinzena)
+            {
+                <span class="d-none">@dia</span>
+                @if (dia.DayOfWeek.ToString() == "Saturday" || dia.DayOfWeek.ToString() == "Sunday")
+                {
+                    <th scope="col" class="text-muted" style="background-color: #E8E8E8;"><small class="fw-normal">@dia.DayOfWeek.ToString().Substring(0, 3)</small><br /><span>@dia.Day</span></th>
+                }
+                else
+                {
+                    <th scope="col"><small class="fw-normal">@dia.DayOfWeek.ToString().Substring(0, 3)</small><br /><span style="color: #d15917">@dia.Day</span></th>
+
+                }
+            }
+        </tr>
+    </thead>
+    <tbody class="align-middle">
+        @if (ViewBag.Wbs.Count != 0)
+        {
+            @foreach (var wbs in ViewBag.Wbs)
+            {
+                <tr>
+                    <th>
+                        @wbs.WbsCodigo
+                        <br />
+                        <small class="text-muted fw-medium">@wbs.WbsDescricao</small>
+                    </th>
+
+                    @foreach (var dia in ViewBag.Quinzena)
+                    {
+                        var registro = Model.FirstOrDefault(r => DateOnly.FromDateTime(r.Data) == DateOnly.FromDateTime(dia) && r.WbsId == wbs.WbsId);
+
+                        @if (registro != null)
+                        {
+                            @if (dia.DayOfWeek.ToString() == "Saturday" || dia.DayOfWeek.ToString() == "Sunday")
+                            {
+                                <td style="background-color: #E8E8E8;">@registro.Horas</td>
+                            }
+                            else
+                            {
+                                <td scope="col">@registro.Horas</td>
+                            }
+
+                        }
+                        else
+                        {
+                            @if (dia.DayOfWeek.ToString() == "Saturday" || dia.DayOfWeek.ToString() == "Sunday")
+                            {
+                                <td style="background-color: #E8E8E8;">-</td>
+                            }
+                            else
+                            {
+                                <td scope="col">-</td>
+                            }
+                        }
+                    }
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <th>
+                </th>
+                @foreach (var dia in ViewBag.Quinzena)
+                {
+                    <th class="text-muted">
+                        -
+                    </th>
+
+                }
+            </tr>
+        }
+    </tbody>
+    <tfooter>
+        <tr>
+            <th class="text-start">Total</th>
+            @foreach (var dia in ViewBag.Quinzena)
+            {
+                @if (dia.DayOfWeek.ToString() == "Saturday" || dia.DayOfWeek.ToString() == "Sunday")
+                {
+                    <th style="background-color: #E8E8E8;"></th>
+                }
+                else
+                {
+                    <th></th>
+                }
+            }
+        </tr>
+    </tfooter>
+</table>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    const quinzenaEsquerda = document.getElementById('quinzena-esquerda');
+    const quinzenaDireita = document.getElementById('quinzena-direita');
+
+    const dataInicial = document.getElementById('data-inicial');
+    const dataFinal = document.getElementById('data-final');
+
+    const dataInicio = criarData(dataInicial.textContent);
+    const dataFim = criarData(dataFinal.textContent);
+
+
+    quinzenaEsquerda.addEventListener('click', async () => {
+        if (dataInicio.getDate() == 1) {
+            dataInicio.setDate(16);
+            dataInicio.setMonth(dataInicio.getMonth() - 1);
+
+            if (dataInicio.getFullYear() < new Date().getFullYear()) {
+                exibirToast("Ops! Você não pode visualizar o ano seguinte.");
+                dataInicio.setDate(1);
+                dataInicio.setMonth(dataInicio.getMonth() + 1);
+                return;
+            }
+
+            dataFim.setFullYear(dataInicio.getFullYear());
+            dataFim.setMonth(dataInicio.getMonth() + 1);
+            dataFim.setDate(0);
+
+        }
+        else if (dataInicio.getDate() == 16) {
+            dataInicio.setDate(1);
+            dataInicio.setMonth(dataInicio.getMonth());
+
+            dataFim.setFullYear(dataInicio.getFullYear());
+            dataFim.setMonth(dataInicio.getMonth());
+            dataFim.setDate(15);
+        }
+        location.href = `/RegistroDiarios/Index?diaInicial=${dataInicio.toJSON()}&diaFinal=${dataFim.toJSON()}`;
+
+    });
+
+    quinzenaDireita.addEventListener('click', () => {
+
+        if (dataInicio.getDate() == 1) {
+            dataInicio.setDate(16);
+
+            dataFim.setFullYear(dataInicio.getFullYear());
+            dataFim.setMonth(dataInicio.getMonth() + 1);
+            dataFim.setDate(0);
+        }
+        else if (dataInicio.getDate() == 16) {
+            dataInicio.setDate(1);
+            dataInicio.setMonth(dataInicio.getMonth() + 1);
+
+            if (dataInicio.getFullYear() > new Date().getFullYear()) {
+                exibirToast("Ops! Você não pode visualizar o ano seguinte.");
+                dataInicio.setDate(16);
+                dataInicio.setMonth(dataInicio.getMonth() - 1);
+                return;
+            }
+
+            dataFim.setDate(15);
+            dataFim.setMonth(dataInicio.getMonth());
+            dataFim.setFullYear(dataInicio.getFullYear());
+        }
+
+        location.href = `/RegistroDiarios/Index?diaInicial=${dataInicio.toJSON()}&diaFinal=${dataFim.toJSON()}`;
+
+    });
+
+    function criarData(dataStr) {
+        const diaMesAno = dataStr.split('/');
+        return new Date(diaMesAno[2], diaMesAno[1] - 1, diaMesAno[0]);
+    }
+
+</script>
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

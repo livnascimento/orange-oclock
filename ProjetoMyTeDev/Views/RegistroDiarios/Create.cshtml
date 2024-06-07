@@ -131,127 +131,153 @@
 </table>
 
 <script>
-    if (document.querySelector('#salvar-horas')) {
-        document.querySelector('#salvar-horas').addEventListener('click', async function (e) {
-            e.preventDefault();
+    document.querySelector('#salvar-horas').addEventListener('click', async function (e) {
+        e.preventDefault();
 
-            let quinzenaAtual = [], wbs = [], horas = [], registros = [];
-            let erro = "", sabadosDomingos = 0;
+        let quinzenaAtual = [], wbs = [], horas = [], registros = [];
+        let erro = "", sabadosDomingos = 0;
 
-            let token = document.querySelector('input[name="__RequestVerificationToken"]').getAttribute("value");
+        let token = document.querySelector('input[name="__RequestVerificationToken"]').getAttribute("value");
 
-            let FuncionarioId = '@ViewBag.usuario.Id';
-
-            document.querySelectorAll('.d-none').forEach((dia, index) => {
-                dia = dia.textContent;
-                dia = new Date(dia.toString());
-
-                if (dia.getDay() == 0 || dia.getDay() == 6)
-                    sabadosDomingos++;
-
-                quinzenaAtual.push(dia);
-            });
-
-            document.querySelectorAll(".wbs-select").forEach((wbsSelect, index) => {
-                let selectedOption = wbsSelect.options[wbsSelect.selectedIndex];
-
-                if (selectedOption.value != "0") {
-                    wbs.push({ wbsId: selectedOption.value, row: index })
-                }
-            });
-
-            console.log(wbs);
-
-            wbs.forEach(codigo => {
-                let wbsRepetidos = wbs.filter(w => w.wbsId == codigo.wbsId);
-
-                if (wbsRepetidos.length > 1) {
-                    erro = "Uma WBS deve ser selecionada apenas uma vez."
-                    return;
-                }
-            });
-
-            if (erro != "") {
-                exibirToast(erro);
-                return;
-            }
-
-            document.querySelectorAll(".registro-diario").forEach((DailyRegister, index) => {
-                horas.push({
-                    id: index,
-                    hours: DailyRegister.value,
-                    row: Math.floor(index / quinzenaAtual.length),
-                    col: (index % quinzenaAtual.length)
-                });
-            });
-
-            horas.forEach(hora => {
-                if (hora.hours !== '') {
-                    let correspondente = wbs.find(wb => wb.row === hora.row);
-                    if (!correspondente) {
-                        erro = "Selecione uma WBS válida para todos os registros";
-                        return;
-                    }
-                }
-                if (hora.hours == '0') {
-                    erro = "Registro de horas inválido";
-                    return;
-                }
-            });
-
-            if (erro != "") {
-                exibirToast(erro);
-                return;
-            }
-
-            horas.forEach(hora => {
-                if (hora.hours != '') {
-                    let registro = {};
-                    registro.Horas = parseInt(hora.hours);
-                    registro.Data = new Date(quinzenaAtual[0].getFullYear(), quinzenaAtual[0].getMonth(), hora.col + quinzenaAtual[0].getDate());
-                    registro.Data = registro.Data.toJSON();
-                    registro.ApplicationUserId = FuncionarioId;
-                    registro.WbsId = wbs.find(e => e.row === hora.row).wbsId;
-                    registros.push(registro);
-                }
-            });
-
-            registros.forEach(registro => {
-                let diaRepetido = registros.filter(r => r.Data == registro.Data);
-
-                if (diaRepetido.length > 1) {
-                    erro = "Um dia deve conter apenas um registro de horas";
-                    return;
-                }
-            });
-
-            if (erro != "") {
-                exibirToast(erro);
-                return;
-            }
-
-            if (registros.length < quinzenaAtual.length - sabadosDomingos)
-                erro = "Todos os dias úteis devem ser preenchidos."
-
-            if (erro != "") {
-                exibirToast(erro);
-                return;
-            }
-
-            fetch(`/RegistroDiarios/Create`, {
-                method: 'POST',
+        try {
+            let registrosNoBanco = await fetch(`/RegistroDiarios/Details/${'@ViewBag.usuario.Id'}`, {
+                method: 'GET',
                 headers: {
-                    'Content-Type': 'application/json',
-                    "RequestVerificationToken": token
-                },
-                body: JSON.stringify(registros)
-            })
-                .then(result => {
-                    window.location = `/RegistroDiarios/`
-                })
+                    'Content-Type': 'application/json'
+                }
+            });
+
+        } catch (e) {
+            console.log(e);
+        }
+
+        console.log(registrosNoBanco);
+
+        let quinzenaPreenchida = registroNoBanco.some(r => {
+            quinzenaAtual.some(dia => dia == r.Data)
         })
 
-    }
+        console.log(quinzenaPreenchida)
+
+        if (quinzenaPreenchida)
+            erro = "Você já preencheu esta quinzena."
+
+        if (erro != "") {
+            exibirToast(erro);
+            return;
+        }
+
+        let FuncionarioId = '@ViewBag.usuario.Id';
+
+        document.querySelectorAll('.d-none').forEach((dia, index) => {
+            dia = dia.textContent;
+            dia = new Date(dia.toString());
+
+            if (dia.getDay() == 0 || dia.getDay() == 6)
+                sabadosDomingos++;
+
+            quinzenaAtual.push(dia);
+        });
+
+        document.querySelectorAll(".wbs-select").forEach((wbsSelect, index) => {
+            let selectedOption = wbsSelect.options[wbsSelect.selectedIndex];
+
+            if (selectedOption.value != "0") {
+                wbs.push({ wbsId: selectedOption.value, row: index })
+            }
+        });
+
+        wbs.forEach(codigo => {
+            let wbsRepetidos = wbs.filter(w => w.wbsId == codigo.wbsId);
+
+            if (wbsRepetidos.length > 1) {
+                erro = "Uma WBS deve ser selecionada apenas uma vez."
+                return;
+            }
+        });
+
+        if (erro != "") {
+            exibirToast(erro);
+            return;
+        }
+
+        document.querySelectorAll(".registro-diario").forEach((DailyRegister, index) => {
+            horas.push({
+                id: index,
+                hours: DailyRegister.value,
+                row: Math.floor(index / quinzenaAtual.length),
+                col: (index % quinzenaAtual.length)
+            });
+        });
+
+        horas.forEach(hora => {
+            if (hora.hours !== '') {
+                let correspondente = wbs.find(wb => wb.row === hora.row);
+                if (!correspondente) {
+                    erro = "Selecione uma WBS válida para todos os registros";
+                    return;
+                }
+            }
+            if (hora.hours == '0') {
+                erro = "Registro de horas inválido";
+                return;
+            }
+        });
+
+        if (erro != "") {
+            exibirToast(erro);
+            return;
+        }
+
+        horas.forEach(hora => {
+            if (hora.hours != '') {
+                let registro = {};
+                registro.Horas = parseInt(hora.hours);
+                registro.Data = new Date(quinzenaAtual[0].getFullYear(), quinzenaAtual[0].getMonth(), hora.col + quinzenaAtual[0].getDate());
+                registro.Data = registro.Data.toJSON();
+                registro.ApplicationUserId = FuncionarioId;
+                registro.WbsId = wbs.find(e => e.row === hora.row).wbsId;
+                registros.push(registro);
+            }
+        });
+
+        registros.forEach(registro => {
+            let diaRepetido = registros.filter(r => r.Data == registro.Data);
+
+            if (diaRepetido.length > 1) {
+                erro = "Um dia deve conter apenas um registro de horas";
+                return;
+            }
+        });
+
+        if (erro != "") {
+            exibirToast(erro);
+            return;
+        }
+
+        if (registros.length < quinzenaAtual.length - sabadosDomingos)
+            erro = "Todos os dias úteis devem ser preenchidos."
+
+        if (erro != "") {
+            exibirToast(erro);
+            return;
+        }
+
+
+        fetch(`/RegistroDiarios/Create`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                "RequestVerificationToken": token
+            },
+            body: JSON.stringify(registros)
+        })
+            .then(result => {
+                window.location = `/RegistroDiarios/`
+            })
+    })
+
+
 
     function exibirToast(erro) {
         let toastHTMLElement = document.querySelector("#daily-register-toast");

@@ -60,22 +60,25 @@ namespace ProjetoMyTeDev.Controllers
         }
 
         // GET: RegistroDiarios/Details/5
-        public async Task<IActionResult> Details(int? id)
+        [HttpGet]
+        public async Task<IActionResult> Details(string? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var registroDiario = await _context.RegistroDiario
+            var registrosDiarios = await _context.RegistroDiario
                 .Include(r => r.Wbs)
-                .FirstOrDefaultAsync(m => m.RegistroDiarioId == id);
-            if (registroDiario == null)
+                .Include(r => r.Data)
+                .Where(m => m.ApplicationUserId == id)
+                .ToListAsync();
+            if (registrosDiarios == null)
             {
                 return NotFound();
             }
 
-            return View(registroDiario);
+            return (Microsoft.AspNetCore.Mvc.IActionResult) registrosDiarios;
         }
 
         // GET: RegistroDiarios/Create
@@ -101,8 +104,6 @@ namespace ProjetoMyTeDev.Controllers
             }
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-            //ViewData["Wbs"] = new SelectList(_context.Wbs, "WbsId", "WbsCodigo", registroDiario.WbsId);
-            //return View();
         }
 
         // GET: RegistroDiarios/Edit/5
