@@ -5,9 +5,26 @@
 }
 
 <div style="font-size: 25px; margin-bottom: 20px; text-align: center;color: darkorange;font-weight: bold;">
-    <p>Registros de WBS agrupado por funcionário</p>
-    <a asp-area="" asp-controller="Home" asp-action="Index" class="btn btn-secondary my-4" style="font-size: 15px !important; padding: 4px 10px !important; width: 120px !important; height: 30px !important;">Voltar</a>
+    <p>Registros de WBS geral</p>
+
 </div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="filtroData" style="font-size: 16px; color: darkorange; font-weight: bold; margin-bottom: 10px;">Filtrar por data de registro:</label>
+                <input type="text" id="filtroUsuario" class="form-control" />
+            </div>
+        </div>
+        <div class="col-md-6 d-flex align-items-end">
+            <div class="form-group">
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="btn btn-secondary" style="font-size: 18px !important; padding: 6px 20px !important; width: 135px !important; height: 40px !important;">Voltar</a>
+            </div>
+        </div>
+    </div>
+</div>
+</br>
 
 <table class="table">
     <thead>
@@ -46,3 +63,16 @@
         }
     </tbody>
 </table>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#filtroUsuario').keyup(function () {
+                var filtro = $(this).val().toLowerCase();
+                $("tbody tr").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(filtro) > -1)
+                });
+            });
+        });
+    </script>
+}
