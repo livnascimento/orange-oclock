@@ -1,59 +1,4 @@
-﻿@* @model IEnumerable<ProjetoMyTeDev.Models.RegistroDiario>
-
-@{
-    ViewData["Title"] = "Relatório Registro WBS";
-}
-
-<div style ="font-size: 25px; margin-bottom: 20px; text-align: center;color: darkorange;font-weight: bold;">
-    <p>Registros de WBS geral</p>
-    <a asp-area="" asp-controller="Home" asp-action="Index" class="btn btn-secondary my-4" style="font-size: 15px !important; padding: 4px 10px !important; width: 120px !important; height: 30px !important;">Voltar</a>
-</div>
-
-<table class="table">
-    <thead>
-        <tr>
-            <th style="font-weight: bold; font-size: 15px;">
-                @Html.DisplayNameFor(model => model.RegistroDiarioId)
-            </th>
-            <td style="font-weight: bold; font-size: 15px;">
-                @Html.DisplayNameFor(model => model.Wbs.WbsCodigo)
-            </td>
-            <td style="font-weight: bold; font-size: 15px;">
-                @Html.DisplayNameFor(model => model.Wbs.WbsDescricao)
-            </td>
-            <th style="font-weight: bold; font-size: 15px;">
-                @Html.DisplayNameFor(model => model.Horas)
-            </th>
-
-
-
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.RegistroDiarioId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Wbs.WbsCodigo)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Wbs.WbsDescricao)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Horas)
-                </td>
-            </tr>
-        }
-
-    </tbody>
-</table>
- *@
-
-@model IEnumerable<ProjetoMyTeDev.Models.RegistroDiario>
+﻿@model IEnumerable<ProjetoMyTeDev.Models.RegistroDiario>
 
 @{
     ViewData["Title"] = "Relatório Registro WBS";
@@ -66,33 +11,41 @@
 
 <div style="font-size: 25px; margin-bottom: 20px; text-align: center;color: darkorange;font-weight: bold;">
     <p>Registros de WBS geral</p>
-    <a asp-area="" asp-controller="Home" asp-action="Index" class="btn btn-secondary my-4" style="font-size: 15px !important; padding: 4px 10px !important; width: 120px !important; height: 30px !important;">Voltar</a>
 </div>
 
-<table class="table">
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="filtroData" style="font-size: 16px; color: darkorange; font-weight: bold; margin-bottom: 10px;">Filtrar por data de registro:</label>
+                <input type="text" id="filtroWBS" class="form-control" />
+            </div>
+        </div>
+        <div class="col-md-6 d-flex align-items-end">
+            <div class="form-group">
+                <button id="downloadExcel" class="btn btn-success" style="font-size: 18px !important; padding: 6px 20px !important; width: 135px !important; height: 40px !important;"> Baixar</button>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="btn btn-outline-secondary" style="font-size: 18px !important; padding: 6px 20px !important; width: 135px !important; height: 40px !important;">Voltar</a>
+               
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+
+<table id="tblData" class="table">
     <thead>
         <tr>
-            <th style="font-weight: bold; font-size: 15px;">
-                @Html.DisplayNameFor(model => model.Wbs.WbsCodigo)
-            </th>
-            <td style="font-weight: bold; font-size: 15px;">
-                @Html.DisplayNameFor(model => model.Wbs.WbsDescricao)
-            </td>
-            <th style="font-weight: bold; font-size: 15px;">
-                Total de Horas
-            </th>
+            <th style="font-weight: bold; font-size: 15px;">@Html.DisplayNameFor(model => model.Wbs.WbsCodigo)</th>
+            <th style="font-weight: bold; font-size: 15px;">@Html.DisplayNameFor(model => model.Wbs.WbsDescricao)</th>
+            <th style="font-weight: bold; font-size: 15px;">Total de Horas</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var group in Model.GroupBy(item => item.Wbs.WbsCodigo))
         {
             <tr>
-                <td>
-                    @group.Key
-                </td>
-                <td>
-                    @group.First().Wbs.WbsDescricao
-                </td>
+                <td>@group.Key</td>
+                <td>@group.First().Wbs.WbsDescricao</td>
                 <td>
                     @{
                         // Calcular a soma das horas para esta WBS
@@ -104,3 +57,29 @@
         }
     </tbody>
 </table>
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#filtroWBS').keyup(function () {
+                var filtro = $(this).val().toLowerCase();
+                $("tbody tr").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(filtro) > -1)
+                });
+            });
+
+            // Ao clicar no botão "Baixar Excel"
+            $('#downloadExcel').click(function () {
+                // Obter dados da tabela
+                var table = document.getElementById("tblData");
+                var sheet = XLSX.utils.table_to_sheet(table);
+                var workbook = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(workbook, sheet, "Tabela");
+
+                // Salvar o arquivo Excel
+                XLSX.writeFile(workbook, 'tabela_excel.xlsx');
+            });
+        });
+    </script>
+}
