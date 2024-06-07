@@ -1,10 +1,13 @@
-﻿@model IEnumerable<ProjetoMyTeDev.Models.RegistroDiario>
+﻿@* @model IEnumerable<ProjetoMyTeDev.Models.RegistroDiario>
 
 @{
     ViewData["Title"] = "Relatório Registro WBS";
 }
 
-<div style="font-size: 20px; margin-bottom: 20px; text-align: center;color: darkorange;font-weight: bold;">Relatórios dos Registros por WBS</div><br />
+<div style ="font-size: 25px; margin-bottom: 20px; text-align: center;color: darkorange;font-weight: bold;">
+    <p>Registros de WBS geral</p>
+    <a asp-area="" asp-controller="Home" asp-action="Index" class="btn btn-secondary my-4" style="font-size: 15px !important; padding: 4px 10px !important; width: 120px !important; height: 30px !important;">Voltar</a>
+</div>
 
 <table class="table">
     <thead>
@@ -21,9 +24,9 @@
             <th style="font-weight: bold; font-size: 15px;">
                 @Html.DisplayNameFor(model => model.Horas)
             </th>
-           
 
-            
+
+
             <th></th>
         </tr>
     </thead>
@@ -43,9 +46,59 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Horas)
                 </td>
-               
+            </tr>
+        }
+
+    </tbody>
+</table>
+ *@
+
+@model IEnumerable<ProjetoMyTeDev.Models.RegistroDiario>
+
+@{
+    ViewData["Title"] = "Relatório Registro WBS";
+}
+
+@{
+    // Variável para armazenar a soma das horas da WBS
+    double totalHoras = 0;
+}
+
+<div style="font-size: 25px; margin-bottom: 20px; text-align: center;color: darkorange;font-weight: bold;">
+    <p>Registros de WBS geral</p>
+    <a asp-area="" asp-controller="Home" asp-action="Index" class="btn btn-secondary my-4" style="font-size: 15px !important; padding: 4px 10px !important; width: 120px !important; height: 30px !important;">Voltar</a>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th style="font-weight: bold; font-size: 15px;">
+                @Html.DisplayNameFor(model => model.Wbs.WbsCodigo)
+            </th>
+            <td style="font-weight: bold; font-size: 15px;">
+                @Html.DisplayNameFor(model => model.Wbs.WbsDescricao)
+            </td>
+            <th style="font-weight: bold; font-size: 15px;">
+                Total de Horas
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var group in Model.GroupBy(item => item.Wbs.WbsCodigo))
+        {
+            <tr>
                 <td>
-                    <a asp-area="" asp-controller="Home" asp-action="Index" class="btn btn-secondary my-4">Voltar</a>
+                    @group.Key
+                </td>
+                <td>
+                    @group.First().Wbs.WbsDescricao
+                </td>
+                <td>
+                    @{
+                        // Calcular a soma das horas para esta WBS
+                        totalHoras = group.Sum(item => item.Horas);
+                    }
+                    @totalHoras
                 </td>
             </tr>
         }

@@ -1,0 +1,48 @@
+﻿@model IEnumerable<ProjetoMyTeDev.Models.RegistroDiario>
+
+@{
+    ViewData["Title"] = "Relatório WBS Por Funcionário";
+}
+
+<div style="font-size: 25px; margin-bottom: 20px; text-align: center;color: darkorange;font-weight: bold;">
+    <p>Registros de WBS agrupado por funcionário</p>
+    <a asp-area="" asp-controller="Home" asp-action="Index" class="btn btn-secondary my-4" style="font-size: 15px !important; padding: 4px 10px !important; width: 120px !important; height: 30px !important;">Voltar</a>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th style="font-weight: bold; font-size: 15px;">
+                Código WBS
+            </th>
+            <td style="font-weight: bold; font-size: 15px;">
+                Descrição WBS
+            </td>
+            <th style="font-weight: bold; font-size: 15px;">
+                Usuário
+            </th>
+            <th style="font-weight: bold; font-size: 15px;">
+                Total de Horas
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in ViewBag.DadosProcessados)
+        {
+            <tr>
+                <td>
+                    @item.WbsCodigo
+                </td>
+                <td>
+                    @item.WbsDescricao
+                </td>
+                <td>
+                    @item.NomeUsuario
+                </td>
+                <td>
+                    @item.TotalHoras
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

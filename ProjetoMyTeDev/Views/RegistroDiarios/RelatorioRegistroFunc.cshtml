@@ -1,0 +1,59 @@
+﻿@model IEnumerable<ProjetoMyTeDev.Models.RegistroDiario>
+
+@{
+    ViewData["Title"] = "Registro Funcionário";
+}
+
+<div style="font-size: 25px; margin-bottom: 20px; text-align: center;color: darkorange;font-weight: bold;">
+    <p>Registros de WBS por funcionário</p>
+    <a asp-area="" asp-controller="Home" asp-action="Index" class="btn btn-secondary my-4" style="font-size: 15px !important; padding: 4px 10px !important; width: 120px !important; height: 30px !important;">Voltar</a>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th style="font-weight: bold; font-size: 15px;">
+                @Html.DisplayNameFor(model => model.RegistroDiarioId)
+            </th>
+            <td style="font-weight: bold; font-size: 15px;">
+                @Html.DisplayNameFor(model => model.Wbs.WbsCodigo)
+            </td>
+            <td style="font-weight: bold; font-size: 15px;">
+                @Html.DisplayNameFor(model => model.Wbs.WbsDescricao)
+            </td>
+            <th style="font-weight: bold; font-size: 15px;">
+                @Html.DisplayNameFor(model => model.Horas)
+            </th>
+            <th style="font-weight: bold; font-size: 15px;">
+                @Html.DisplayNameFor(model => model.Data)
+            </th>
+
+
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RegistroDiarioId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Wbs.WbsCodigo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Wbs.WbsDescricao)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Horas)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Data)
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>

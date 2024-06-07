@@ -20,11 +20,25 @@ namespace ProjetoMyTeDev.Controllers
             _context = context;
         }
 
+        //[Authorize(Policy = "RequerPerfilAdmin")]
+        //// GET: Cargos
+        //public async Task<IActionResult> Index()
+        //{
+        //    return View(await _context.Cargo.ToListAsync());
+        //}
+
         [Authorize(Policy = "RequerPerfilAdmin")]
-        // GET: Cargos
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-            return View(await _context.Cargo.ToListAsync());
+            var cargos = from c in _context.Cargo
+                         select c;
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                cargos = cargos.Where(c => c.CargoNome.Contains(searchString));
+            }
+
+            return View(await cargos.ToListAsync());
         }
 
         // GET: Cargos/Details/5

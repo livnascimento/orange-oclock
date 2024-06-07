@@ -20,11 +20,25 @@ namespace ProjetoMyTeDev.Views.Departamentos
             _context = context;
         }
 
+        //[Authorize(Policy = "RequerPerfilAdmin")]
+        //// GET: Departamentos
+        //public async Task<IActionResult> Index()
+        //{
+        //    return View(await _context.Departamento.ToListAsync());
+        //}
+
         [Authorize(Policy = "RequerPerfilAdmin")]
-        // GET: Departamentos
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-            return View(await _context.Departamento.ToListAsync());
+            var departamentos = from d in _context.Departamento
+                                select d;
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                departamentos = departamentos.Where(s => s.DepartamentoNome.Contains(searchString));
+            }
+
+            return View(await departamentos.ToListAsync());
         }
 
         // GET: Departamentos/Details/5

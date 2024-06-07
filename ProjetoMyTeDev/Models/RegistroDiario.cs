@@ -11,6 +11,8 @@ namespace ProjetoMyTeDev.Models
         public string? ApplicationUserId { get; set; }
         public Wbs? Wbs { get; set; }
         public int WbsId {  get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime Data {  get; set; }
         public int Horas {  get; set; }
     }

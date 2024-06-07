@@ -5,9 +5,9 @@
 @{
     ViewData["Title"] = "Gerenciar Funcionário";
     var nome = ViewBag.Nome as string;
-    var localidade = ViewBag.Localidade as string;
-    var cargo = ViewBag.Cargo as string;
-    var departamento = ViewBag.Departamento as string;
+    // var localidade = ViewBag.Localidade as string;
+    // var cargo = ViewBag.Cargo as string;
+    // var departamento = ViewBag.Departamento as string;
 }
 
 <h3>Funcionário</h3>
@@ -16,7 +16,7 @@
     <div class="form-group">
         <label for="Nome">Nome</label>
         <input type="text" class="form-control" id="Nome" name="nome" value="@nome" />
-    </div>
+    @* </div>
     <div class="form-group">
         <label for="Localidade">Localidade</label>
         <input type="text" class="form-control" id="Localidade" name="localidade" value="@localidade" />
@@ -28,7 +28,7 @@
     <div class="form-group">
         <label for="Departamento">Departamento</label>
         <input type="text" class="form-control" id="Departamento" name="departamento" value="@departamento" />
-    </div>
+    </div> *@
     <button type="submit" class="btn btn-secondary my-4">Filtrar</button>
     <a asp-controller="Home" asp-action="Index" class="btn btn-outline-secondary my-4">Voltar</a>
 </form>

@@ -9,11 +9,11 @@ using ProjetoMyTeDev.Data;
 
 #nullable disable
 
-namespace ProjetoMyTeDev.Migrations
+namespace ProjetoMyTeDev.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240531142308_Migration1")]
-    partial class Migration1
+    [Migration("20240606233535_migrationNova1")]
+    partial class migrationNova1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -295,8 +295,8 @@ namespace ProjetoMyTeDev.Migrations
                     b.Property<string>("ApplicationUserId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<DateOnly>("Data")
-                        .HasColumnType("date");
+                    b.Property<DateTime>("Data")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("Horas")
                         .HasColumnType("int");

@@ -93,11 +93,11 @@ namespace ProjetoMyTeDev.Controllers
         // POST: RegistroDiarios/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([FromBody]List<RegistroDiario> registrosDiarios)
+        public async Task<IActionResult> Create([FromBody] List<RegistroDiario> registrosDiarios)
         {
             if (ModelState.IsValid)
             {
-                foreach(var registro in registrosDiarios)
+                foreach (var registro in registrosDiarios)
                 {
                     _context.Add(registro);
                 }
@@ -201,10 +201,56 @@ namespace ProjetoMyTeDev.Controllers
         public IActionResult RelatorioRegistro()
         {
             var registros = _context.RegistroDiario.Include(r => r.Wbs)
-                .OrderByDescending(r => r.Horas) //ordernando decrescente as horas lançadas
-                .ToList();
+            .OrderByDescending(r => r.Horas) //ordernando decrescente as horas lançadas
+            .ToList();
 
-            return View(registros);  
+            return View(registros);
+
+        }
+
+        public IActionResult RelatorioRegistroFunc()
+        {
+            var user = _userManager.GetUserAsync(User).Result;
+            if (user != null)
+            {
+                var registros = _context.RegistroDiario.Include(r => r.Wbs)
+                    .Where(r => r.ApplicationUserId == user.Id)
+                    .OrderByDescending(r => r.Horas)
+                    .ToList();
+
+                return View(registros);
+            }
+            return Content("Usuário não autenticado.");
+        }
+
+        public IActionResult RelatorioRegistroFuncParaAdmin()
+        {
+            // Busca os registros do banco de dados
+            var registros = _context.RegistroDiario.Include(r => r.ApplicationUser).Include(r => r.Wbs).ToList();
+
+            // Agrupa os registros por usuário e WBS e calcula a soma das horas para cada combinação
+            var dadosProcessados = registros.GroupBy(
+                r => new { Usuario = r.ApplicationUser.UserName, WbsCodigo = r.Wbs.WbsCodigo, WbsDescricao = r.Wbs.WbsDescricao },
+                (key, group) => new
+                {
+                    NomeUsuario = key.Usuario,
+                    WbsCodigo = key.WbsCodigo,
+                    WbsDescricao = key.WbsDescricao,
+                    TotalHoras = group.Sum(r => r.Horas)
+                }
+            )
+            // Agrupa os registros por usuário
+            .GroupBy(r => r.NomeUsuario)
+            // Ordena os grupos de usuários em ordem decrescente pelo total de horas
+            .OrderByDescending(group => group.Sum(r => r.TotalHoras))
+            // Converte os resultados em uma lista e mantém a ordem de horas decrescente dentro de cada grupo de usuário
+            .SelectMany(group => group.OrderByDescending(item => item.TotalHoras))
+            .ToList();
+
+            ViewBag.DadosProcessados = dadosProcessados;
+
+            return View();
+
         }
     }
 }

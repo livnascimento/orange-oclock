@@ -2,10 +2,10 @@
 
 #nullable disable
 
-namespace ProjetoMyTeDev.Migrations
+namespace ProjetoMyTeDev.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class mig12 : Migration
+    public partial class migrationNova1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
