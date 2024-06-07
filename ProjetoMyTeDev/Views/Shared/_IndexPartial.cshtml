@@ -1,10 +1,17 @@
-﻿@{
-    ViewData["Title"] = "Dashboard";
-}
-@using Microsoft.AspNetCore.Identity
+﻿@using Microsoft.AspNetCore.Identity
+@using ProjetoMyTeDev.Models
+@using Microsoft.EntityFrameworkCore;
 @using ProjetoMyTeDev.Areas.Identity.Data
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
+@inject ProjetoMyTeDev.Data.ApplicationDbContext DbContext
+
+@{
+    ViewData["Title"] = "Dashboard";
+    int totalUsuarios = UserManager.Users.Count();
+    int totalDepartamentos = await DbContext.Departamento.CountAsync();
+    int totalRegistros = await DbContext.RegistroDiario.CountAsync();
+}
 
 
 @if (!SignInManager.IsSignedIn(User))
@@ -57,19 +64,24 @@ else
 
         <h5 class="fw-bold mb-4">Ações Rápidas</h5>
         <div class="row">
+
             <div class="col-md-3">
-                <a type="button" class="btn btn-secondary d-flex align-items-center" asp-area="" asp-controller="RegistroDiarios" asp-action="RelatorioRegistro"><i class="bi bi-clipboard-data-fill fs-2 mx-4"></i>Relatório Registros WBS</a>
+                <a type="button" class="btn btn-secondary d-flex align-items-center" asp-area="" asp-controller="RegistroDiarios" asp-action="RelatorioRegistro"><i class="bi bi-clipboard-data-fill fs-2 mx-4"></i>Relatório WBS Geral</a>
+            </div>
+            <div class="col-md-3">
+                <a type="button" class="btn btn-secondary d-flex align-items-center" asp-area="" asp-controller="RegistroDiarios" asp-action="RelatorioRegistroFuncParaAdmin"><i class="bi bi-clipboard-data-fill fs-2 mx-4"></i>Relatório WBS Funcionário</a>
             </div>
             <div class="col-md-3">
                 <a type="button" class="btn btn-secondary d-flex align-items-center" asp-area="" asp-controller="Home" asp-action="Funcionario"><i class="bi bi-person-lines-fill fs-2 mx-4"></i>Listar Funcionários</a>
             </div>
+            
         </div>
         <h5 class="my-5 fw-bold">Métricas da Quinzena</h5>
         <div class="row">
             <div class="col-md-3">
                 <div class="card border-0">
                     <div class="card-body">
-                        <h4 class="card-title fw-bold">@ViewBag.Funcionario</h4>
+                        <h4 class="card-title fw-bold">@totalUsuarios</h4>
                         <p class="card-subtitle mb-2">Funcionários cadastrados</p>
                     </div>
                 </div>
@@ -77,7 +89,7 @@ else
             <div class="col-md-3">
                 <div class="card border-0">
                     <div class="card-body">
-                        <h4 class="card-title fw-bold">@ViewBag.Departamento</h4>
+                        <h4 class="card-title fw-bold">@totalDepartamentos</h4>
                         <p class="card-subtitle mb-2">Departamentos cadastrados</p>
                     </div>
                 </div>
@@ -85,8 +97,8 @@ else
             <div class="col-md-3">
                 <div class="card border-0">
                     <div class="card-body">
-                        <h4 class="card-title fw-bold">@ViewBag.RegistroDiario</h4>
-                        <p class="card-subtitle mb-2">Registros lançados</p>
+                        <h4 class="card-title fw-bold">@totalRegistros</h4>
+                        <p class="card-subtitle mb-2">Registros de horas por dia</p>
                     </div>
                 </div>
             </div>
