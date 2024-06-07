@@ -39,6 +39,9 @@
             <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
     </div>
+    <div class="col">
+        <button id="editar-horas" class="btn btn-secondary float-end"><i class="bi bi-pencil-fill"></i> &ensp; Editar Quinzena</button>
+    </div>
 </div>
 <table class="table text-center" id="quinzena-tabela">
     <thead class="">
@@ -154,6 +157,7 @@
 <script>
     const quinzenaEsquerda = document.getElementById('quinzena-esquerda');
     const quinzenaDireita = document.getElementById('quinzena-direita');
+    const editarQuinzena = document.getElementById('editar-horas')
 
     const dataInicial = document.getElementById('data-inicial');
     const dataFinal = document.getElementById('data-final');
@@ -219,6 +223,10 @@
         location.href = `/RegistroDiarios/Index?diaInicial=${dataInicio.toJSON()}&diaFinal=${dataFim.toJSON()}`;
 
     });
+
+    editarQuinzena.addEventListener('click', () => {
+        location.href = `/RegistroDiarios/Edit?diaInicial=${dataInicio.toJSON()}&diaFinal=${dataFim.toJSON()}`;
+    })
 
     function criarData(dataStr) {
         const diaMesAno = dataStr.split('/');

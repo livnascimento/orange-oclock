@@ -1,36 +1,32 @@
-﻿@model IEnumerable<ProjetoMyTeDev.Models.RegistroDiario>
-@using Microsoft.AspNetCore.Identity
+﻿@using Microsoft.AspNetCore.Identity
 @using ProjetoMyTeDev.Areas.Identity.Data
-@using System.Diagnostics
 @inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@inject IAntiforgery antiforgery
 
+@model ProjetoMyTeDev.Models.RegistroDiario
 @{
+    var token = antiforgery.GetAndStoreTokens(Context).RequestToken;
 
-    ViewData["Title"] = "Cadastrar Registro";
+    ViewData["Title"] = "Editar Registro";
 
-    var registros = new RegistroDiario[] { };
+    var registros = ViewBag.Registros as List<RegistroDiario>;
 
     List<DateTime> Quinzena = ViewBag.Quinzena;
+
 }
 
 
 <div class="row my-4">
     <h2 class="col">Cadastre suas horas</h2>
-    <div class="col text-end">@ViewBag.DataFormatada</div>
+    <div class="col text-end">@ViewBag.dataFormatada</div>
 </div>
 
-<div class="row mb-2">
+<div class="row mb-5">
     <div class="col">
-        <nav aria-label="Page navigation example">
-            <ul class="pagination d-flex align-items-center">
-                <li class="page-item"><button class="page-link border-0 text-dark" id="quinzena-esquerda"><i class="bi bi-arrow-left-short fs-4"></i></button></li>
-                &ensp;
-                <span id="data-inicial">@Quinzena[0].ToString("dd/MM/yyyy")</span>&ensp; - &ensp;
-                <span id="data-final">@Quinzena[^1].ToString("dd/MM/yyyy")</span>
-                &ensp;
-                <li class="page-item"><button class="page-link border-0 text-dark" id="quinzena-direita"><i class="bi bi-arrow-right-short fs-4"></i></button></li>
-            </ul>
-        </nav>
+        <h6>
+            @($"{Quinzena[0].ToString("dd/MM/yyyy")}") - @($"{Quinzena[^1].ToString("dd/MM/yyyy")}")
+        </h6>
     </div>
     <div class="toast align-items-center border-0 bg-danger text-light float-end position-fixed" style="top: 20%; left:65%;" role="alert" aria-live="assertive" aria-atomic="true" id="daily-register-toast">
         <div class="d-flex">
@@ -39,12 +35,22 @@
             <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
     </div>
+    <div class="toast align-items-center bg-success text-light border-0 float-end position-fixed" style="top: 20%; left:65%;" role="alert" aria-live="assertive" aria-atomic="true" id="daily-register-toast-success">
+        <div class="d-flex">
+            <div class="toast-body success">
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+    <div class="col">
+        <button id="salvar-horas" class="btn btn-secondary float-end"><i class="bi bi-floppy2-fill"></i> &ensp; Salvar</button>
+    </div>
 </div>
-<table class="table text-center" id="quinzena-tabela">
+<table class="table text-center">
     <thead class="">
         <tr>
             <th>WBS</th>
-            @foreach (var dia in ViewBag.Quinzena)
+            @foreach (var dia in Quinzena)
             {
 
                 @if (dia.DayOfWeek.ToString() == "Saturday" || dia.DayOfWeek.ToString() == "Sunday")
@@ -59,9 +65,8 @@
         </tr>
         <tr>
             <th></th>
-            @foreach (var dia in ViewBag.Quinzena)
+            @foreach (var dia in Quinzena)
             {
-                <span class="d-none">@dia</span>
                 @if (dia.DayOfWeek.ToString() == "Saturday" || dia.DayOfWeek.ToString() == "Sunday")
                 {
                     <th scope="col" class="text-muted" style="background-color: #E8E8E8;"><small class="fw-normal">@dia.DayOfWeek.ToString().Substring(0, 3)</small><br /><span>@dia.Day</span></th>
@@ -74,31 +79,41 @@
             }
         </tr>
     </thead>
-    <tbody class="align-middle">
+    <tbody>
         @if (ViewBag.Wbs.Count != 0)
         {
             @foreach (var wbs in ViewBag.Wbs)
             {
                 <tr>
                     <th>
-                        @wbs.WbsCodigo
-                        <br />
-                        <small class="text-muted fw-medium">@wbs.WbsDescricao</small>
+                        <select class="form-select wbs-select">
+                            <option value="0">Selecione a WBS</option>
+                            @foreach (var item in ViewBag.Wbs)
+                            {
+                                <option value="@item.WbsId" selected>
+                                    @Html.Raw(item.WbsCodigo) &ensp; @Html.Raw(item.WbsDescricao)
+                                </option>
+                            }
+                        </select>
                     </th>
 
                     @foreach (var dia in ViewBag.Quinzena)
                     {
-                        var registro = Model.FirstOrDefault(r => DateOnly.FromDateTime(r.Data) == DateOnly.FromDateTime(dia) && r.WbsId == wbs.WbsId);
+                        var registro = registros.FirstOrDefault(r => DateOnly.FromDateTime(r.Data) == DateOnly.FromDateTime(dia) && r.WbsId == wbs.WbsId);
 
                         @if (registro != null)
                         {
                             @if (dia.DayOfWeek.ToString() == "Saturday" || dia.DayOfWeek.ToString() == "Sunday")
                             {
-                                <td style="background-color: #E8E8E8;">@registro.Horas</td>
+                                <td style="background-color: #E8E8E8;">
+                                    <input class="form-control text-center registro-diario border-mutted" value="@registro.Horas" size="1" style="background-color: #E8E8E8; border-color: #f2f2f2;">
+                                </td>
                             }
                             else
                             {
-                                <td scope="col">@registro.Horas</td>
+                                <td>
+                                    <input value="@registro.Horas" class="form-control text-center registro-diario border-mutted" size="1">
+                                </td>
                             }
 
                         }
@@ -106,11 +121,15 @@
                         {
                             @if (dia.DayOfWeek.ToString() == "Saturday" || dia.DayOfWeek.ToString() == "Sunday")
                             {
-                                <td style="background-color: #E8E8E8;">-</td>
+                                <td style="background-color: #E8E8E8;">
+                                    <input class="form-control text-center registro-diario border-mutted" size="1" style="background-color: #E8E8E8; border-color: #f2f2f2;">
+                                </td>
                             }
                             else
                             {
-                                <td scope="col">-</td>
+                                <td >
+                                    <input value="0" class="form-control text-center registro-diario border-mutted" size="1">
+                                </td>
                             }
                         }
                     }
@@ -122,12 +141,11 @@
             <tr>
                 <th>
                 </th>
-                @foreach (var dia in ViewBag.Quinzena)
+                @foreach (var registro in registros)
                 {
                     <th class="text-muted">
-                        -
+                        <input class="form-control text-center registro-diario border-mutted" size="1" />
                     </th>
-
                 }
             </tr>
         }
@@ -135,9 +153,9 @@
     <tfooter>
         <tr>
             <th class="text-start">Total</th>
-            @foreach (var dia in ViewBag.Quinzena)
+            @foreach (var registro in registros)
             {
-                @if (dia.DayOfWeek.ToString() == "Saturday" || dia.DayOfWeek.ToString() == "Sunday")
+                @if (registro.Data.DayOfWeek.ToString() == "Saturday" || registro.Data.DayOfWeek.ToString() == "Sunday")
                 {
                     <th style="background-color: #E8E8E8;"></th>
                 }
@@ -150,82 +168,172 @@
     </tfooter>
 </table>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
-    const quinzenaEsquerda = document.getElementById('quinzena-esquerda');
-    const quinzenaDireita = document.getElementById('quinzena-direita');
+    document.querySelector('#salvar-horas').addEventListener('click', async function (e) {
+        e.preventDefault();
 
-    const dataInicial = document.getElementById('data-inicial');
-    const dataFinal = document.getElementById('data-final');
+        let quinzenaAtual = [], wbs = [], horas = [], registros = [], registrosNoBanco = [];
+        let erro = "", sabadosDomingos = 0, quinzenaPreenchida;
 
-    const dataInicio = criarData(dataInicial.textContent);
-    const dataFim = criarData(dataFinal.textContent);
+        const token = document.querySelector('input[name="__RequestVerificationToken"]').getAttribute("value");
+        const FuncionarioId = '@ViewBag.usuario.Id';
 
 
-    quinzenaEsquerda.addEventListener('click', async () => {
-        if (dataInicio.getDate() == 1) {
-            dataInicio.setDate(16);
-            dataInicio.setMonth(dataInicio.getMonth() - 1);
+        document.querySelectorAll('.d-none').forEach((dia, index) => {
+            dia = dia.textContent;
+            dia = new Date(dia.toString());
 
-            if (dataInicio.getFullYear() < new Date().getFullYear()) {
-                exibirToast("Ops! Você não pode visualizar o ano seguinte.");
-                dataInicio.setDate(1);
-                dataInicio.setMonth(dataInicio.getMonth() + 1);
+            if (dia.getDay() == 0 || dia.getDay() == 6)
+                sabadosDomingos++;
+
+            quinzenaAtual.push(dia);
+        });
+
+        await fetch(`/RegistroDiarios/Details/${FuncionarioId}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                registrosNoBanco = data;
+                quinzenaPreenchida = registrosNoBanco.some(r => {
+                    r.data = new Date(r.data);
+
+                    const dataEncontrada = quinzenaAtual.some(dia => {
+                        return dia.toDateString() == r.data.toDateString();
+                    });
+
+                    return dataEncontrada;
+                });
+            })
+            .catch(error => {
+                console.error("Erro ao obter registros:", error);
+            });
+
+        if (quinzenaPreenchida) {
+            erro = "Você já lançou as horas da quinzena atual."
+        }
+
+        if (erro != "") {
+            exibirToast(erro);
+            return;
+        }
+
+        document.querySelectorAll(".wbs-select").forEach((wbsSelect, index) => {
+            let selectedOption = wbsSelect.options[wbsSelect.selectedIndex];
+
+            if (selectedOption.value != "0") {
+                wbs.push({ wbsId: selectedOption.value, row: index })
+            }
+        });
+
+        wbs.forEach(codigo => {
+            let wbsRepetidos = wbs.filter(w => w.wbsId == codigo.wbsId);
+
+            if (wbsRepetidos.length > 1) {
+                erro = "Uma WBS deve ser selecionada apenas uma vez."
                 return;
             }
+        });
 
-            dataFim.setFullYear(dataInicio.getFullYear());
-            dataFim.setMonth(dataInicio.getMonth() + 1);
-            dataFim.setDate(0);
-
+        if (erro != "") {
+            exibirToast(erro);
+            return;
         }
-        else if (dataInicio.getDate() == 16) {
-            dataInicio.setDate(1);
-            dataInicio.setMonth(dataInicio.getMonth());
 
-            dataFim.setFullYear(dataInicio.getFullYear());
-            dataFim.setMonth(dataInicio.getMonth());
-            dataFim.setDate(15);
-        }
-        location.href = `/RegistroDiarios/Index?diaInicial=${dataInicio.toJSON()}&diaFinal=${dataFim.toJSON()}`;
+        document.querySelectorAll(".registro-diario").forEach((DailyRegister, index) => {
+            horas.push({
+                id: index,
+                hours: DailyRegister.value,
+                row: Math.floor(index / quinzenaAtual.length),
+                col: (index % quinzenaAtual.length)
+            });
+        });
 
-    });
-
-    quinzenaDireita.addEventListener('click', () => {
-
-        if (dataInicio.getDate() == 1) {
-            dataInicio.setDate(16);
-
-            dataFim.setFullYear(dataInicio.getFullYear());
-            dataFim.setMonth(dataInicio.getMonth() + 1);
-            dataFim.setDate(0);
-        }
-        else if (dataInicio.getDate() == 16) {
-            dataInicio.setDate(1);
-            dataInicio.setMonth(dataInicio.getMonth() + 1);
-
-            if (dataInicio.getFullYear() > new Date().getFullYear()) {
-                exibirToast("Ops! Você não pode visualizar o ano seguinte.");
-                dataInicio.setDate(16);
-                dataInicio.setMonth(dataInicio.getMonth() - 1);
+        horas.forEach(hora => {
+            if (hora.hours !== '') {
+                let correspondente = wbs.find(wb => wb.row === hora.row);
+                if (!correspondente) {
+                    erro = "Selecione uma WBS válida para todos os registros";
+                    return;
+                }
+            }
+            if (hora.hours == '0') {
+                erro = "Registro de horas inválido";
                 return;
             }
+        });
 
-            dataFim.setDate(15);
-            dataFim.setMonth(dataInicio.getMonth());
-            dataFim.setFullYear(dataInicio.getFullYear());
+        if (erro != "") {
+            exibirToast(erro);
+            return;
         }
 
-        location.href = `/RegistroDiarios/Index?diaInicial=${dataInicio.toJSON()}&diaFinal=${dataFim.toJSON()}`;
+        horas.forEach(hora => {
+            if (hora.hours != '') {
+                let registro = {};
+                registro.Horas = parseInt(hora.hours);
+                registro.Data = new Date(quinzenaAtual[0].getFullYear(), quinzenaAtual[0].getMonth(), hora.col + quinzenaAtual[0].getDate());
+                registro.Data = registro.Data.toJSON();
+                registro.ApplicationUserId = FuncionarioId;
+                registro.WbsId = wbs.find(e => e.row === hora.row).wbsId;
+                registros.push(registro);
+            }
+        });
 
-    });
+        registros.forEach(registro => {
+            let diaRepetido = registros.filter(r => r.Data == registro.Data);
 
-    function criarData(dataStr) {
-        const diaMesAno = dataStr.split('/');
-        return new Date(diaMesAno[2], diaMesAno[1] - 1, diaMesAno[0]);
+            if (diaRepetido.length > 1) {
+                erro = "Um dia deve conter apenas um registro de horas";
+                return;
+            }
+        });
+
+        if (erro != "") {
+            exibirToast(erro);
+            return;
+        }
+
+        if (registros.length < quinzenaAtual.length - sabadosDomingos)
+            erro = "Todos os dias úteis devem ser preenchidos."
+
+        if (erro != "") {
+            exibirToast(erro);
+            return;
+        }
+
+
+        fetch(`/RegistroDiarios/Create`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                "RequestVerificationToken": token
+            },
+            body: JSON.stringify(registros)
+        })
+            .then(result => {
+                exibirToastSucesso("Quinzena salva com sucesso.");
+            })
+    })
+
+
+    function exibirToast(erro) {
+        let toastHTMLElement = document.querySelector("#daily-register-toast");
+        let toastBody = document.querySelector(".toast-body");
+        toastBody.innerHTML = erro;
+        let toastElement = new bootstrap.Toast(toastHTMLElement);
+        toastElement.show();
+    }
+
+    function exibirToastSucesso(mensagem) {
+        let toastHTMLElement = document.querySelector("#daily-register-toast-success");
+        let toastBody = document.querySelector(".toast-body.success");
+        toastBody.innerHTML = mensagem;
+        let toastElement = new bootstrap.Toast(toastHTMLElement);
+        toastElement.show();
     }
 
 </script>
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}

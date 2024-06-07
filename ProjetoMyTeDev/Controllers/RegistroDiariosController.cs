@@ -7,6 +7,7 @@ using ProjetoMyTeDev.Data;
 using ProjetoMyTeDev.Models;
 using System.Diagnostics;
 using ProjetoMyTeDev.Areas.Identity.Data;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ProjetoMyTeDev.Controllers
 {
@@ -63,19 +64,11 @@ namespace ProjetoMyTeDev.Controllers
         [HttpGet]
         public async Task<List<RegistroDiario>> Details(string? id)
         {
-            if (id == null)
-            {
-                //return NotFound();
-            }
 
             var registrosDiarios = await _context.RegistroDiario
                 .Include(r => r.Wbs)
                 .Where(m => m.ApplicationUserId == id)
                 .ToListAsync();
-            if (registrosDiarios == null)
-            {
-                //return 
-            }
 
             return registrosDiarios;
         }
@@ -106,20 +99,39 @@ namespace ProjetoMyTeDev.Controllers
         }
 
         // GET: RegistroDiarios/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(DateTime? diaInicial, DateTime? diaFinal)
         {
-            if (id == null)
+            DateTime data = DateTime.Now;
+
+            string dataFormatada = DateTime.Today.ToString("dddd", System.Globalization.CultureInfo.CreateSpecificCulture("pt-BR")) + ", " + data.ToString("dd/MM/yyyy");
+
+            ViewBag.DataFormatada = dataFormatada;
+
+            ViewBag.usuario = _userManager.GetUserAsync(User).Result;
+
+            if (diaInicial == null || diaFinal == null)
             {
-                return NotFound();
+                diaInicial = new DateTime(data.Year, data.Month, (data.Day <= 15) ? 1 : 16);
+                diaFinal = (data.Day <= 15) ? new DateTime(data.Year, data.Month, 15) : new DateTime(data.Year, data.Month, DateTime.DaysInMonth(data.Year, data.Month));
             }
 
-            var registroDiario = await _context.RegistroDiario.FindAsync(id);
-            if (registroDiario == null)
+            diaInicial = (DateTime)diaInicial;
+            diaFinal = (DateTime)diaFinal;
+
+            List<DateTime> QuinzenaAtual = new List<DateTime>();
+
+
+            for (DateTime dia = (DateTime)diaInicial; dia <= diaFinal; dia = dia.AddDays(1))
             {
-                return NotFound();
+                QuinzenaAtual.Add(dia);
             }
-            ViewData["WbsId"] = new SelectList(_context.Wbs, "WbsId", "WbsCodigo", registroDiario.WbsId);
-            return View(registroDiario);
+
+            ViewBag.Quinzena = QuinzenaAtual;
+            var context = _context.RegistroDiario.Include(r => r.Wbs).Where(r => r.Data >= diaInicial && r.Data <= diaFinal).Where(r => r.ApplicationUserId == _userManager.GetUserId(User));
+            ViewBag.Wbs = await context.GroupBy(r => r.Wbs).Select(g => g.First().Wbs).ToListAsync();
+            ViewBag.Registros = await context.ToListAsync();
+
+            return View();
         }
 
         // POST: RegistroDiarios/Edit/5
