@@ -11,6 +11,8 @@
     int totalUsuarios = UserManager.Users.Count();
     int totalDepartamentos = await DbContext.Departamento.CountAsync();
     int totalRegistros = await DbContext.RegistroDiario.CountAsync();
+    int totalCargos = await DbContext.Cargo.CountAsync();
+    int totalWbs = await DbContext.Wbs.CountAsync();
 }
 
 
@@ -76,9 +78,9 @@ else
             </div>
             
         </div>
-        <h5 class="my-5 fw-bold">Métricas da Quinzena</h5>
+        <h5 class="my-5 fw-bold">Métricas Importantes</h5>
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <div class="card border-0">
                     <div class="card-body">
                         <h4 class="card-title fw-bold">@totalUsuarios</h4>
@@ -86,11 +88,27 @@ else
                     </div>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <div class="card border-0">
                     <div class="card-body">
                         <h4 class="card-title fw-bold">@totalDepartamentos</h4>
-                        <p class="card-subtitle mb-2">Departamentos cadastrados</p>
+                        <p class="card-subtitle mb-2">Depto. Cadastrados</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="card border-0">
+                    <div class="card-body">
+                        <h4 class="card-title fw-bold">@totalCargos</h4>
+                        <p class="card-subtitle mb-2">Cargos Cadastrados</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="card border-0">
+                    <div class="card-body">
+                        <h4 class="card-title fw-bold">@totalWbs</h4>
+                        <p class="card-subtitle mb-2">WBS Existentes</p>
                     </div>
                 </div>
             </div>
@@ -98,7 +116,7 @@ else
                 <div class="card border-0">
                     <div class="card-body">
                         <h4 class="card-title fw-bold">@totalRegistros</h4>
-                        <p class="card-subtitle mb-2">Registros de horas por dia</p>
+                        <p class="card-subtitle mb-2">Registros de WBS Cadastrados (por dia)</p>
                     </div>
                 </div>
             </div>
