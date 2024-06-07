@@ -45,6 +45,13 @@
             <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
     </div>
+    <div class="toast align-items-center bg-success text-light border-0 float-end position-fixed" style="top: 20%; left:65%;" role="alert" aria-live="assertive" aria-atomic="true" id="daily-register-toast-success">
+        <div class="d-flex">
+            <div class="toast-body success">
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
     <div class="col">
         <button id="salvar-horas" class="btn btn-secondary float-end"><i class="bi bi-floppy2-fill"></i> &ensp; Salvar</button>
     </div>
@@ -276,17 +283,24 @@
             },
             body: JSON.stringify(registros)
         })
-        // .then(result => {
-        //     window.location = `/RegistroDiarios/`
-        // })
+        .then(result => {
+            exibirToastSucesso("Quinzena salva com sucesso.");
+        })
     })
-
 
 
     function exibirToast(erro) {
         let toastHTMLElement = document.querySelector("#daily-register-toast");
         let toastBody = document.querySelector(".toast-body");
         toastBody.innerHTML = erro;
+        let toastElement = new bootstrap.Toast(toastHTMLElement);
+        toastElement.show();
+    }
+    
+    function exibirToastSucesso(mensagem) {
+        let toastHTMLElement = document.querySelector("#daily-register-toast-success");
+        let toastBody = document.querySelector(".toast-body.success");
+        toastBody.innerHTML = mensagem;
         let toastElement = new bootstrap.Toast(toastHTMLElement);
         toastElement.show();
     }
