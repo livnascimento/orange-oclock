@@ -162,22 +162,17 @@
                 registrosNoBanco = data;
                 quinzenaPreenchida = registrosNoBanco.some(r => {
                     r.data = new Date(r.data);
-                    console.log("Data do registro:" + r.data.toDateString());
 
                     const dataEncontrada = quinzenaAtual.some(dia => {
-                        console.log("Data da quinzena" + dia.toDateString());
                         return dia.toDateString() == r.data.toDateString();
                     });
 
                     return dataEncontrada;
                 });
-                console.log(quinzenaPreenchida)
             })
             .catch(error => {
                 console.error("Erro ao obter registros:", error);
             });
-
-        console.log(quinzenaPreenchida)
 
         if (quinzenaPreenchida) {
             erro = "Você já lançou as horas da quinzena atual."
