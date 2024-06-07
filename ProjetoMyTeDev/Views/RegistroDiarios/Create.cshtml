@@ -135,36 +135,11 @@
         e.preventDefault();
 
         let quinzenaAtual = [], wbs = [], horas = [], registros = [], registrosNoBanco = [];
-        let erro = "", sabadosDomingos = 0, quinzenaPreenchida = false;
+        let erro = "", sabadosDomingos = 0, quinzenaPreenchida;
 
         const token = document.querySelector('input[name="__RequestVerificationToken"]').getAttribute("value");
         const FuncionarioId = '@ViewBag.usuario.Id';
 
-        fetch(`/RegistroDiarios/Details/${FuncionarioId}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-            .then(response => response.json())
-            .then(data => {
-                registrosNoBanco = data;
-                quinzenaPreenchida = registrosNoBanco.some(r => {
-                    r.data = new Date(r.data);
-                    return quinzenaAtual.some(dia => dia.toDateString() == r.data.toDateString());
-                });
-                if (quinzenaPreenchida) {
-                    erro = "Você já lançou as horas da quinzena atual."
-                }
-
-                if (erro != "") {
-                    exibirToast(erro);
-                    return;
-                }
-            })
-            .catch(error => {
-                console.error("Erro ao obter registros:", error);
-            });
 
         document.querySelectorAll('.d-none').forEach((dia, index) => {
             dia = dia.textContent;
@@ -175,6 +150,43 @@
 
             quinzenaAtual.push(dia);
         });
+
+        await fetch(`/RegistroDiarios/Details/${FuncionarioId}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                registrosNoBanco = data;
+                quinzenaPreenchida = registrosNoBanco.some(r => {
+                    r.data = new Date(r.data);
+                    console.log("Data do registro:" + r.data.toDateString());
+
+                    const dataEncontrada = quinzenaAtual.some(dia => {
+                        console.log("Data da quinzena" + dia.toDateString());
+                        return dia.toDateString() == r.data.toDateString();
+                    });
+
+                    return dataEncontrada;
+                });
+                console.log(quinzenaPreenchida)
+            })
+            .catch(error => {
+                console.error("Erro ao obter registros:", error);
+            });
+
+        console.log(quinzenaPreenchida)
+
+        if (quinzenaPreenchida) {
+            erro = "Você já lançou as horas da quinzena atual."
+        }
+
+        if (erro != "") {
+            exibirToast(erro);
+            return;
+        }
 
         document.querySelectorAll(".wbs-select").forEach((wbsSelect, index) => {
             let selectedOption = wbsSelect.options[wbsSelect.selectedIndex];
