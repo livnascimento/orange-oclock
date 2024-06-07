@@ -6,7 +6,6 @@
 
 <div style="font-size: 25px; margin-bottom: 20px; text-align: center;color: darkorange;font-weight: bold;">
     <p>Registros de WBS geral</p>
-
 </div>
 
 <div class="container">
@@ -19,52 +18,39 @@
         </div>
         <div class="col-md-6 d-flex align-items-end">
             <div class="form-group">
+                <button id="downloadExcel" class="btn btn-success" style="font-size: 18px !important; padding: 6px 20px !important; width: 135px !important; height: 40px !important;">Baixar Excel</button>
                 <a asp-area="" asp-controller="Home" asp-action="Index" class="btn btn-outline-secondary" style="font-size: 18px !important; padding: 6px 20px !important; width: 135px !important; height: 40px !important;">Voltar</a>
+               
             </div>
         </div>
     </div>
 </div>
-</br>
+<br />
 
-<table class="table">
+<table id="tblData" class="table">
     <thead>
         <tr>
-            <th style="font-weight: bold; font-size: 15px;">
-                Código WBS
-            </th>
-            <td style="font-weight: bold; font-size: 15px;">
-                Descrição WBS
-            </td>
-            <th style="font-weight: bold; font-size: 15px;">
-                Usuário
-            </th>
-            <th style="font-weight: bold; font-size: 15px;">
-                Total de Horas
-            </th>
+            <th style="font-weight: bold; font-size: 15px;">Código WBS</th>
+            <td style="font-weight: bold; font-size: 15px;">Descrição WBS</td>
+            <th style="font-weight: bold; font-size: 15px;">Usuário</th>
+            <th style="font-weight: bold; font-size: 15px;">Total de Horas</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in ViewBag.DadosProcessados)
         {
             <tr>
-                <td>
-                    @item.WbsCodigo
-                </td>
-                <td>
-                    @item.WbsDescricao
-                </td>
-                <td>
-                    @item.NomeUsuario
-                </td>
-                <td>
-                    @item.TotalHoras
-                </td>
+                <td>@item.WbsCodigo</td>
+                <td>@item.WbsDescricao</td>
+                <td>@item.NomeUsuario</td>
+                <td>@item.TotalHoras</td>
             </tr>
         }
     </tbody>
 </table>
 
 @section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
     <script>
         $(document).ready(function () {
             $('#filtroUsuario').keyup(function () {
@@ -72,6 +58,18 @@
                 $("tbody tr").filter(function () {
                     $(this).toggle($(this).text().toLowerCase().indexOf(filtro) > -1)
                 });
+            });
+
+            // Ao clicar no botão "Baixar Excel"
+            $('#downloadExcel').click(function () {
+                // Obter dados da tabela
+                var table = document.getElementById("tblData");
+                var sheet = XLSX.utils.table_to_sheet(table);
+                var workbook = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(workbook, sheet, "Tabela");
+
+                // Salvar o arquivo Excel
+                XLSX.writeFile(workbook, 'tabela_excel.xlsx');
             });
         });
     </script>
