@@ -61,24 +61,23 @@ namespace ProjetoMyTeDev.Controllers
 
         // GET: RegistroDiarios/Details/5
         [HttpGet]
-        public async Task<IActionResult> Details(string? id)
+        public async Task<List<RegistroDiario>> Details(string? id)
         {
             if (id == null)
             {
-                return NotFound();
+                //return NotFound();
             }
 
             var registrosDiarios = await _context.RegistroDiario
                 .Include(r => r.Wbs)
-                .Include(r => r.Data)
                 .Where(m => m.ApplicationUserId == id)
                 .ToListAsync();
             if (registrosDiarios == null)
             {
-                return NotFound();
+                //return 
             }
 
-            return (Microsoft.AspNetCore.Mvc.IActionResult) registrosDiarios;
+            return registrosDiarios;
         }
 
         // GET: RegistroDiarios/Create

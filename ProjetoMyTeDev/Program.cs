@@ -34,6 +34,7 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddRazorPages(options =>
 {
     options.Conventions.AddAreaPageRoute("Controllers", "/Create", "Controllers/RegistroDiariosController");
+    options.Conventions.AddAreaPageRoute("Controllers", "/Details", "Controllers/RegistroDiariosController");
 });
 
 var app = builder.Build();

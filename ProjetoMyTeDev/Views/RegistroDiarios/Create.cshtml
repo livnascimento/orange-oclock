@@ -134,40 +134,37 @@
     document.querySelector('#salvar-horas').addEventListener('click', async function (e) {
         e.preventDefault();
 
-        let quinzenaAtual = [], wbs = [], horas = [], registros = [];
-        let erro = "", sabadosDomingos = 0;
+        let quinzenaAtual = [], wbs = [], horas = [], registros = [], registrosNoBanco = [];
+        let erro = "", sabadosDomingos = 0, quinzenaPreenchida = false;
 
-        let token = document.querySelector('input[name="__RequestVerificationToken"]').getAttribute("value");
+        const token = document.querySelector('input[name="__RequestVerificationToken"]').getAttribute("value");
+        const FuncionarioId = '@ViewBag.usuario.Id';
 
-        try {
-            let registrosNoBanco = await fetch(`/RegistroDiarios/Details/${'@ViewBag.usuario.Id'}`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-
-        } catch (e) {
-            console.log(e);
-        }
-
-        console.log(registrosNoBanco);
-
-        let quinzenaPreenchida = registroNoBanco.some(r => {
-            quinzenaAtual.some(dia => dia == r.Data)
+        fetch(`/RegistroDiarios/Details/${FuncionarioId}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
         })
+            .then(response => response.json())
+            .then(data => {
+                registrosNoBanco = data;
+                quinzenaPreenchida = registrosNoBanco.some(r => {
+                    r.data = new Date(r.data);
+                    return quinzenaAtual.some(dia => dia.toDateString() == r.data.toDateString());
+                });
+                if (quinzenaPreenchida) {
+                    erro = "Você já lançou as horas da quinzena atual."
+                }
 
-        console.log(quinzenaPreenchida)
-
-        if (quinzenaPreenchida)
-            erro = "Você já preencheu esta quinzena."
-
-        if (erro != "") {
-            exibirToast(erro);
-            return;
-        }
-
-        let FuncionarioId = '@ViewBag.usuario.Id';
+                if (erro != "") {
+                    exibirToast(erro);
+                    return;
+                }
+            })
+            .catch(error => {
+                console.error("Erro ao obter registros:", error);
+            });
 
         document.querySelectorAll('.d-none').forEach((dia, index) => {
             dia = dia.textContent;
@@ -272,9 +269,9 @@
             },
             body: JSON.stringify(registros)
         })
-            .then(result => {
-                window.location = `/RegistroDiarios/`
-            })
+        // .then(result => {
+        //     window.location = `/RegistroDiarios/`
+        // })
     })
 
 
