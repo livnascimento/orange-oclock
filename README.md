@@ -113,6 +113,7 @@ O Orange O'Clock é um programa desenvolvido para registrar as horas trabalhadas
 
 ## Conheça e contate nossa equipe
 
+<code>
 <div style="display: flex; justify-content: space-between;">
 <div style="text-align: center;">
 
@@ -177,6 +178,7 @@ _Assoc, Full-Stack Developer at Avanade_
 [![GitHub](https://img.shields.io/badge/Zvieitez-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Zvieitez)
 
 </div>
+</code>
 
 ## Contribuições
 
